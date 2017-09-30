@@ -1,0 +1,1997 @@
+CHANGE LOG
+----------
+
+Date format is YYYY-MM-DD (ISO 8601 time specification).
+
+2005-07-23:    uade 1.03
+	- AmigaOS4 fixes from Nicolas A. Mendoza
+	- Significant bug fixes in file format detection and sound core setup
+	- mod2ogg.sh improvements frmo Giulio Canevari
+	- CoreAudio fixes from Stuart Caie
+	- Mac OS X configuratio fixes from Stuart Caie and Michael Baltaks
+
+2005-07-15:     no release
+	- Found a possible bug that may have haunted UADE 1.x users. With
+	  some formats songs would play differently on some runs, and the
+	  possible problem is uade_prerun/uade_reset. We do:
+		   1. clear state
+		   2. load next song
+		   3. if failure, go to number 2
+	  Number 3 is a problematic because number 2 changes state.
+	  So number 3 should jump to number 1. duh.. (shd)
+
+2005-07-12:     no release
+	- A big bug fix in amifilemagic. chk_id_offset() used sizeof(char *)
+	  as a comparison size (in bytes) to match certain patterns from
+	  modules. On x86 the size was always 4, which is the right size
+	  for most of the time.. On amd64 the size is 8, which is almost
+	  always the wrong size. Now it's fixed with strlen(patterns[i]).
+	  (shd)
+
+2005-06-26:     no release
+	- merged mod2ogg.sh changes from Giulio Canevari
+	  <giuliogiuseppecarlo (/AT\) interfree.it>. See the script in
+	  frontends/mod2ogg/ directory (shd)
+
+2005-06-18:     uade 1.03-pre2
+	- see previous 2 entries (shd)
+
+2005-06-17:     no release
+	- merged fixes from Stuart Caie <kyzer@4u.net>: trivial fixes in
+	  configure and Makefile.in. CoreuAudio now works with 8- and 16-bit
+	  sounds on macosx. (shd)
+
+2005-06-05:     no release
+	- added AmigaOS4 install instructions (INSTALL.AmigaOS4) from
+	  Nicolas A. Mendoza <mendoza@pvv.ntnu.no> (shd)
+
+2005-05-23:     uade 1.03-pre1
+	- MacOSX support patch from from Michael Baltaks <mbaltaks@mac.com>.
+	  This adds macosx support from Stuart Caie's port. Fixes
+	  compilation problems too. (shd)
+
+2005-05-22:     no release
+	- added forgotten source codes for 10 Don Adan players: BennDaglish,
+	  BennDaglishSID, CustomMade, FuturePlayer, JeroenTel, LME, PSA,
+	  RobHubbardST, SeanConran, SoundMaster (maj)
+
+2005-05-11:     no release
+	- ps3m player updated: fixed bug in s3m timing introduced when
+	  implementing the replayer, and it supports now song name and
+	  format name. No song end, yet (mld)
+
+2005-05-10:     no release
+	- applied amigaos4 fixes from Nicolas A. Mendoza <mendoza@pvv.ntnu.no>
+	  (shd)
+
+2005-05-05:     uade 1.02
+	- added ascii dumping to uade debugger. 'm' command prints ascii
+	  letters of memory next to hexadecimal numbers. (shd)
+	- new players:
+	  - MusicMaker[48] (thanks to Thomas Winischhofer
+	    <thomas@winischhofer.net> for publishing the source code under
+	    BSD license. See amigasrc/players/music_maker/ChangeLog)
+	  - VSS (thanks to Steffen 'Promax' Medrow)
+	- amifilemagic.c: changed mod15/ultimate soundtracker checks to
+	  fix mod.acidbat2 loading. thanks r.belmont for reporting (mld)
+	- we've switched to International Standard ISO 8601 time specification
+	  in ChangeLog.txt. All dates in UADE project should move to this.
+	     http://www.cl.cam.ac.uk/~mgk25/iso-time.html
+	  (shd)
+	- Infinite timeout for fork-exec of uade process from xmms and beepmp
+	  plugins. Thanks to Grue for pointing out the problem. (shd)
+	- resurrected uaerc "sound_interpol=n" option to turn on UAEs sound
+	  interpolation (default is 0=off, 1=linear, 2=crux) (mld)
+	- added PS3M player for Multichannel PC Tracker MOD support 
+	  (Fasttracker 1, Taketracker, Octalyser Multitracker...)
+	  The replayer also supports Screamtracker 3 (S3M) and
+	  Fasttracker 2 (XM), although replaying these might be buggy
+	  to some extend. So beware. Thanks to Jarno Paananen for placing his
+	  ps3msrc source in the public domain. See amigasrc/players/ps3m (mld)
+	- amifilemagic: added checks for several multichannel mods such as
+	  MOD, MTM, S3M... (mld)
+
+2005-05-03:     no release
+	- added PS3M player for Multichannel PC Tracker MOD support 
+	  (Fasttracker 1, Taketracker, Octalyser Multitracker...)
+	  The replayer also supports Screamtracker 3 (S3M) and
+	  Fasttracker 2 (XM), although replaying these might be buggy
+	  to some extend. So beware.
+	  Thanks to Jarno Paananen for placing his ps3msrc source 
+	  in the public domain. See amigasrc/players/ps3m (mld)
+	- amifilemagic: added checks for several multichannel mods such as
+	  MOD, MTM, S3M... (mld)
+
+2005-04-26:     no release
+	- resurrected uaerc "sound_interpol=n" option to turn on UAEs sound
+	  interpolation (default is 0=off, 1=linear, 2=crux) 
+	  (mld)
+
+2005-04-16:     no release
+	- we've switched to International Standard ISO 8601 time specification
+	  in ChangeLog.txt. All dates in UADE project should move to this.
+	     http://www.cl.cam.ac.uk/~mgk25/iso-time.html
+	  (shd)
+	- Infinite timeout for fork-exec of uade process from xmms and beepmp
+	  plugins. Thanks to Grue for pointing out the problem. (shd)
+
+2005-04-07:     no release
+	- amifilemagic.c: changed mod15/ultimate soundtracker checks to
+	  fix mod.acidbat2 loading. thanks r.belmont for reporting (mld)
+
+2005-03-28:     no release
+	- added VSS player. thanks to Steffen 'Promax' Medrow. (shd)
+
+2005-03-20:     uade 1.02-pre2
+	- added MusicMaker[48] players. Thanks to Thomas Winischhofer
+	  <thomas@winischhofer.net> for publishing the source code under
+	  BSD license. See amigasrc/players/music_maker/ChangeLog (shd)
+	- Fixed Sonix Driver Problem. Now the initialization order for
+	  eagleplayers is following:
+		       1. Call DTP_Config
+		       2. Call DTP_Check2 / EP_Check5 / EP_Check3 (in this
+		          order of importance)
+		       3. Call DTP_ExtLoad
+          (shd)
+
+2005-03-18:     no release
+	- added ascii dumping to uade debugger. 'm' command prints ascii
+	  letters of memory next to hexadecimal numbers. (shd)
+
+2005-03-17:	no release
+	- lots of fixes to score to make MusicMaker8 player work. the new
+	  score is 'amigasrc/score/score_48'.
+	  - DTP_Config() and DTP_ExtLoad() must be called before DTP_Check2()
+          - Check() assumes that dtg_PathArrayPtr(a5) contains full
+            module name path. UADE didn't provide this. Other players I've
+            seen do not assume this (we have 80+ players).
+          - Now Config() and ExtLoad() are called before Check(). This broke
+	    Sonix Music Driver player. We are working on a fix.
+          - dos.library/Lock() returned success always, even if the file
+            provided didn't exist. This was _designed_ to work so, but
+            with MusicMaker8 it causes a failure. I fixed this. Now the
+            Lock() returns success if and only if the file exists.
+            I'm afraid this change will break some players, but we shall
+            see..
+          - dos.library/Read() returned wrong value, but had the right side
+            effect. This was not fixed in score, but in src/uade.c.
+          - Added EPG_NewLoadFile(), alias to DTG_NewLoadFile()
+          - Added new debugging check points for UADE debugger
+	  - Renamed functions in score.
+	  - Added exec.library/SuperState() and exec.library/UserState()
+	    functions
+	  (shd)
+
+2005-03-07:      uade 1.01
+	- Jochen Hippel and Jeroen Tel (aka mon_old) player from Don Adan /
+	  Wanted Team
+	- Amos Music Bank converter from Eagleplayer guys
+	- NetBSD compatibility fix
+	- Updated mod2ogg script from Giulio Canevari
+	- Various smaller fixes
+
+2005-03-02:      no release
+	- added new Wanted Team player "Jochen Hippel" to players dir (mld)
+	- added amifile magic check for "old" mcmd format (mld)
+
+2005-02-17:      no release
+	- added an exception for NetBSD into playlist.c (the same exception
+	  that was for FreeBSD that doesn't have ftw) (shd)
+	  
+2005-02-11:      no release
+	- hopefully fixed a configure bug on macosx (couldn't find 'make')
+	  (shd)
+
+2005-01-20:      no release
+	- fixed pt_size bug in PTK-Prowiz player (thanks to shd! (mld)
+
+2005-01-09:      no release
+	- mod2ogg.sh update. makes use of usage of bt now if available.
+	 (giulio canevari)
+
+
+2005-01-08:      no release
+	- fixed a potential segfault bug in uade.c / uade_calc_reloc_size().
+	  the bug could have been used to crash uade, but not to exploit
+	  further. (shd)
+
+2004-12-20:      no release
+	- mod2ogg.sh update. Should work ok with fade on multiple files/subsongs
+	 (giulio canevari)
+
+2004-12-01:      no release
+	- put new  Eagleplayers by Don Adan/Wanted Team
+	  into players dir: JeroenTel aka Mon_old (mld)
+	- Thanks to eagleplayer going GPL implemented a AMOS Music
+	  Bank/ABK  file player using their converter. (mld)
+
+2004-11-15:      no release
+	- posix compliancy fix for mod2ogg.sh. thanks to Bartosz Taudul
+          for reporting the problem. (giulio canevari)
+
+2004-11-09:      no release
+	- added a feature into relocator in score. now it can handle some
+	  new debug hunks, the 0x03f1 hunk.. (shd)
+
+2004-10-30:      uade 1.00
+	- it's stable now. a new development branch will be started soon.
+	  development branch will contain some new features not found in
+	  1.00, but it will not contain some irrelevant features found
+	  from 1.00. the stable branch will have occasional updates
+	  containing only bug fixes and critical missing features.
+
+2004-09-27:      uade 1.00_pre1
+	- libao support
+	- mod2ogg script from Giulio Canevari in frontends/mod2ogg
+	- URL fix for beep media player. file:// is now handled.
+	- feature freeze for 0.xx and 1.xx. development will continue on 2.xx
+	  versions.
+
+2004-09-24:      no release
+	- initial version of libao support (shd)
+
+2004-09-10:      no release
+	- a bug fix of the bug fix of yesterday. my bad. thanks to
+	  Michal Januszewski for doing the second fix (shd)
+	- added mod2ogg script from Giulio Canevari into frontends/mod2ogg.
+	  The script can be used to convert songs to wav/ogg/mp3 formats.
+	  See the script file for more information. (shd)
+
+2004-09-09:      no release
+	- fixed a bug in beep media player plugin. using file selector
+	  would give the plugin files in URL format (file://). We
+	  didn't handle URLs in XMMS plugin, from which the beep
+	  code is derived. thanks to will@johnstonclan.net for
+	  reporting the bug. (shd)
+
+2004-08-31:      no release
+	- fixed eagleplayer queries (shd)
+
+2004-08-29:      no release
+	- added a mechanism to query information from inside eagleplayers.
+	  the eagleplayer can query facts from uade, by following means:
+	       	move.l	4.w,a6
+		lea	uadename(pc),a1
+		moveq	#0,d0
+		jsr	_LVOOpenLibrary(a6)
+		move.l	d0,uadebase
+		tst.l	d0
+		beq	not_running_under_uade
+		move.l	d0,a6
+		lea	query(pc),a0		* query
+		lea	response(pc),a1		* response area
+		moveq	#12,d0			* maximum response length
+		jsr	-18(16)
+		* returns how much the full response would take (can be
+		* more than the given maximum response length which
+		* indicates an error and thus the response is invalid).
+		* in case of unknown query, the function returns a negative
+		* value
+		tst.l	d0
+		bmi.b	unknown_attribute
+		cmp.l   #12,d0
+		bhi.b   we_should_have_had_more_space_for_response
+		cmp.b	response(pc),a0
+		cmp.b	#'Y',(a0)
+		beq	use_vblank
+		* the answer is No. Don't use vblank timing.
+
+	  uadebase	dc.l	0
+	  uadename	dc.b	'uade.library',0
+	  query		dc.b	'VBLANK',0
+	  response	dc.b	12,0	* space for 'Yes',0 or 'No',0
+
+	  The system call returns a negative value for all invalid queries.
+	  For valid queries the system call returns how much space the
+	  response would have taken. If the system call returns a value
+	  that is higher than that which was given as the maximum length
+	  then the response is invalid. The system call should be
+	  restarted with a higher maximum length value (at least as much
+	  as the last system call returned).
+ 
+
+2004-08-23:	no release
+	- PTK-Prowiz: added Blacklist for the Protracker mods that *need* vblank
+	  timing. e.g. mod.face another day by Jogeir Liljedahl and others
+	  If you encounter one of those, just report them to me (mld)
+
+2004-08-10:	no release
+	- gnome and kde launcher script updates (mld)
+
+2004-08-02:      no release
+	- beepmp gui fix (thanks to QUIRK for the bugreport)
+
+2004-07-27:      uade 0.91 guantanamo bay
+	- 64-bit fix for unsqsh
+	- ALSA fixes
+	- Beep Media Player plugin
+	- Configure and build fixes
+	- Improved filemagic detection
+	- Module name detection fixed and improved
+	- MorphOS fixes
+	- Namespace changes. UADE's user specific stuff will go to ~/.uade
+	  from now on
+	- New format: Fashiontracker (thanks to Don Adan)
+	- SDL fix
+
+2004-07-27:      no release
+	- added --without-[alsa|oss|alsa] into configure script (shd)
+
+2004-07-16:      uade 0.91-pre3
+	- configuration script fixes. make bmp plugin global installable,
+	  it was only 'user' installable on 0.91-pre2
+	- remove unnecessary #include dependencies from bmp plugin. this
+	  makes 0.91-pre3 compilable on some systems
+	- add GUI preferences into BMP plugin (experimental code)
+
+2004-07-16:      no release
+	- bmp plugin configure fix. The input plugin was installed into
+	  `pkg-config bmp --variable=plugin_dir` rather than 
+	  `pkg-config bmp --variable=input_plugin_dir` (Goetz Waschk)
+	- remove unnecessary #include <bmp/configfile.h> from
+	  plugindir/beepmp/{uade.c,subsongseek.c} (Goetz Waschk)
+
+2004-07-15:      no release
+	- fixed "--xmms-plugin-dir" override (mld)
+	- added config and GUI stuff to bmp plugin (mld)
+
+2004-07-15:      uade 0.91-pre2
+	- fixed a fatal ALSA bug
+	- lots of configuration fixes, such as make bmp plugin compilable
+	  on most systems
+	- up-to-dates for MOS
+	
+2004-07-15:      no release
+	- added -B switch to set base directory of uade's data files. base
+	  directory contains all the files that are needed to use uade
+	  (files such as uaerc, score, and the directory named 'players'
+	  that contains all the eagleplayers) (shd)
+	- fixed 'make test' with -B (shd)
+	- mos up-to-dates (piru)
+	- configure script fix: ALSA and strl* tests now obey CC environment
+	  variable (shd)
+	- both the xmms and bmp plugin share the same db content file
+	  (~/.uade/db-content) (shd)
+
+2004-07-14:      no release
+	- more configure script tweaking.. (shd)
+	- yet another ALSA fix. If user pressed CTRL-C for command line tool
+	  the ALSA back-end would quit uade because write returned an
+	  error condition (EINTR). How did I miss this one originally?! How
+	  many iterations does it take to get ALSA right??? (shd)
+
+2004-07-12:      no release
+	- newer versions of bmp use bmp.pc for pkg-config rather than beep.pc.
+	  we will only be supporting newer versions of bmp, and pkg-config
+	  must be used, unless some special configure switches are given (shd)
+	- fixed a bug in configure script that made bmp plugin uncompilable.
+	  changed the script to use pkg-config bmp --variable=plugin_dir
+	  to get the plugin dir. newer versions of bmp do not have
+	  beep-config command. (shd)
+
+2004-07-10:      uade 0.91-pre1
+	- a devel release with lots of changes. see entries till uade 0.90
+	  (shd)
+
+2004-07-10:      no release
+	- configure changes (shd)
+	- fixed beepmp plugin compilation problem (shd)
+	- from now on uade specific files go to the global data dir or
+	  ~/.uade. player (xmms or beep media player) specific files go to
+	  global player dirs or player dir at $HOME (~/.xmms or ~/.bmp) (shd)
+	- enabled auto db saves for player plugins. ie. automatic save
+	  of play times that are known from experience. a reminder here:
+	  for many formats that uade supports the only way to know the
+	  play length is to play it from beginning to the end. and even worse
+	  is that for some formats we don't even know when the song has 
+	  ended. (shd)
+	- code cleanups in xmms plugin (shd)
+	- PATH_MAX => UADE_PATH_MAX (1024). Not exactly UNIX compliant
+	  but it will do for now. Anyone have directory hierarchies
+	  with over 1k length?? (shd)
+
+2004-07-07:      no release
+	- amifilemagic: added magicid detection for polkapacker, kris, skyt and
+	 ice tracker (mld)
+	- modinfo: icetracker, polkapacker (mld)
+
+2004-07-07:      no release
+	- added Fashiontracker Driver from Don Adan (mld)
+	- amifilemagic: added detection for Sonix Music, Fashiontracker (mld)
+
+2004-07-06:      no release
+	- added module name parsing to MED/OctaMED (mld) 
+	  Soundmon2.2 (mld)
+
+2004-07-04:      no release
+	- force playing by default should not be the default in xmms plugin.
+	  we'd better work on better filemagic heuristics. (shd)
+
+2004-07-03:      no release
+	- fixed sdl sound target to support mono and 8 bit sounds (shd)
+	- fixed unsqsh for 64 bit platforms (shd)
+
+2004-07-02:      no release
+	- fixed module name bug in PTK-Prowiz, Audiosculpture, Soundmon, 
+	  Soundmon2.2 (mld)
+
+2004-07-01:      no release
+	- added beep plugin config, make, install (shd/mld)
+	- fixed a module name bug in sound core. breaks a few of our
+	  eagleplayers but they'll be fixed shortly.. (shd)
+
+2004-06-30:      no release
+	- beep input plugin commited (mld)
+
+2004-06-19:      no release
+	- fixed a crash bug on morphos that happens when ahi.device open fails
+	  (piru)
+	- playlist is now non-recursive by default. you must give -R from
+	  command line if you want to add directories recursively.
+	  uade /my/dir will do nothing but uade -R /my/dir will act as it
+	  used to be. (shd)
+	- added NULL sound output which outputs nothing on all architectures
+	  (shd)
+	- removed irrelevant dependencies from sd-sound-ahi.h (shd)
+	- configure obeys CC, CFLAGS and LDFLAGS environment variables. Try:
+	    CC="gcc-3.4.0" CFLAGS="-O3" ./configure
+	  (shd)
+
+2004-06-18:      no release
+	- fixed the known ALSA signal bug. see src/sd-sound-alsa.h, added
+	  the function alsa_xrun_recovery() to handle signal and error
+	  situations (shd)
+	- improved configure to add sound target source dependencies into
+	  src/Makefile (shd)
+	- fixed command line parameter handling for xmms slave. the new
+	  command line parameter handler dropped map file name given for
+	  --xmms-slave even if it is needed in the xmms slave setup. (shd)
+	- ALSA auto detection to configure script (shd)
+
+2004-06-15:      no release
+	- command line parameter improvement. parameters that are handled
+	  in uade.c are not passed for slaves. (piru)
+
+2004-06-15:      uade 0.90 prison torment
+	- ALSA support
+	- new players added:
+	  - Benn Daglish SID, Cineware Player, Core Design and Sonix Music
+	    Driver from Don Adan / Wanted Team
+	- updated players:
+	  - CustomMade (aka RonKlaren) from Don Adan / Wanted Team
+	- major bug fix in Load File routine of score. Fixes Wings (Cineware
+	  player) and Beam (Thomas Hermann Player)
+	- improved tfmx detection
+	- code restructuring
+	- lots of bug fixes
+	- openbsd fixes with support from Ave
+	- macosx fixes from Stuart Caie aka Kyzer
+	- launcher scripts for KDE (req. kdialog) and Gnome (req. gdialog)
+	  into contrib/uade-launcher
+	- -dev controls oss/alsa sound device to be used
+	- configure script changed. now installs to /usr/local by default.
+	  use --user to install to user's home directory.
+	- man page
+	- panning crash bug fix from Piru
+	- installation file permission bug fix from Markus
+	- many other changes. See previous entries back from uade 0.81
+	- probably the longest stable release changelog (shd)
+
+2004-06-13:      no release
+	- added Sonix Music Driver from Don Adan (shd)
+
+2004-05-03:	uade 0.90-pre3-grue
+	- fixed date in changelog.txt *g* (mld)
+	- put new  Eagleplayer(s) by Don Adan/Wanted Team
+	  into players dir: Cinemaware (mld)
+	- on popular demand, added plaintext fullpath to xmms modinfo
+	  additionally to hovering over "?" button (mld)
+	- modded the modinfo text a bit (shd)
+	- fixed a fatal bug in DTP_Load_File in score. I didn't have motivation
+	  to do loading properly in the first place. It would have taken
+	  me 5 minutes to do it, and now it took me 2 hours to locate the
+	  bug with Cinemaware player. In the future this bug will be
+	  automatically detected. This fixed at least the following songs:
+	    - Wings (various) (Cineware player)
+	    - Beam (Thomas Hermann player)
+	  (shd)
+
+2004-04-15:      uade 0.90-pre2
+	- modifications since 0.90-pre1:
+	  - fixed a fatal bug with ALSA support
+	  - better FHS compliancy (man page to the right place)
+	  - fixed panning for MOS
+
+2004-04-14:      no release
+	- a major bug fix for ALSA support. It crashed on most machines on
+          from the command line, but didn't affect xmms. sd-sound-alsa.c:
+           snd_pcm_hw_params_set_rate_near (..., ..., rate, 0) =>
+           snd_pcm_hw_params_set_rate_near (..., ..., &rate, 0)
+	  For some reason compiler didn't catch this error on my other
+	  machine, but fortunately the other did :-) (shd)
+	- added ANTIPLANS file describing features that won't probably
+	  be implemented unless there is a good reason to do otherwise (shd)
+
+2004-04-09:      no release
+	- panning bug fix that caused a crash on MOS, but not on *NIX
+	  (luck). (piru)
+
+2004-04-08:      no release
+	- lots of small changes related to documentation and installation.
+	  for example, put the man page to a proper location (share/man/man1),
+	  thanks to Goetz Waschk for informing about FHS. (shd)
+
+2004-04-08:      uade 0.90-pre1
+	- modifications since 0.81:
+	  - code rafactoring
+	  - more consistent configure semantics compared with the rest of
+	    the world. By default uade goes to /usr/local, but with
+	    --user uade does the traditional home directory installation.
+	- new features:
+	  - initial (incomplete) ALSA support
+	  - CoreDesign player from Don Adan / Wanted Team
+	- improvements over existing features:
+	  - updated BennDaglish and CustomMade from Don Adan / WantedTeam
+	- bug fixes
+	- initial version of a man page
+	- other changes. see earlier marks.
+
+2004-04-08:      no release
+        - finally, we have native alsa support. Use --with-alsa for
+	  configure script. (shd)
+	- -dev / -device switch controls sound device for ALSA and OSS. For OSS
+	  it is a sound device file, such ass /dev/dsp1. For ALSA it is ALSA
+	  specific indentifier (shd)
+
+2004-04-03:      no release
+	- finally, we have a man page now (mld;)
+
+2004-04-03:      no release
+        - cleaned dpiutil.c. now able to parse CUST.Line_Of_Fire_Music.
+	  there was a fixed sized buffer that got full (no overflowing) (shd)
+
+2004-04-02:      no release
+        - configure script changed. now installs to /usr/local by default.
+	  use --user to install to user's home directory. (shd)
+	- replace poll() calls with select() calls (macosx sucks) (shd)
+	- re-enable command line interaction for unixes. (shd)
+	- random play toggling (r) into command line interaction (shd)
+	- exit/quit command into command line interaction (shd)
+	- break ctrl-c behaviour in command line interaction (shd)
+
+2004-03-20:      no release
+	- -dev / --device controls oss sound device to be used (shd)
+
+2004-03-04:      no release
+	- changed tfmx detection in amifilemagic to ignore Hippel S7G (mld)
+
+2004-03-03:      no release
+	- put launcher scripts for KDE (req. kdialog) and Gnome (req. gdialog)
+	  into contrib/uade-launcher (mld)
+
+2004-03-02:      no release
+	- put new  Eagleplayers by Don Adan/Wanted Team
+	  into players dir: Benn Daglish SID (mld)
+	- added amifilemagic and modinfo to xmms plugin for 
+	  BDS Player (mld)
+
+2004-02-23:      no release
+	- put new  Eagleplayers by Don Adan/Wanted Team
+	  into players dir: Core Design (mld)
+	- added amifilemagic and modinfo to xmms plugin for 
+	  Core Design Player (mld)
+
+2004-01-26:      no release
+	- fixed 'make test'. damned. (shd)
+	- fixed OpenBSD configure things (shd)
+	
+2004-01-21:      no release
+	- put updates of following Eagleplayers by Don Adan/Wanted Team
+	  into players dir: CustomMade (aka RonKlaren)
+	- SDL audio code restructuring fixes (mld)
+
+2004-01-18:      no release
+	- fixed installation file permission bug. thanks to Markus. (shd)
+
+2004-01-15:      no release
+	- ntsc mode fix for timer.device in score. currently useless fix (shd)
+
+2004-01-09:      no release
+	- fixed strl support for some unixes and morphos (shd, piru)
+
+2004-01-08:      no release
+	- fixed morphos shell code (piru)
+
+2004-01-07:      no release
+	- started restructuring uade code. b0rken shell interactivity and
+	  morphos shell code. (shd)
+
+2004-01-06:      uade 0.81
+	- new players: Jochen Hippel 7V and FuturePlayer
+	- improved players: Digibooster, LME and NovoTrade Packer
+	- lots of bug fixes
+
+2004-01-05:      no release
+	- all the best for 2004 folks! (mld:)
+	- put new  Eagleplayers by Don Adan/Wanted Team into players dir: 
+	  Jochen_Hippel_V7 (mld)
+	- put updates of following Eagleplayers by Don Adan/Wanted Team
+	  into players dir: Sean Conran  (mld)
+	- PTk-Prowiz: mod15 with more than $78 positions fixes (mld)
+
+2003-10-25:      no release
+	- score update: enhanced vertical blanking interrupt server for
+	  no good reason (shd)
+	- removed enqueuing messages on command line tool (shd)
+	
+2003-10-22:      no release
+	- put new  Eagleplayers by Don Adan/Wanted Team into players dir: 
+	  FuturePlaywer (mld)
+	- xmms modinfo: added module info for Don' Adans Future Player for
+	  Paul v.d.Valk mods (mld)
+
+2003-10-07:      no release
+	- changed some command line options and added examples to command
+	  line help (shd)
+
+2003-10-01:      no release
+	- xmms modinfo: added module info for digibooster modules (mld)
+
+2003-10-01:      no release
+	- put new revisions of following Eagleplayers by Don Adan/Wanted Team
+	   into players dir: LME  (mld)
+	- added INSTALL.MacOSX with tips by Michael Baltaks howto compile a working
+	  textmode uade and xmms plugin. (mld)
+
+2003-09-23:      no release
+	- added mos shell script written By Dave Crawford into
+	  contrib/mos-uadeloader-script/ (shd)
+
+2003-09-16:      no release
+	- auto save song database is not enabled by default. it can be enabled
+	  from configure system page. the time interval can be edited from
+	  xmms config file. i have following:
+		 auto_db_saves=TRUE
+		 auto_db_save_interval=3600
+	  this enables auto saving every hour. note that auto saving can
+	  only take place if you start playing some file with uade. The db
+	  is of course still saved every time you quit xmms. (shd)
+
+2003-09-15:      no release
+	- auto save song databases every day in xmms plugin. it's annoying
+	  to lose days of song content hashes due to an xmms crash! (shd)
+
+2003-09-09:      no release
+	- indenting few of the xmms plugin modules (shd)
+
+2003-09-08:      no release
+	- broke command line options. more breakage coming. (shd)
+	- added --rand/-r which randomizes order of songs given for uade.
+	  Before you tell me it doesn't work, consider this: it only
+	  randomizes entries given from the command line. So if you give only
+	  a directory name as an argument, it won't randomize the order of
+	  files under that directory. (shd)
+	- new song queuing system. things are broken again. fixing soon. (shd)
+	- fixed an annoying command line tool bug: if the player for a given
+	  song was not found, uade exited even if there was songs in queue
+	  (shd)
+
+2003-09-07:      no release
+	- xmms plugin can now handle more error situations properly. cases:
+	  - uade executable can't be forked and execed
+	  - the plugin can't allocate memory for a new song
+	  - the plugin can't create a thread for playing
+	- code cleanups (shd)
+
+2003-08-29:      no release
+	- put new revisions of following Eagleplayers by Don Adan/Wanted Team
+	   into players dir: NovoTrade Packer  (mld)
+
+2003-08-14:      uade 0.80
+	- lots of bug fixes and code cleanups
+	- also small feature enhancements
+
+2003-07-22:      no release
+	- except interface frontend (euade) by Kot. Czarny
+	  <ariel@pa73.monki.sdi.tpnet.pl> (shd)
+	- added documentation about local slaves (uade-docs/local-slaves.txt)
+	  (shd)
+
+2003-07-09:      no release
+	- amiga namespace rewrite. handles amiga filenames better. (shd)
+
+2003-07-08:      no release
+	- Valgrind found more bugs. This time in src/uade.c / read_timeout_\
+	  configuration():
+	      char timeoutstr[32];
+	      strlcpy(timeoutstr, timeout_val, strlen(timeoutstr));
+	  Dumb bug, isn't it? (shd)
+	- added --debug swith to configure script. enables debugging support.
+	  (shd)
+	- Valgrind found more bugs from decrunch code. Filemagic detection
+	  assumed (wrong) that enough bytes were read from the file to
+	  detect magic values. (shd)
+
+2003-07-07:      no release
+	- tried Valgrind ( http://developer.kde.org/~sewardj ) with uade, fixed
+	  2 memory leaks, and 1 use of uninitialized chipmemory! (shd)
+
+2003-07-06:      no release
+	- gmake -jx fixed. btw. compiling on 8 cpu solariz is nice :) (shd)
+
+2003-07-02:      no release
+	- unix shell interaction enhancements (shd)
+
+2003-07-01:      no release
+	- separated unix shell interactive mode into separate module:
+	  unix-shell-int.[ch] (shd)
+	- fixed 2 bugs in xmms plugin. one mutual exclusion bug (that has
+	  never happened afaik). one bug displaying improper song duration
+	  on xmms playlist (thanks to Grue for pointing out the problem).
+	  (shd)
+	- code cleanups in xmms plugin (creating more bugs) (shd)
+
+2003-06-30:      no release
+	- interactive mode improvements (shd)
+
+2003-06-27:      no release
+	- fixed uade_ftw() (shd)
+	- better error handling in src/uade.c prerun()?? something may get
+	  borken (shd)
+	- code cleanups (shd)
+	- better p60a format recognition (shd)
+	- code cleaups broke crunched song loading. fixed it. (shd)
+
+2003-06-26:      no release
+	- added uade_ftw() to osdep/uade-os-unix.c to make it easier to
+	  support platforms without native ftw() (like macosx) (shd)
+	- fixed an annoying bug from the command line tool. file formats that
+	  needed to be recognized by filename postfix didn't work! (shd)
+
+2003-06-24:      no release
+	- interactive improved for MorphOS (piru)
+	- MorphOS has AHI not AHX sound output ;) (piru)
+
+2003-06-23:      uade 0.80-pre7
+	- macosx support and portability improvements
+	- interactive mode for unix (use -i and type h for help. try f to
+	  toggle preliminary filter support)
+	- new versions of magnetic fields packer and digital sonix & chrome
+	- tronic tracker support
+
+2003-06-13:	Lucky Friday, no release
+	- amifilemagic: added tronic tracker (mld)
+
+2003-06-03:      no release
+	- put new revisions of following Eagleplayers by Don Adan/Wanted Team
+	   into players dir: Magnetic Fields Packer  (mld)
+	- put new adaption of following Eagleplayer by Don Adan/Wanted Team
+	   into players dir: Digital Sonix & Chrome (mld)
+
+2003-05-27:      no release
+	- interactive hugely enhanced. try uade -i (shd)
+
+2003-05-26:      no release
+	- use -fd from the command line with -f to see filter overrun rate 
+	  statistics. (shd)
+
+2003-05-25:      no release
+	- led filter emulation added. use -f from the command line. you may
+	  also active filter emulation on the fly by issuing f command in
+	  the interactive command (-i enables interactive mode). If you
+	  suspect some song is really hurt by turning filter on, please
+	  contact us so that we can investigate behaviour of our filter.
+	  (shd)
+
+2003-05-22:     no release
+	- initial Darwin (Mac OS-X) support and endian fixes in SDL audio
+	  output for it. (shd, mld, Michael Baltaks (thnks!) :)
+
+2003-05-17:      no release
+	- download.html is valid html 4.01 (again). is your web page? creating
+	  invalid documents is lame. (shd)
+
+2003-05-15:      uade 0.80-pre6
+	- fixed a big song end bug that affected the xmms plugin. only one
+	  subsong per song could have natural song end. this did not
+	  affect command line tool. (shd)
+
+2003-05-13:      uade 0.80-pre5
+	- eagleplayer amplifier support: we get david hanney and jesper olsen
+	  player support
+	- updated players: MMDC, soundtracker clones, Laxity-Player, mark
+	  cooksey old
+	- improved format detection: tfmx, mod15
+	- tons of code cleanups
+	- shell interactivity support for unix and mos (change subsongs on
+	  command line on the fly)
+	- eagleplayer compatability improved: more kris hatlelid songs work
+	- amiga exe hunk handling fixed in score
+	- audio target fixes (OSS, FreeBSD OSS emulation, mos and sdl)
+
+2003-05-10:      no release
+	- updated SDL audio to be in sync with generic/OSS audio (mld)
+	- documented "interactive shell" mode in docs (mld)
+
+2003-04-27:      no release
+	- FreeBSD OSS emulation fixed (mbr)
+	- MOS configuration fix (shd)
+	- amiga exe hunk handling fixed (shd, thanks to piru)
+	- amiga hell support (src/amiga-shell.[ch]) (piru)
+
+2003-04-26:      no release
+	- fixed sound glitch between songs on xmms plugin. i should have done
+	  this years ago. (shd)
+
+2003-04-25:      no release
+	- fixed song end support that was caused by code cleanups (shd)
+
+2003-04-22:      no release
+	- lots of code cleanups (shd)
+
+2003-04-20:      no release
+	- ciab int in intena is enabled by default for some dirty custom
+	  songs like Plague custom version to work. it doesn't let score
+	  know of using ciab interrupt in anyway, it just hits $78
+	  (ciab int vector) and hopes that interrupts will happen. those
+	  interrupts didn't happen because we had them disabled (shd)
+
+2003-04-19:      no release
+	- removed hunk 0x3f7 warning (shd)
+	- added EP_Check3 support => more kris hatlelid songs work (shd)
+
+2003-04-13:      no release
+	- xmms plugin: added compiletime option for generation of
+	  freedesktops.org's shared-mime-info from xmms plugin. 
+	  (e.g for rox-1.3.x)  On more info about shared-mime-info see: 
+	  http://www.freedesktop.org/standards/shared-mime-info.html (mld)
+
+2003-04-13:      no release
+	- amifilemagic: lengthcheck for mods
+			mod15 detection added
+	- put new/updated Eagleplayers by Eagleeye/Defect into players dir:
+			Laxity-Player, David Hanney, Jesper Olsen 
+	  added Ultimate-ST replayer to players dir (mld)
+	- added ENPP_NewLoadFile() (same as dtg_LoadFile()) => got vector dean
+	  amplifier working (shd)
+	- new version of mark cooksey old player (shd)
+
+2003-04-12:      no release
+	- initial amplifier player support: got several players working (shd)
+
+2003-04-09:      no release
+	- amifilemagic: mdat.factor5-fx fix (mld)
+
+2003-04-08:      no release
+	- code cleanups again (shd)
+
+2003-04-07:      no release
+	- audio target and slave code cleanups (shd)
+	- fixed a major bug with slave shared memory circular buffer that
+	  never happened on any platform (shd)
+
+2003-04-01:      no release
+	- put new revisions of following Eagleplayers by Don Adan/Wanted Team
+	   into players dir: MMDC  (mld)
+
+2003-03-16:      no release
+	- added some wanted team replayer sources into the cvs (shd)
+
+2003-03-15:      uade 0.80-pre4-noisehell
+	- faster compiling for machines with little memory
+        - solaris sound target improvement
+	- updated players:
+           - SoundPlayer / ScottJohnston
+	   - hippel coso (separate sample file support, see amberstar)
+	   - Tim Follin
+	- fileformat detection improved (audiosculpture, hippel7v, DL)
+	- code cleanups
+        - AmigaOS/MorphOS support improved
+
+2003-03-12:      no release
+	- cpuemu is now compiled in 8 parts. this helps machines with little
+	  memory a lot (shd)
+	- solaris sound target improvement (or mistake) (shd)
+
+2003-03-05:	no release
+	- amifilemagic: fixed bug in Audiosculpture detection. (mld)
+
+2003-03-04:	no release
+	- put new adaption of following Eagleplayer by Don Adan/Wanted Team
+	   into players dir: SoundPlayer/ScottJohnston
+
+2003-03-01:      no release
+	- frequency response measurements from a real amiga. Implemented
+	  a low-pass IIR filter to emulate Amiga led filter using Matlab
+	  signal processing toolbox. Use filter mode 3 to try it out.
+	  Thanks to Juha Kesseli <kesseli@cs.tut.fi> for signal processing
+	  support. (shd)
+	- modularize effect plugin and uade effect code (shd)
+
+2003-02-24:      no release
+	- xmms plugin: ported tfxmplay's lowpass filter *g* (mld)
+
+2003-02-23:      no release
+	- added AmigaOS/MorphOS pattern expansion (piru)
+
+2003-02-22:      no release
+	- amifilemagic: fixed DL detection (mld)
+
+2003-02-18:      no release
+	- amifilemagic cleanups (shd)
+
+2003-02-17:      no release
+	- added sample file support for hippel-coso (amberstar hippel-cosos
+	  work now, but amberstar hippels don't) (shd)
+	- added HIP7 recognition to amifilemagic, so amberstar hippels
+	  can now be played without renaming them... (mld)
+	- fixes in Tim Follin subsong detection/switching for Puzznic (mld)
+
+2003-02-15:      version 0.80-pre3-antiwar
+	- new formats since 0.80-pre2
+	  - ems v6
+	  - mcmd
+	- improved players:
+	  - Earache (EASO)
+	  - Improved protracker clone and mmdc detection
+	  - Magnetic Fields packer
+	  - TomyTracker
+	  - UltimateST
+	- code cleanups
+	- less debug messages to stderr
+	- speed hack with uade.library for songs that require lots of
+	  emulated cpu power (DIGIbooster, ArtOfNoise8, ems v6)
+	- Alpha GNU/Linux testing with Alpha C-compiler was success 
+	  (improved performance up to 33% with proper optimizations)
+	- alpha alpha alpha support for Amplifiers (some songs already
+	  work) but our amplifier system is totally flawed
+	- added 16kB padding between reloc and module data to prevent a
+	  bug in Hippel-COSO replay routine
+
+2003-02-15:      no release
+	- mcmd format content detection (mld)
+
+2003-02-14:	no release
+	- added 16kB padding between reloc and module data to prevent a
+	  bug in Hippel-COSO replay routine (shd)
+	- put "new" MCMD eagleplayer into players dir (shd)
+
+2003-02-03:	no release
+	- put new revisions of following Eagleplayers by Don Adan/Wanted Team
+	   into players dir: Magnetic Fields packer  (mld)
+	- added ENPP_PokeCommand(). Thanks to Jan Blumenthal for info.
+	  Jesper Olsen would now work if amplifier support was otherwise in
+	  order (shd)
+	- Added ENPP_SongEnd() for Laxity Player (and others) (shd)
+
+2003-01-31:      no release
+	- volume boost added to ems v6 (shd)
+	- interrupt and songend fixed for UltimateST replayer. (mld)
+
+2003-01-30:      no release
+	- -sh enables the speed hack if it's really wanted for something
+	  else than special cases (like ems v6) (shd)
+	- updated following players to enable the speed hack too, fixing
+	  speed or quality problems: DIGIbooster, ArtofNoise8 (mld)
+	- --no-sh disables the speed hack. The amiga player can't request
+	  speed hack if this switch is used. This is useful for testing
+	  if a player really needs the speed hack. Speed hacks implications
+	  are unknown at the moment. All properly coded players (do they
+	  exist??) should work with speed hack. (shd)
+	- Kimmo Kinnunen <kimmo.kinnunen@cs.tut.fi> provided us with a case
+	  test and optimization flags for alpha gnu/linux. See INSTALL.alpha
+	  and TESTING. These optimizations (with ccc) may provide up to 33%
+	  performance improvement.
+	- song end detection support for ems v6. i don't understand the
+	  solution entirely so it might not work. needs to be tested. (shd)
+
+2003-01-29:      no release
+	- added ems v6 detection into amifilemagic.c (shd)
+	- added a speed hack into uade for ems v6 songs: this makes all
+	  instructions run in one cycle on a specified code interval. this
+	  makes it possible to use higher mixing rates. see
+	  amigasrc/players/ems/ems_new.s how to turn it on in player plugins
+	  (it's used like amiga libraries (uade.library)) (shd)
+
+2003-01-28:      no release
+	- amifilemagic: fixed broken MMDC detection introduced by cleanups(mld)
+	- thanks to sean connolly for giving us the source code for ems v6
+	  (uade team)
+	- preliminary ems v6 support by sean connolly's source code and Jarno
+	  Paananen's audio mixing code (shd)
+
+2003-01-26:      no release
+	- put new revisions of following Eagleplayers by Don Adan/Wanted Team
+	   into players dir: TomyTracker (mld)
+	- PTk-Prowiz: "Noisetracker/"Protracker Compatible" detection code and
+	  "bad coding habit" fixes (mld)
+
+2003-01-24:      no release
+	- remove some useless stderr flood (martin blapp aka mbr)
+	- code cleanups (shd)
+
+2003-01-22:      no release
+	- Earache(EASO) support hack (mld)
+
+2003-01-21:      version 0.80-pre2
+	- see changes in the past few days
+
+2003-01-21:      no release
+	- amifileamgic.c: code cleanups (mld)
+	- started implementing amplifier interface (some Jesper Olsen songs
+	  started to work with --no-mc and score_38) (shd)
+	- solaris fixes again: some solaris systems don't have $USER defined.
+	  Switched to use getlogin(). If getlogin() returns zero then
+	  getuid(). (shd)
+	- fixed decrunch library make dependency hell (parallel build is still
+	  broken: you have to run make -jX twice in order to compile) (shd)
+
+2003-01-19:      no release
+	- debugging improvements:
+	  use u command in debugger to trace to some uade defined symbols.
+	  for example:
+	    >u
+	      lists all known symbols
+	    >u init sound
+	      traces to a subroutine in sound core which calls InitSound()
+	  (shd)
+	- renamed debugger command u to l (shd)
+	- added 'run until here again' command to debugger: u (shd)
+	- moved all dtp_interrupt calls to supervisor state (shd)
+
+2003-01-18:      no release
+	  - finally fixed a 2.75 year old bug in uade booting process:
+	    i didn't realize following things:
+	      - chip memory was full of zeros in the beginning because i had
+	        not removed kickstart booting process properly
+	      - kickstart memory is mapped away from zero address
+	        when CIA register bfe001 is hit in a certain way
+	      - chip memory was mapped to zeros in CIA_reset()!!
+	      - i thought i had a broken cpu emulation
+	    the reason why this problem was not fixed was that i somehow
+	    found a workaround for it with a good luck and didn't bother
+	    to find out the real reason. (shd)
+	  - due to boot process fix debugging with uae debugger is possible
+	    again: just use -d option. ctrl-c switches to debugger in
+	    debugging mode, hence it's not possible to switch songs (shd)
+	  - amifilemagic.c: more trackerclone ID checks (mld)
+
+2003-01-18:      version 0.80-pre1
+	- changes relative to version 0.73:
+	  - a new supported platform morphos
+	  - better song end detection for (octa)med
+	  - code cleanups
+	  - enhanced (sub)song switching mechanisms
+	  - changed (sub)song switching policies
+	  - more intuitive xmms plugin settings
+	  - solaris compilation and configuration fixes
+	  - stonecracker crunched art of noise support
+
+2003-01-18:      no release
+	- AON 4ch replayer now also plays stonecracker packed files (mld)
+
+2003-01-17:      no release
+	- i hear morphos version produces sound: however i can't confirm it
+	  (shd)
+	- silence timeout can be set on the command line tool with -sit (shd)
+	- InitPlayer() is not necessarily needed anymore for player plugins
+	  (cust.pang-ingame didn't have that) (shd)
+	- fixed configuration and compilation problems for Solaris:
+	  - test -e => test -f in plugindir/Makefile.in
+	  - removed useless (??) -c parameter for 'install' in
+	    plugindir/Makefile.in
+	  - separated strlcat and strlncat to not cause problems on platforms
+	    that have native strlcat
+	  (shd)
+	- a work-around for morphos libnix braindamage (piru)
+
+2003-01-16:      no release
+	- started morphos / amigaos porting (piru, shd)
+
+2003-01-15:      no release
+	- added per subsong timeout (use -st on command line).
+	  if requested timeout is reached the player skips to the next subsong
+	  if such exists. if there are no subsongs left in the current song
+	  it skips to the next song. (shd)
+	- xmms plugin: "switch to next subsong on timeout" added.
+	- xmms plugin: "switch to next subsong on songend" relabelled 
+	              (tofkapsis: the option formerly known as play subsongs
+		       in sequence)
+
+2003-01-14:      no release
+	- added silence detection into command line uade (shd)
+	- added timeout option into command line uade (use -t or --timeout).
+	  it skips to next entry in the song list if timeout is reached (it
+	  does not go to the next subsong even if such is available).
+	  default timeout is 10 minutes, which is stupid, but current command
+	  line uade is inconvenient as a player anyway. use xmms. (shd)
+	- fixed timeout option not to include slave mode (shd)
+
+2003-01-08:      no release
+	- MED/OctaMED songend routine corrections and fixes of stack overflows:
+	  (mld,shd)
+	- following cases should invoke a songend with MMD0,1,2:
+	  - Sequence played through [MMD0,1]
+	  - All sections and its sequences played through [MMD2]
+	  - using FFE command [MMD0,1,2]
+	  - Looping with B command [MMD0,1,2] (mld)
+
+2003-01-07:      no release
+	- better songend detection for MED/Octamed 4/8ch files. (mld)
+
+2003-01-06:      no release
+	- moved xmms plugin configuration variables into plugindir/defaults.c
+	  (shd)
+
+2003-01-06:      version 0.73
+	- changes relative to version 0.72:
+	  - ahx1/2 support
+	  - (octa)med support (but not mmd3 yet)
+	  - new and updated players:
+	    - Janko Mrsic-Flogel (Greets to Don Adan / Wanted Team!)
+	    - Soundcontrol (Don Adan)
+	    - SoundImages (replaces old Tiny Williams) (Don Adan)
+	    - SoundMaster (Don Adan)
+	    - Steve Barrett (Don Adan)
+	    - UniqueDevelopment -> BladePacker (Don Adan)
+	    - Wally Beben (Don Adan)
+	  - song database optimization
+	  - irix support
+	  - better support for package distributors
+	  - interrupt system fixes (plays Turrican and many other correctly)
+	  - better song end detection due supporting eagleplayer
+	    modulechange() function
+	  - improved silence detection (improves song end detection)
+	  - better file info support
+
+2003-01-05:      no release
+	- (octa)med support (mld)
+	- VBlankFrequency value of execbase is now set to 50Hz (shd)
+	- removed stupid ChangeLog entries I made few minutes ago (shd)
+	- did a work-around for the fucked up octamed player (don't use
+	  $126(execbase) for any purpose! Only kernel should touch that)
+	  (shd)
+
+2003-01-02:      no release
+	- xmms plugin: new page in GUI config for songend/timeout related
+	  options (mld)
+	- xmms plugin: "silence_timeout" is now configurable by the xmms
+	  plugin's config GUI (mld)
+
+2003-01-01:      hangover coding fun
+        - happy new year.... Made the "silence_timeout" value configurable
+	  from the xmms config file. No GUI config yet... I got headaches ;)
+	  The value determines how long xmms should wait until it sees a
+	  period of silence  as end of song.
+	  It's in secs and defaults to 10. (mld)
+	- can't remember what I did yesterday (shd)
+	- silence timeout defaults to 20 seconds (shd's compromise)
+	- precautionary song duration maximum defaults to 5 minutes (shd)
+
+2002-12-31:      new year evening damage
+	- shuffled few code lines, and removed something (shd ;-)
+
+2002-12-28:      no release
+	- code cleanups (shd)
+	- what I did yesterday might not have been a good idea.. Wrote a new
+	  song end detection system that might replace the one done yesterday
+	  (shd)
+
+2002-12-27:      no release
+	- audxlch boredom: if following requirements are satisfied in a 30
+	  second time interval, uade skips to the next (sub)song:
+		 - no new values put into audxlch registers
+		 - no non-zero values put into audxvol registers
+	  This kludgy feature adds better-than-zero song end detection to at
+	  least some songs. (shd)
+
+2002-12-26:      no release
+	- put new revisions of following Eagleplayers by Don Adan/Wanted Team
+	   into players dir: Steve Barrett (mld)
+	- put new adaption of following Eagleplayer by Don Adan/Wanted Team
+	   into players dir: Wally Beben. Thanks Don, almost like xmas ;)
+	   (mld)
+
+2002-12-03:      no release
+	- xmms plugin: fixed content database bugs (shd)
+	- xmms plugin: optimized database loading. initializations took about
+	  800ms before and 30ms after optimizations. this was due to
+	  horrible use of binary trees. I had inserted entries into tree in
+	  sorted order causing the insertion to be O(n^2) operation!! (shd)
+
+2002-12-02:      no release
+	- xmms plugin: amifilemagic additions. (mld)
+	- xmms plugin: modinfo parses now credits info for following formats:
+	  Beathoven, Riff Raff, Dave Lowe, Howie Davies, Soprol, Fred Gray.
+	  (mld)
+
+2002-11-28:      no release
+	- added a forgotten audio dma wait (shd)
+
+2002-11-26:      no release
+	- made epg_modulechange the default behaviour (still gives warnings
+	  if a patch is applied) (shd)
+	- put new revisions of following Eagleplayers by Don Adan/Wanted Team
+	   into players dir: Soundcontrol, SoundImages (=Tiny Williams),
+	   SoundMaster (mld)
+	- put new adaption of following Eagleplayer by Don Adan/Wanted Team
+	   into players dir: Janko Mrsic-Flogel, Steve Barrett (mld)
+
+2002-11-25:      no release
+	- added a warning of 64-bit ULONG to src/decrunch/depack.c (this
+	  must be fixed soon). This is non-fatal for 64-bit architectures
+	  since powerpacked files are rarely distributed these days.
+	  anyway, it's an easy fix. (shd)
+	- changed some printfs to fprintfs. we must not output messages to
+	  stdout since the user may want to use -outpipe 1. (shd)
+	- fixed support for some misdetected GMC files (changed order of
+	  tracker clone checks) (mld)
+	- fixed epg_modulechange (shd)
+	- traced sean connolly player anomaly to an unusual horizontal
+	  sync waiting routine (dma wait) (shd)
+
+2002-11-24:      no release
+	- replaced depack.c with a more robust powerpacker decruncher.
+	  (Thanks to Stuart Caie for the suggestion and the help!:)
+	  (mld)
+	- fixed nebulus2 custom song (added dos.library/CurrentDir()) (shd)
+	  addition: nebulus2 fixes added support for Suntronic customs tunes.
+	            just play them as real customs with the -P switch.
+
+2002-11-22:      no release
+	- new "make test" music. Thanks a lot to Pink/Abyss for letting us
+	  use his song AHX.Cruisin as test tune.  (mld)
+
+2002-11-21:      no release
+	- major bug fix on open/dos.library: it does not set initial file
+	  offset to zero when opening a file! This may affect all players
+	  that read more than 1 files. (shd)
+	- patched ahx replayer to load the ahx.waves location from ENV:
+	  rather from S: (mld)
+	- initial EPG_ModuleChange() implementation (EXPERIMENTAL!). Use
+	  -mc switch to enable. We hope to detect if this feature causes
+	  problems, fix them and then make this 'on' by default. (shd)
+	- we got about 15 players to have song end detection working with
+	  the EPG_ModuleChange() feature (mld, shd)
+
+2002-11-20:      no release
+	- put following player by Dexter/Abyss into players dir:
+	  AHX (thanks to Bartman/Abyss for their permission:)
+	- xmms plugin: extended fileinfo for AHX files (mld)
+	- updated Makefile dependencies (shd)
+	- replaced old UniqueDevelopment player with the new BladePacker
+	  Eagleplayer by Don Adan/Wanted Team. (mld)
+
+2002-11-19:      no release
+	- did my favourite stuff: fixed interrupt system.. this time ciab
+	  interrupts.. THIS WILL PROBABLY BREAK SOMETHING! Now ciab.resource
+	  allocated timer interrupt will pass a data pointer in a1 and exec
+	  base in a6 to the user given interrupt function (shd)
+	- added fake ciaa.resource(): it warns (to stderr) for
+	  all operations except AddICRVector(). For AddICRVector() it
+	  returns failure. This is useful because some players want to
+	  allocate any cia timer, and sometimes they start by trying to
+	  allocate a cia-a timer, then after that they try to allocate a
+	  cia-b timer. (shd)
+	- in the process got Martin Wodoks (Dexter/Abyss) AHX2 player working!
+	  (shd)
+
+2002-11-18:      no release
+	- code cleanups (shd)
+
+2002-11-16:      no release
+	- added --package-prefix to configure to make it easier to distribute
+	  binary distributions:
+	  	  ./configure --prefix=/final/installation/path \
+			      --package-prefix=/temporary/path
+	  will install uade files into
+	  /temporary/path/final/installation/path. When uade is run the
+	  program assumes it has been installed to /final/installation/path.
+	  (shd)
+	- wav sound output will now produce little endian samples by default
+	  on all platforms (shd)
+
+2002-11-15:      no release
+	- portability changes (mld)
+
+2002-11-14:      no release
+	- first port to IRIX/MIPS! That was hell. Thanks to flux for technical
+	  and moral support.. (shd)
+
+2002-11-12:      no release
+	- more audio interrupt fixes (some players break rules). Automatic
+	  subsong changing with Turrican 1 works again. (shd)
+
+
+2002-11-11:      version 0.72
+	- lots of new formats
+	- lots of bug fixes
+	- many improved versions of old players
+	- security fixes
+	- Turrican 2 and 3 (TFMX) songs are working finally!
+
+2002-11-10:      no release
+	- fixed uade audio interrupt system again! How many times can I
+	  get it wrong?? I actually disassembled kickstart 3.0 rom
+	  to see how the operating system would do the audio interrupt
+	  handling. It really paid off: Turrican 2 seems to work now :) (shd)
+
+2002-11-09:      no release
+	- fixes for possible buffer overflows (shd)
+
+2002-11-08:      no release
+	- fixes for possible buffer overflows in xmms plugin's fileinfo (mld)
+
+2002-11-07:      no release
+	- improved Mr. Larmer's SUNTronic player (shd)
+
+2002-11-06:      no release
+	- code clean-ups and security fixes (shd)
+
+2002-11-02:      no release
+	- cleaned up shell flooding (shd)
+
+2002-11-01:	no release
+	- Protracker player now uses DTP_FormatName for reporting the modtype
+	- xmmsplugin  displays the Formatname info in the fileinfo (mld)
+	- did a work-around for a pathological case in audio emulation:
+	  some players like to insert very small values into audxper hardware
+	  registers, which is very stupid, but is done anyway. work-around
+	  is that when a value 0 < v < 16 is inserted into audxper, uade
+	  really inserts value 16 into audxper. example: robocop 2 highscore
+	  song hit ones into audxper. (shd)
+
+2002-10-31:	no release
+	- fixed DTP_FormatName handling in sound core (has been _always_
+	  totally broken). Corrected Darius Zendeh player to support
+	  DTP_FormatName for the strange mod type added earlier. (shd)
+
+2002-10-30:	no release
+	- Modified Darius Zendeh player to support a new type (thanks to
+	  Sunbeam). Fixed a subsong bug from Stephen's player. Big thanks to
+	  Stephen Mifsud (Malta) for giving us the source code for his
+	  player. (shd)
+
+2002-10-25:	no release
+	- put new revision of following Eagleplayer by Don Adan/Wanted Team
+	  into players dir: Jason Page (formerly known as JasonPageNew)
+	  (mld)
+
+2002-10-16:	no release
+	- fixed dmawait in Infogrames/RH2 replayer (bugreport by Simon Peter).
+	  (mld)
+
+2002-10-08:	no release
+	- added InStereo2.0 and Digibooster 1.x to amifilemagic (mld)
+
+2002-09-28:	no release
+	- put new revision of following Eagleplayers by Don Adan/Wanted Team
+	  into players dir: MugicianII, TFMX Pro, TFMX 7V (mld)
+
+2002-09-16:	no release
+	- xmms plugin: extended fileinfo for Syntracker (mld)
+	- adapted Digibooster 1.x player for uade (mld)
+
+2002-09-15:	no release
+	- SoundMon replayers now parse the songtitle.
+	- tiny modinfo cleanup 
+	- xmms plugin: extended fileinfo for M.O.N (mld)
+
+2002-09-13:	no release
+	- new commandline parameter "-one" for playing just one subsong
+	  and signal songend when it's done. Useful for recording each
+	  subsong indiviually. (shd)
+
+2002-09-02:	no release
+	- xmms plugin: extended fileinfo for TFMX, TFMX Pro and TFMX 7V (mld)
+
+2002-08-31:	no release
+	 - put new revision of following Eagleplayer by Don Adan/Wanted Team
+	   into players dir: Peter Verswyvelen packer. (mld)
+
+2002-08-22:	no release
+	- made SDL audio output from uae 0.8.22 work with uade. This now
+	  should it make possible to use uade on some other platforms, too.
+	  To compile with SDL support use: ./configure --with-sdl (mld)
+
+2002-08-04:      no release
+	- fixed TFMX 7V detection for MDAT.B.C-Kid-Title (mld)
+
+2002-07-25:      no release
+	- fixed CUST.NeverWhere_Loader HUNK_SYMBOL bug in sound core.
+	  Thanks to Nicolas** for reporting the bug (shd)
+
+2002-07-17:	no release
+	- fixed a non-fatal double load bug that occured in a case when
+	  only playername was given with -P playername from cmdline (shd)
+
+2002-06-28:	no release
+	- xmms ignores now the last extension if the filename ends with
+	  .gz, .bz2 or .pp (mld)
+	- support for one-file TFMX files by using Alexis NASR's alternative
+	  TFMX eagleplayer. Beware UADE has a lot of problems with these
+	  replayers. So, using the original two file MDAT, SMPL is always
+	  better. (both features suggested by Simon Hosie) (mld)
+
+2002-06-19:	no release
+	- added optional support for creating MIME-info rules for the
+	  ROX filemanager. [http://rox.sf.org] (mld)
+
+2002-06-05:	version 0.71
+	 - lots of new players (lots of thanks to Don Adan / Wanted Team!)
+	 - improved many players (same as above)
+	 - more portability (included uade rpm spec for the uade distribution)
+	 - better documentation
+	 - separate master volume setting for uade played songs under xmms
+
+2002-05-26:	no release
+	 - put new adaption of following Eagleplayer by Don Adan/Wanted Team
+	   into players dir: Desire. (mld)
+	 - put Ultimate Soundtracker player into contrib/players-unstable.
+	   (mld)
+
+0200-04-272:	no release
+	 - put new adaption of following Eagleplayer by Don Adan/Wanted Team
+	   into players dir: Special_FX. (mld)
+	 - put new revision of following Eagleplayer by Don Adan/Wanted Team
+	   into players dir: Soundcontrol. (mld)
+
+0200-04-222:	no release
+	- added warning if lha executable is missing when running configure
+	  script: NOTE THAT LHA IS NOT A REQUIREMENT (shd)
+
+2002-04-16:	no release
+	- xmms plugin configuration now also has brief little help tooltips.
+	  Anyway read the docs. The tooltips are not meant as a replacment but
+	  for some further explanation. ;) (mld)
+
+2002-04-15:	no release
+	 - changed default behaviour of -P parameter: now it forces the
+	   given playername for all songs that are played from the command
+	   line (shd)
+	 - put following Replayers by Sunbeam/Shelter into players dir:
+	   MarkCooksey (new), MarkCookseyOld, TinyWilliams   (mld)
+
+2002-04-07:	no release
+	 - added a feature I don't want to explain or document. this
+	   feature is only for hardcore uade users. (hint: cd contrib;
+	   make songtool) (shd)
+
+2002-04-06:       no release
+	 - added volume gain feature into xmms plugin: now it's possible
+	   to increase or decrease volume exclusively for uade played songs.
+	   for example many mp3s play with lower volume than typical amiga
+	   songs. it can be nice to decrease the volume for amiga songs
+	   by setting the volume gain parameter lower than 100% from the
+	   uade configure window. if you set the volume gain more than 100%
+	   you will probably get the overdrive effect (for which many would
+	   say is not nice) (shd)
+
+2002-04-04:       no release
+	 - clears 1st megabyte of chipmem when starting to play a new song
+	   (work around for delta music random song failures) (shd)
+
+2002-03-28:       no release
+	 - added -h and --help for uade command line tool (shd)
+
+2002-03-27:	no release
+	 - fixed 'make install': subdirectories of 'players' directory were
+	   not installed (players/ENV:EaglePlayer for example) (shd)
+
+2002-03-23:	no release
+	 - put new revisions of following Eagleplayers by Don Adan/Wanted Team
+	   into players dir: TFMX, TFMX_Pro (+ cfg file for using DMA wait)
+	   (mld)
+	 - put new adaption of following Eagleplayer by Don Adan/Wanted Team
+	   into players dir: TFMX 7V (+ cfg file for using 20Khz for mixing)
+	 - Updated amifilemagic to recognize TFMX V7 mods. (mld)
+
+2002-03-19	no release
+	- configure: added --input-plugin-dir=DIRECTORY switch
+	  it forces xmms plugin to be installed to directory DIRECTORY (shd)
+
+2002-03-17:	no release
+	- xmms plugin: thread safety for xmms 1.2.7+ file type check
+	  (there seems to be some strange crashes when directories are added
+	  to the playlist) (shd)
+
+2002-03-09:	no release
+	- xmms plugin: extended fileinfo for DMU[1/2] and DM2
+	  (more hopefully still to come ;) (mld)
+
+2002-03-03:	no release
+	- xmms plugin: extended fileinfo for MOD.* and AON.* files (mld)
+
+2002-02-22:	no release
+	- put new revisions of following Eagleplayers by Wanted team into
+	  players dir: PaulShields, TME, MugicianII (+ a cfg file for best
+	  mixing) (mld)
+	   
+2002-02-16:	no release
+	- portability changes (aiming for win32 portability) (shd, pmo)
+	- uninstall documentation (shd)
+
+2002-02-14:	no release
+	- put Götz's rpm spec file to uade cvs (shd)
+	- some configure/install changes to make uade distribution more
+	  installable (shd)
+	- install uade documentation, too (shd)
+
+2002-02-07:	version 0.70
+	- new players
+	- more working custom songs
+	- sc68 container support
+	- more portable configuration system
+	- PA-RISC support
+
+2002-02-03:	no release
+	- removed obsolete "playuade" frontend. Use "uade" instead for the
+	  same functionality now.
+
+2002-02-03:	no release
+	- added incomplete check for Whittaker(type1/4) to amifilemagic (mld)
+
+2002-02-01:	no release
+	- added Pumatracker, fixed MON detection in amifilemagic (mld)
+	- committed sc68rip tool into /contrib	(mld)
+
+2002-01-31:	no release
+	- support for amiga music data in sc68 fileformat (mld)
+	- workaround for leading bytes in hip data in sc68 format (mld)
+	- amifilemagic also detects MON files now (mld)
+
+2002-01-30:	no release
+	- updated following players with new editions of Don Adan/WantedTeam's
+	  Eagleplayers: PumaTracker, PaulSummers (mld)
+
+2002-01-26:	no release
+	- uade executable for PA-RISC works! xmms plugin not yet tested
+	  (wav output works with sd-sound-file.c except that bytes have
+	  to be swapped for samples later)
+
+2002-01-25:	no release
+	- added some #include headers for portability (a test on Debian
+	  GNU/Linux on PA-RISC) (decrunch stuff needed #include <string.h>
+	  for memcpy()) (shd)
+
+2002-01-24:      no release
+	- added exec.library/TypeOfMem() to make TFMX_7v eagleplayer not crash
+	  (timing doesn't still work) (shd)
+	- added level6 interrupt hack to make CUST.The_Plague work! The fault
+	  was in the custom module. It did not use proper functions to setup
+	  hardware interrupts. (shd)
+	- added more ciab.resource hacks to make CUST.An_Unbidden_Eye work..
+	  I'm avoiding the inevitable: ciab.resource has to be done well
+	  eventually (shd ;-)
+
+2002-01-22:	no release
+	- better CTRL-C handling for uade: if 2 ctrl-c signals arrive in the
+	  same timeframe shorter than 0.1 seconds the playing is stopped (shd)
+
+2002-01-19:	no release
+	- removed obsolete path configuration in xmms plugin (mld)
+	- fixed kde2 mimetype creation (mld)
+	- added Mugician II player to players (shd ;)
+	- playinfo now available in xmms plugin
+
+2002-01-17:	no release
+	- fixed soundcore to support some more old Eagleplayers (shd)
+	- replaced Oktalyzer, Sonicarranger with the eagleplayer counter
+	  parts (mld)
+	- 'make test' was buggy, fixed (shd ;)
+	- fixed few bugs (shd)
+
+2002-01-15:	no release
+	- fixed bug a bug in sound core: Interrupt vectors that had been
+	  set it with SetIntVector/exec.library did not get INTENA & INTREQ
+	  in d1 as parameter => Benn Daglish player works now (shd)
+
+2002-01-10:       no release
+	- fixed bug with parameter -P to manually set replayer again (mld)
+
+2002-01-10:       no release
+	- added logo again to xmms' plungin's about box. (mld)
+	- added panning for uade console tool (shd)
+	- filetype detection in console uade. UADE console tool is 
+	  also now able to play more than one file (shd, mld)
+
+2002-01-09:       no release
+	- added shell tool uadetect at frontends/tools/. Uadetect
+	  can be used to detect the filetypeby it's contents, either in a
+	  pipe or as standalone tool for identifying a file. (mld)
+	- updated playuade to use uadetect instead of echo|sed (mld)
+	  this should now fix some formats that couldn't be played by
+	  playuade before like Startrekker mods, TFMX1.5
+
+2002-01-08:       version 0.60
+	- executive summary for release 0.60
+		- lots of new sound formats
+		- many bugs fixed
+		- new features added to many existing players (song end and
+		  sub song detection for example)
+		- lots of code clean ups
+		- experimental console frontends for uade (pwrap & playuade)
+		- few portability issues
+		- no more deliplayers copyrighted by delitracker authors with
+		  uade distribution (102 deliplayers totally)
+
+2002-01-07:	no release
+	- fixed a bug from sound core loadfile() function => SynthPack works
+	  again (shd)
+	- moved the perlfrontend "pwrap.pl" and the consolescript "playuade"
+	  to frontends/* (mld)
+
+2002-01-06:	no release
+	- improved sound core to load executables with symbol hunk tags
+	  (KrisHatlelid/KH.TestDrive2 for example) (shd)
+	- updated SeanConnolly replayer, put DaveLowe_Deli and
+	  KrisHatlelid player into players dir. (mld)
+	- updated scanfile.c to decide between DaveLowe_Deli and
+	  DaveLowe(wt) format. (mld)
+
+2002-01-05:	no release
+	- improved uade sound core to overcome fatality in SynTracker
+	  deliplayer (why the hell would they disable ALL hw interrupts
+	  in DTP_InitSound?) (shd)
+	- added loadseg()/dos.library to uade sound core => DaveLowe seems
+	  to work ... Dave Lowe used some undocumented function pointer
+	  that I couldn't find from delitracker api, so I just put a trivial
+	  return program there;) The song sounds okay anyway.. hehe (shd)
+	- added and replaced following with Eagleplayers by Wanted Team:
+	  BeathovenSynthesizer, DaveLowe(WT), DavidWhittaker,
+	  DynamicSynthesizer, FredGray, HowieDavies, JasonBrooke,
+	  MartinWalker, MikeDavies, RiffRaff, RobHubbard, RobHubbardOld,
+	  SeanConran, SOPROL (mld)
+	- scanfile.c updated with a few more "Magic ID" strings (mld)
+
+2002-01-04:	no release
+	- rewrote Hippel-COSO player (shd)
+	- replaced Delta1.0, EarAche player with alternative counterparts (mld)
+	- added Meleth's perl script for uade to contrib/pwrap
+
+2002-01-03:	no release
+	- fixed sound core bug (amiga executable relocation did not work
+	  properly.. BSS hunks with size 0x????0000 would crash) (shd)
+	- new Medley replayer (mld)
+
+2002-01-01:	no release
+	- reimplemented FutureComposerBSI replayer (mld)
+	- reimplemented MON replayer (shd)
+
+2001-12-30:	no release
+	- new Audiosculpture player (mld)
+
+2001-12-25:	no release
+	- updated and added following with new Eagleplayers by Wanted Team:
+	  Silmarils, PierreAdanePacker, Mugician, AMComposer1.2
+	- reimplemented Sidmon1 player (mld)
+
+2001-12-23:	no release
+	- improved Hippel player filetype check
+	- added subsong detection for Hippel player
+	- added song end detection for Music-Assembler
+
+2001-12-22:	no release
+	- totally new Hippel player (no subsong detection)
+	- replaced player(s) with eagleplayer or alternative counterpart(s):
+	  ActivisionPro, Pumatracker1.0, Laxity-Player (Powertracker)
+
+2001-12-21:	no release
+	- replaced player(s) with eagleplayer counterpart(s):
+	  MajorTom, ActionAmics
+	- removed obsolete player(s): InStereo
+	- new FRED player
+	- new Music-Assembler player
+
+2001-12-15:	no release
+	- uade executable is loaded in xmms plugin only if it is needed
+	  (it is loaded when it is needed the first time)
+	- code cleanups
+
+2001-12-09:	no release
+	- playuade: fix for files with prefix and more than one dot
+	    in filename
+
+2001-12-08:	no release
+	- playuade shell script fixes: 
+	    implementation to send switches to uade (thanks to Meleth)
+	    small bugfix of prefix handling, unknown files are now
+	    skipped when using wildcards, (mld)
+	- xmms plugin: sequential subsong is now also selectable when either
+	  just timeout or just songend is checked. 
+	  (had to be both enabled before)
+
+2001-12-07:	no release
+	- FreeBSD compile cleanups (#include <values.h> -> <limits.h>)
+
+2001-12-06:	no release
+	- configure changes (thanks to Meleth!)
+
+2001-12-05:	version 0.52
+	- 0.51 seems to be a very buggy release
+	- fixed few annoying bugs
+
+2001-12-03:	version 0.51 fix 1
+	- fixed some compilation bugs
+	- added shared content database support (for make sysinstall)
+
+2001-12-03:	version 0.51
+	- Finally!
+
+2001-12-02:      no release
+	- Added panning support into UADE input plugin. This could be useful
+	  for those who use headphones and don't like the extreme stereo
+	  effect. It can be enabled in the configure menu.
+	     0% => no effect
+	   100% => mono
+
+2001-11-26:	no release
+	- improved exec.library/SetIntVector() handling
+	  => CUST.FA18Interceptor works!
+	  (with good luck other new songs started to work)
+	- implemented aon4, soundmon2.0, soundmon2.2 songend
+	- ptk-prowiz fixes, better format distinction, subsong support
+	  (thanks to Don Adan/WT)
+	- code cleanup, scanfile.c bugfixes
+	- new formats: AProSys, InStereo2.0
+	- Replaced players with ones with songend support: Delta 1.0 & 2.0,
+	  FC1.3 & 1.4, iff-emod (Quadracomposer), InStereo, Synthesis,
+	  Jamcracker, SIDMon2.0, RichardJosephPlayer (Vectorcdean)
+	- Don Adan improved SoundFX player!
+	  (See uade-docs/players/WantedTeam/EP_SoundFX.readme)
+
+2001-11-25:	no release
+	- lots of code cleanups
+
+2001-11-24:	no release
+	- song end support for Hippel-COSO
+
+2001-11-23:	no release
+	- song duration database system: UADE has become a learning system.
+	  UADE knows lengths of songs from experience which can be obtained
+	  by playing songs and/or copying song duration databases from
+	  external sources. Combining 2 different databases is easy, see
+	  the documentation (if available;). For those who don't have
+	  knowledge of exotic Amiga formats let it be told that for many
+	  formats there is no easy way to predict song duration without
+	  playing the song to the end (assuming the end even exists).
+	- song end support for Hippel
+
+2001-11-19:	no release
+	- switched UAE default configuration to 68020 emulation from 68000
+	  emulation => THX deliplayer works (and perhaps some other)
+		    => CUST.EndlessPiracy works (it's 68000 code but doesn't
+		       work on real A500 for some strange reason)
+	  Our policy will be to maintain 68000 compability where ever
+	  possible (sound core will only contain 68000 code)
+
+2001-11-17:	no release
+	- implemented exec.library/Cause() software interrupt OS call
+
+2001-11-15:	no release
+	- maintaining code.. i'm beginning to really hate plugindir/deli.c
+	  module (needs cleanups badly!)
+
+2001-11-09:	no release
+	- new replayer: Paul Summers (replaces VectorDean and Richard Joseph)
+	- more file content recognition code
+
+2001-11-07:	no release
+	- timeout bug fixed (uade played timeout + buffered seconds, now
+	  it plays timeout + few milliseconds)
+
+2001-11-06:	no release
+	- sequential subsong bug fixed (skipped subsongs)
+
+2001-11-05:	no release
+	- sequential subsongs feature added:
+	   - option in configure is 'play subsongs in sequence'
+	   - default setting off
+	   - if the option is on, subsongs in a song are played sequentially
+	   - if the option is on, plugin jumps to the next entry in the
+	     playlist when all subsongs have been played (not totally
+	     accurate description, there are exceptions of course;)
+
+2001-11-04:	no release
+	- song end system improved (not very informative but very relevant)
+
+2001-11-03:	no release
+	- new player: NovoTradePacker (thanks to Wanted Team!)
+	- improved PTK-Prowiz (sounds funny but subsong detection is improved
+	  see the documentation (some people have hidden songs in protracker
+	  modules))
+	- song format detection by file content improved
+
+2001-10-24:	version 0.50
+	- solaris/sparc compability (even xmms plugin)
+	- playback tempos fixed for various formats / songs
+	- improved subsong detection
+	- new deliplayers: Amos, ASReplay, ImagesMusicSystem, PierreAdane,
+	  Soundfactory, SoundFX, THX, TME
+	- better user documentation in uade-docs/
+	- lots of code cleanups
+
+2001-10-22:	no release
+	- lots of code cleanups
+	- new user documentation in uade-docs/
+	- new deliplayers: Amos, PierreAdane
+
+2001-10-18:	no release
+	- improved sub song recognition & handling
+	- runs on Solaris, even under XMMS!
+
+2001-10-08:	no release
+	- dtg_SetTimer() finally done! Previous tempo problems should be fixed
+	- Improved/new deliplayers:
+	  ASReplay, ImagesMusicSystem, Soundfactory, SoundFX, THX, TME
+
+2001-09-07:	version 0.40
+	- Multifile loading support (VectorDean, TFMX, YMPlayer, ...)
+	- Song end support for PTK-Prowiz deliplayer (for protracker +
+	  variants)
+	- Optimized playlist scanning
+
+2001-09-04:	no release
+	- Added song end checking to PTK-Prowiz deliplayer (mod player)
+	- Optimized playlist file scanning by caching 'uadeformats' file
+	- 'uadeformats' caching can be turned on/off from configure menus
+	- Lots of small changes to make UADE function faster under XMMS
+	- Deliplayers can now use case-insensitive fileloading (compability
+	  issue from AmigaOS). This is very usefull with YMPlayer and TFMX*.
+
+2001-08-27:	no release
+	- YMPlayer works much better! (I still don't like ATARI ST sounds)
+	- Hippel-COSO improvements
+	- TFMX, TFMX_1.5, TFMXPro improvements: many of the TFMX play OK
+	  (I hate TFMX system!!)
+ 
+2001-08-25:	no release
+	- multifile loading support (DTP_ExtLoad) => new formats supported:
+	  VectorDean, TFMX 1.5 and TFMX Pro (probably more)
+
+2001-08-18:	version 0.30
+	- updated configuration system:
+	  use ./configure and then manually edit config.h if needed
+	- players improved: ptk-prowiz for protracker clones, Soundfactory,
+	  Dawe Lowe New, MarkII and others..
+	- uade is now compatible with xmms crossfade plugin
+	- optional (experimental) players in contrib/players-unstable
+	  (includes ptk-prowiz for playing about 51 protracker variants)
+
+2001-05-24:	no release
+	- a patch from michael bouillot which disables uade's subsong
+	  changing mechanism to change subsongs with a remote control (without
+	  mouse).. michael doering applied this patch to the plugin by making
+	  it optional (see configure/GUI)
+
+2001-04-22:	no release
+	- improved subsong reporting
+	- improved global installation system
+
+2001-04-20:	no release
+	- fixed a serious bug involving song format recognition in m68k
+	  sound core (fortunately most people use force by default option
+	  which disables song format recognition)
+	- added true global installation system
+
+2001-04-19:	version 0.21
+	- removed some of the sound bugs (concerns song and subsong changing)
+	- added new players (now supports at least 90 formats)
+
+2001-04-17:	no release
+	- subsong changing bug fixed ('defender of the crown' subsongs work
+	  now on xmms plugin)
+
+2001-04-15:	version 0.20
+	- new players & bug fixes
+
+2001-02-20:	no release (version 0.20-pre2)
+	- NTSC/PAL bug fixed
+	- private xmms plugins for different users supported in install scripts
+
+2001-02-08:	no release (version 0.20-pre1)
+	- NTSC/PAL option can be changed from gui preferences
+	- NTSC can be forced from cmdline with -ntsc
+
+2000-11-27:	version 0.10c
+	- UADE should work on FreeBSD 4.x now!
+	  (fixed src/Makefile and plugindir/Makefile)
+
+2000-11-21:	versio 0.10b
+	- fixed a Makefile bug that probably affected people who upgraded
+	  UADE from an older version
+	- put a proper version number into XMMS plugin:)
+
+2000-11-09:	version 0.10
+	- the GUI for XMMS plugin has been activated
+	- primitive fileinfo is now possible on XMMS plugin
+	- UADE plugin can be configured from XMMS preferences
+	- Subsongs can be changed easier now! Just click on the slider bar..
+	- Now supports about 75 players! I don't want to count them manually.
+	  I'll probably add automatic player counter into XMMS GUI in the
+	  future.
+	- got rid of the bloody pipe system that was used to transmit sound
+	  data from emulator to xmms plugin! Now uses RING-BUFFERING (more
+	  robust and efficient)
+	- I've been hacking a lot with the XMMS plugin, and improving sound
+          core too (that's why all those new players)
+
+2000-08-24:	version 0.02
+	Subsong changing for XMMS plugin added! Read the README for more
+	details.
+
+2000-08-22:	version 0.01h
+	Lots of small changes to code. Mainly changes considering code
+	maintainability. This release has no new features. Added a
+	configuration window into XMMS plugin. It doesn't really do anything
+	yet.
+
+2000-07-25:	no release
+	Added song's filename & playername into XMMS windows scroller. Set's
+	song length to TIMEOUT if timeout value is defined for songs in
+	~/.xmms/deliconfig. Renamed shd_* variables and functions into
+	uade_* variables and functions.
+
+2000-07-12:	no release
+	Removed some X86 machine dependencies. M68k-emulation is still
+	depending on X86 processor. This shouldn't be very hard to fix,
+	but I don't know how to compile generic version of gencpu.c so that
+	it creates proper cpuemu.c.
+
+2000-05-08:	version 0.01g
+	Added new features to xmms plugin: If song playes ZERO stream
+	continuously for 30 seconds, the plugin will change song. This is a
+	good feature for those formats that don't have proper songend signal.
+	If soundcore crashes or stops at deadend, the plugin will also change
+	the song.
+
+2000-04-28:	version 0.01f (Second Freshmeat release on 28.4.2000)
+	Fixed bugs in xmms plugin. Now it doesn't jam xmms so often unless
+	you hit play or next button repeatedly too fast.
+
+2000-04-25:	version 0.01e
+	Got message from delitracker authors about deliplayer copyright
+	issues. Hence all the previous distributions are removed from the
+	website => NEW RELEASE.
+
+2000-04-24:	no release
+	Added -execdebug switch to monitor usage of exec.library functions
+	in deliplayers. Why am I telling this to you ? You don't need
+	to know about this stuff ;-) Anyway, if someone reports a crash
+	on Custom module, using this switch might (should!) give information
+	about the crash...
+
+2000-04-22:	version 0.01d
+	Added AddIntServer() and timer.device and some IO functions into
+	sound core. At least 2 new custom songs work now: cust.james-pond-2
+	and cust.defender_of_the_crown. However, the problem with j-p-2 is
+	that subsongs must be changed dynamically during playing which
+	is not possible now in uade because there is no good user interface.
+
+2000-04-21:	no release
+	Added a sensible posix compliant tempname for shared memory maps
+	between uade and xmms plugin. XMMS plugin creates the memory
+	map file on initialization and UADE destroys it when XMMS plugin
+	has been terminated. XMMS Inputplugins don't have a cleanup
+	routine as far as I know (not too far?-) so this had to be done in
+	an annoying way.
+
+2000-04-20:	no release
+	Hacked with David Whittaker player. It seems that Whittaker
+	player is very flawed. I had to make some module format checking.
+	I hope in future we have a whittaker player in Uade that plays
+	all the modules... The problem is that there are so many 
+	variations of Whittaker modules out there. Each module has it's
+	own header :(
+
+2000-04-12:	version 0.01c (first Freshmeat release on 13.4.2000)
+	For some strange reason, I got crashes on virtual Amiga if I
+	compiled newcpu.c with -O2 option. Now I compile newcpu.c
+	without -O2 option and it works. (this was on gcc 2.95.2)
+
+2000-04-10:	version 0.01b
+	src/Makefile fixes (SMP support, thanks to flux !)
+
+2000-04-09:	version 0.01
+	Initial test-and-crash release. Loads of irritating debug messages.
+	Annoying crashes with plugin. Too effortful installation.

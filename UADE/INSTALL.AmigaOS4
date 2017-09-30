@@ -1,0 +1,20 @@
+AmigaOS4 version looks into PROGDIR: for players, score, uaerc and
+ENV/EaglePlayer, so keep these together.
+
+The audio output goes thru AHI V4 or later.
+
+Built with:
+
+$ CC=ppc-amigaos-gcc CFLAGS="-O3 -DUSE_OLD_ANCHORPATH -D__USE_INLINE__" \
+  LDFLAGS=-lauto ./configure --without-xmms --without-bmp \
+  --prefix=/secure/amiga/source/uade-1.02-ppc-amigaos-bin
+$ make
+
+Since it was cross compiled (I'm lying in bed with laptop), I had to build a
+separate gencpu and buil68k execs that run on the host machine, together with
+the object files needed.
+
+Hope it works ;)
+
+-- 
+Nicolas Mendoza < mendoza at pvv ntnu no >

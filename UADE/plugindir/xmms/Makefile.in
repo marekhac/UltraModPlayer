@@ -1,0 +1,131 @@
+# EDIT FOLLOWING VARIABLES
+
+# dir containing Input plugins for XMMS, if you don't have xmms-config
+# utility for some reason, you can insert it here manually:
+# I had /usr/local/lib/xmms/Input here originally
+
+VERSION = "{VERSION}"
+
+ARCHFLAGS = {ARCHFLAGS}
+ARCHLIBS = {ARCHLIBS}
+CC = {CC}
+
+# this is the most important path in the Makefile! The xmms plugin will be
+# installed into this path
+PLUGINDIR = {PLUGINDIR}
+
+# this is the directory prefix where files will be copied when you say
+# make install.. this is useful for those who create binary distributions
+PACKAGEPREFIX = {PACKAGEPREFIX}
+
+GLIBFLAGS = {GLIBFLAGS}
+GLIBLIBS = {GLIBLIBS}
+GTKFLAGS = {GTKFLAGS}
+GTKLIBS = {GTKLIBS}
+XMMSFLAGS = {XMMSFLAGS}
+XMMSLIBS = {XMMSLIBS}
+INCLUDEFLAG = {INCLUDEFLAG}
+LIBFLAG = {LIBFLAG}
+INSTALLER = {INSTALLER}
+
+DECDIR = ../../decrunch
+
+DEBUGFLAGS = {DEBUGFLAGS}
+
+UADEDEPS = uade.h defaults.h gui.h $(DECDIR)/decrunch.h
+INCLUDEFLAGS = -I. -I../../osdep -I../../effects -I../../src/include $(GLIBFLAGS) $(GTKFLAGS) $(XMMSFLAGS) $(INCLUDEFLAG)
+CFLAGS = -O2 -DHAVE_CONFIG_H -D_REENTRANT -DVERSION=\"$(VERSION)\" -W -Wall $(DEBUGFLAGS) $(ARCHFLAGS)
+LDFLAGS = $(LIBFLAG) $(GLIBLIBS) $(XMMSLIBS) $(ARCHLIBS)
+DECFLAGS  = -c -O2 -W -Wall -Wno-implicit-int -finline-functions $(ARCHFLAGS) $(DEBUGFLAGS)
+
+LIBTOOL = {LIBTOOL}
+
+# THERE SHOULDN'T BE ANYTHING TO EDIT AFTER THIS LINE
+
+OBJS = .libs/libuade.so .libs/libuade.la
+DECMODS = decrunch.lo depack.lo unsqsh.lo crc32.lo mmcmp.lo sc68.lo easo.lo
+MODS = uade.lo configure.lo about.lo fileinfo.lo subsongseek.lo scanfile.lo checksum.lo btree.lo md5c.lo amifilemagic.lo uade-os.lo dpiutil.lo modinfo.lo effects.lo
+
+$(OBJS):	$(MODS) $(DECMODS)
+	$(LIBTOOL) --mode=link $(CC) $(CFLAGS) $(INCLUDEFLAGS) $(LDFLAGS) -o libuade.la -rpath $(PLUGINDIR) -module -avoid-version $(MODS) $(DECMODS) -pthread
+
+uade.lo:	uade.c defaults.c $(UADEDEPS) ../../osdep/uadeconfig.h
+	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(INCLUDEFLAGS) -c uade.c
+
+fileinfo.lo:	fileinfo.c $(UADEDEPS)
+	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(INCLUDEFLAGS) -c fileinfo.c
+
+subsongseek.lo:	subsongseek.c $(UADEDEPS)
+	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(INCLUDEFLAGS) -c subsongseek.c
+
+about.lo:	about.c $(UADEDEPS)
+	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(INCLUDEFLAGS) -c about.c
+
+configure.lo:	configure.c $(UADEDEPS)
+	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(INCLUDEFLAGS) -c configure.c
+
+scanfile.lo:	scanfile.c $(UADEDEPS)
+	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(INCLUDEFLAGS) -c scanfile.c
+
+modinfo.lo:	modinfo.c $(UADEDEPS)
+	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(INCLUDEFLAGS) -c modinfo.c
+
+checksum.lo:	checksum.c checksum.h md5.h
+	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(INCLUDEFLAGS) -c checksum.c
+
+md5c.lo:	md5c.c md5.h
+	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(INCLUDEFLAGS) -c md5c.c
+
+btree.lo:	btree.c btree.h
+	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(INCLUDEFLAGS) -c btree.c
+
+amifilemagic.lo:	amifilemagic.c
+	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(INCLUDEFLAGS) -c amifilemagic.c
+
+dpiutil.lo:	dpiutil.c dpiutil.h ../../contrib/dpiutil.c
+	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(INCLUDEFLAGS) -c dpiutil.c
+
+uade-os.lo:	uade-os.c ../../osdep/uade-os.c ../../osdep/uade-os.h ../../osdep/uade-os-unix.c ../../osdep/uade-os-unix.h ../../osdep/uadeconfig.h
+	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(INCLUDEFLAGS) -c uade-os.c
+
+effects.lo:	effects.c ../../effects/effects.c ../../effects/effects.h
+	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(INCLUDEFLAGS) -c effects.c
+
+decrunch.lo:	$(DECDIR)/decrunch.c
+	$(LIBTOOL) --mode=compile $(CC) $(DECFLAGS) $<
+
+depack.lo:	$(DECDIR)/depack.c
+	$(LIBTOOL) --mode=compile $(CC) $(DECFLAGS) $<
+
+unsqsh.lo:	$(DECDIR)/unsqsh.c
+	$(LIBTOOL) --mode=compile $(CC) $(DECFLAGS) $<
+
+crc32.lo:	$(DECDIR)/crc32.c
+	$(LIBTOOL) --mode=compile $(CC) $(DECFLAGS) $<
+
+mmcmp.lo:	$(DECDIR)/mmcmp.c
+	$(LIBTOOL) --mode=compile $(CC) $(DECFLAGS) $<
+
+sc68.lo:	$(DECDIR)/sc68.c
+	$(LIBTOOL) --mode=compile $(CC) $(DECFLAGS) $<
+
+easo.lo:	$(DECDIR)/easo.c
+	$(LIBTOOL) --mode=compile $(CC) $(DECFLAGS) $<
+
+clean:	
+	rm -f *.la
+	rm -f *.lo
+	rm -f *.o
+	rm -f .libs/lib*
+
+install:	$(OBJS)
+	mkdir -p "$(PACKAGEPREFIX)/$(PLUGINDIR)"
+	@test -f "$(PLUGINDIR)/libdeli.so" && echo "WARNING: An old libdeli.so exist in $(PLUGINDIR): please delete it manually" || true
+	$(INSTALLER) .libs/libuade.la "$(PACKAGEPREFIX)/$(PLUGINDIR)"
+	$(INSTALLER) .libs/libuade.so "$(PACKAGEPREFIX)/$(PLUGINDIR)"
+	@echo "xmms plugin installed to:"
+	@echo "	" $(PLUGINDIR)
+
+uninstall:	
+	rm -f "$(PLUGINDIR)/libuade.la"
+	rm -f "$(PLUGINDIR)/libuade.so"

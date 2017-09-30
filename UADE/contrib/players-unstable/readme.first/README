@@ -1,0 +1,10 @@
+In contrib/players-unstable/ you can find some
+additional or replacement deliplayers that are
+currently in development or were hacked to work
+with uade.
+
+Installation:
+-------------
+To install the unstable players, copy them along with
+the accompanying "uadeformats" into the directory where
+your deliplayers are installed.

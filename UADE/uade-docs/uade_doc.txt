@@ -1,0 +1,942 @@
+A small users guide to Unix Amiga Delitracker Emulator (UADE):
+==============================================================
+
+A. General:
+	A.1 Description
+	A.2 Motivation
+	A.3 Technical
+	A.4 Compatibility
+	A.5 Legal issues
+	A.6 Requirements
+	A.7 Installation
+
+
+B.Usage:
+
+ B.1 UADE - The console app
+    B.1.1	The console switches
+    B.1.2	Redirecting the output
+
+  B.2 uade xmms input plugin
+    B.2.1 Changing Subsongs
+    B.2.2 Fileinfo
+    B.2.3 Configuring the plugin
+        B.2.3.1	Options
+	    B.2.3.1-2	PAL/NTSC timing
+	    B.2.3.1-3	Panning
+	    B.2.3.1-4	Volume
+	
+	B.2.3.1-5 Timeout & Songend
+	B.2.3.1-6 Compatibility options
+	B.2.3.2	GUI
+	    B.2.3.2-1	configuration of the subsong changer
+			+ alternative subsongs changing function for remotes
+	B.2.3.3 System
+	    B.2.3.3-1	Systempaths
+	    B.2.3.3-2	optimized filescaning for the playlist
+	    B.2.3.3-3	uadeformats file
+			uadeformats editor
+
+    B.2.4 the About requester ;)
+    B.2.5 the playtime database
+
+
+  B.3 other "frontends"
+	B.3.1 pwrap.pl perl frontend 
+
+C. Hints and Tips
+
+D. Credits
+
+E. Contact
+
+
+
+A. General:
+===========
+
+Notes: 
+-----
+This software is OSI Certified Open Source Software.
+OSI Certified is a certification mark of the Open Source Initiative.
+
+For more information see:
+	http://www.opensource.org/
+
+
+A.1 Description
+----------------
+UADE is a replayer for old amiga music file formats. It uses an UAE emulation 
+of the AMIGA Hardware and a cloned m68k-assembler Amiga delitracker API to
+be able to replay those tunes again on platforms other than the original AMIGA.
+
+
+Motivation
+----------
+With the cloned delitracker API you don't have to port old replay routines
+from the Amiga into C or another highlevel programming language, you can
+re-use the already existing Deliplayers to play those files back.
+
+Using this Emulation approach UADE is also able to play some amount of
+Delitracker-Custom modules and other music formats that come with their
+replaying code in the module, too.
+
+CPU power is not abundant these days, so uade is able to run m86k playroutines
+on the amiga hardware emulation (both custom chipset and m68k emulation) in an
+acceptable speed and good quality.
+
+These amiga playroutines should mostly be bugfree(tm) and even now new
+replayers are being implemented on the Amiga (or as the very first AMIGA Virus
+stated it so nicely: "Something wonderful has happened, your Amiga is alive";),
+so porting all these exotic replays will be an tremendous if not impossible job.
+The third alternative would be to record and convert old songs into mp3's or
+similar, by plugging the AMI into a stereo rack or the line-in of your
+soundcard.
+
+
+Technical
+---------
+All the external players are run in emulation with a patched UAE. The players
+use an Eagleplayer/delitracker player API, which is implemented
+in the sound core module (abbrev: score). The score is written in m68k
+assembler. The API was reverse engineered for compability reasons from
+available documentation, source and other material (for interested people:
+no version of delitracker program was disassembled). The score file also
+contains some replacement kickstart rom functions that are needed by
+some players to function correctly.
+
+The original Amiga(tm) kickstart rom can not be used since it's a proprietary
+software and therefore copyrighted.
+
+Uade is a patched to communicate with score indirectly. Score messages uade 
+for such things as end of song and other information regarding played
+songs and UADE provides score with the deliplayer, the external amiga binary
+that contains the playroutine, and the module that this playroutine should
+play.
+
+You can find the sources to "score" in the amigasrc/ directory of your
+uade distribution.
+
+
+Compatibility:
+--------------
+UADE is still in its development, so not all replayers and custom-songs
+will work, yet. Among the up to now supported formats are Deltamusic, Sidmon,
+Hippel, Whittaker, Fredmon, MON, Soundfx, ArtOfNoise and many more,
+An exact number of how many formats is a bit hard to say, and is, imho, not
+really important... It's a fair amount so you will be already able to play a
+good deal of the available amiga musics. ;)))
+
+But for an incomplete list of tested, supported and unsupported replayers
+(plus some more infos and also some links where one can find some music) refer
+to the current uade-docs/FORMATS file.
+
+
+Legal issues
+------------
+GPL:
+Since UADE is based on UAE 0.8.9, the copyright is also GNU GPL. See the
+COPYING file for further info on the GNU Public License.
+All authors of original UAE can be found from directory 'docs'. Read those
+files!
+
+Plugindir contains code from me and some XMMS authors. All credits are in
+the beginning of header/source files. XMMS plugin was modified from wav
+input plugin (Copyright (C) 1998-1999  Peter Alm, Mikael Alm, Olle Hallnas,
+Thomas Nilsson and 4Front Technologies)
+
+The UADE sound core and UADE is placed under LGPL/GPL of course. You can find
+the sources to "score" in the amigasrc/ directory of your uade distribution.
+
+USE THIS PROGRAM ONLY AT YOUR OWN RISK ! If this program destroys your data
+I'm interested in finding the bug, but I'm not responsible for the damages.
+
+
+Non GPL:
+Delitracker and Deliplayer/Win is copyrighted and written by Frank Riffel
+and Peter Kunath.
+
+The external players (in 'players' directory) are copyrighted by
+their respective owners (use contrib/dpi :).
+Some Deliplayers are restricted.
+Not all players in 'players' directory fall to copyrights of Peter
+Kunath and Frank Riffel.
+
+Note: Deliplayers by delitracker owners are not generally freely copyable,
+but they are in this distribution.
+I have got permission from the authors of Delitracker and the authors of
+some additional deli/eagleplayers to distribute their replayers.
+However their players aren't licensed under GPL!
+
+Thanks has to go to all people who implemented players for either the Amiga
+D'tracker, or Eagleplayer, and especially to Don Adan and Wanted Team
+[http://amiga.emucamp.com/wt/wt.html], who are still developing new and
+improved players for formats like Dave Lowe, Richard Joseph, TFMX for the
+Amiga Eagleplayer, and who were so kind to let them use with uade and for
+all his help. 
+
+Tune(s):
+The current uade test tune AHX.Cruisin is (c) 1997 by Manfred Linzner
+alias Pink/Abyss <linzner@shinen.com>. 
+It's part of 40k-intro compo for TP7 that made #2 in the competition.
+For more info from Pink himself about the song read AHX.Cruisin.txt
+in the songs/ahx/ folder.
+
+Thanks a lot to Pink/Abyss for giving permission to letting us use his tune
+with uade! And of course greetings to the rest of the ahx crew, too.
+For more music from Pink/Abyss check out Pink's homepage at:
+->    http://www.shinen.com/music
+
+
+Requirements
+------------
+
+supported platforms by UADE:
+			GNU/Linux (alpha, pa-risc, ppc, playstation2, x86)
+			Free/OpenBSD (x86)
+			Solaris (sparc)
+			IRIX (mips)
+			Digital Alpha Unix
+			MorphOS (ppc)
+			AmigaOS (ppc)
+			Mac OS X (ppc)
+
+UADE (console app):
+	GNU/Linux + FreeBSD: 	OSS sound output
+	Sparc/Solaris: 		native sound output		
+	IRIX/mips: 		Silicon Graphics Audio Library output
+	MorphOS: 		AHI sound output
+    AmigaOS:		AHI sound output
+	Mac OS X:		CoreAudio sound output
+
+	for platforms supported by SDL sound output:
+	libsdl:	http://www.libsdl.org
+
+pwrap.pl (perl interface):
+
+	console: perl 5.x.y
+	TK-UI for x11: tk
+
+XMMS plugin:
+	GNU libtool (any version new enough should do)
+		example download sites:
+		ftp://ftp.gnu.org/pub/gnu/libtool/libtool-1.3.4.tar.gz
+		ftp://ftp.funet.fi/pub/gnu/gnu/libtool/libtool-1.3.4.tar.gz
+
+	GTK/GLIB: http://www.gtk.org
+
+	XMMS 1.2.x (at least 1.2.2 is enough, perhaps an older xmms will do)
+
+
+
+
+Installation:
+--------------
+
+    ./configure --help		shows some compile time options for uade
+
+Please refer to the INSTALL file in the toplevel of the uade distribution for
+further infos on how to compile and install UADE.
+
+
+UADE is aiming to be compliant towards the lsb. (see: http://www.linuxbase.org)
+
+
+B. Usage:
+==========
+UADE comes in several flavours. A basic console tool where you
+can pass the music file, and/or the dedicated replayer and some other
+options with pwrap.pl - a perl frontend for the uade console app -
+and the XMMS plugin. 
+
+
+All have also support for packed/archived/crunched fileformats.
+(Note: some archive formats  only get depacked  if you have the neccessary
+compressor/decompressor installed, e.g. lha, zip, unrar)
+
+B.1 UADE - the console app:
+---------------------------
+
+If you don't want to use or don't need a GUI/UI like pwrap.pl or the xmms
+plugin with playlists and such, or want to use it with applications
+like xhippo, in scripts or with a browser plugin like plugger, you can use
+uade's basic console tool "uade" for playing the amiga music.
+
+From version 0.70 on uade is also able to play the music now without having
+to mess around with the -P or -M console switches if you don't want it.
+Uade now also take the filenames only and tries to figure out which replayer
+to use (provided it can detect the musictype or the prefix/suffix is right)
+
+Invoking UADE with -i switch from console enters the interactive shell mode.
+ In interactive mode, you can switch to a subsong by entering the number of the
+ subsong and pressing <enter>. 
+ You can also switch to the next song by entering "n" and then hitting enter.
+
+You can play one or more music files just by passing the filename to uade
+like:
+
+        uade path/filename(s) [switches]
+
+    E.g.:
+        uade cust.betrayal
+    
+    or
+        uade customs/*
+    
+
+    Controls while playing:
+
+        <ctrl> + <c> 		will skip to next song in the list
+        <ctrl> + <alt gr> + <\>	will end playing
+
+
+B.1.1	The console switches
+
+	-P playername	the filename of the deliplayer.
+
+			NOTE about Custom songs: CUST.* files are a bit
+			special. They are basically more like players than
+			like modules.
+			So in order to play them you pass them with the -P
+			switch to uade. Uade should know how to handle them,
+			then.
+
+
+	-M modulename	the filename of the module to be played with the
+			deliplayer. (For custom songs use the -P switch)
+
+	-S score	if you want to use a different score file
+
+	-force		sometimes it's neccessary to "persuade" the
+			deliplayers to play a certain song.
+			To force module checks to always valid, use
+			this switch and all modules are accepted and
+			the deliplayer tries to play it anyway.
+
+			(Warning! You overide the sanity checks of the replays
+			 with this switch. this may crash the virtual amiga 
+			 when used. Use it when you are really sure what you
+			 are doing)
+
+	-sub n		chooses subsong n
+
+	-outpipe n	dumps the data that would be written to /dev/dsp
+			to pipe n (for example n=1=stdout)
+
+	-pipe n pid	yet non-documented pipe feature that allows to
+			use uade as xmms-plugin. Uses shared
+			memory mapping.. (mmap using tmp file)
+			DON'T TOUCH THIS!
+
+	-config=file	you can give uae's configuration file with this
+			parameter
+
+	-ntsc		forces amiga to have 60 Hz screen refresh rate
+			(this is mostly an useless option, remember that
+			Amiga code can change refresh rate by itself)
+
+	-voltest	Override volume setting by the replayers
+			(for testing purposes only)
+			
+	-dmawait n	tune the dmawait value
+			(for testing purposes only)
+
+	-noend		play music ad infinitum, by ignoring songend
+			messages. (no need to read the src anymore, asle;)
+	
+	-one		play subsong and end, instead of playing
+			all subsongs sequentially. Useful for recording
+			one subsong at a time.
+
+	-repeat		repeat all files at the end of the filequeue
+
+	-pan n		panning (aka channel mixing aka stereo seperation).
+			with n being any value between 0=full stereo and 
+		        1=full mono.
+
+	-t n		sets the overall playtime in seconds to play a song
+			and all its subsongs.
+			(useful for recording "endless" songs)
+
+	-st n		change to next subsong after n secs of playing,
+			 works like a "scan" feature to be found on cd
+			 players. (useful for recording "endless songs)
+
+	-sit n		sets the "silence timeout", the time uade waits during
+			silence to decide the songs is over, to n secs.
+
+	-d		enter UAE debugger. Useful for ...er... well
+			debugging and maybe for doing memory dumps for
+			finding converted/unpacked music in the virtual
+			amiga memory.
+
+	-sh		enable speedhack (run the replayer with 1 instruction
+			per second)
+
+	-no-sh		disable speedhack (even if the replayer tries to use
+			it)
+
+	-f		toggle lowpass filter
+
+	-i		interactive command line shell: 
+			e.g.:
+
+			h + <enter>	-> help	
+			n + <enter>	-> next song
+			1 + <enter>	-> jump to subsong 1
+			5 + <enter>	-> jump to subsong 5
+			etc.
+
+
+ Examples:	uade -P players/ArtOfNoise -M music/AON.big_deal
+
+		   would play the musicfile AON.big_deal in music/ with the
+		   the ArtOfNoise replayer binary on players/
+
+		uade -P players/ArtOfNoise -M music/AON.big_deal -force
+
+		   would play the musicfile AON.big_deal in music/ with the
+		   the ArtOfNoise replayer binary in players/, even if the
+		   player would reject the file as a valid music file for it.
+
+		uade -P CUST.MyFavouriteCustomSong
+
+		   would cause uade to play the custom tune that was
+		   passed to score with the -P switch
+
+		uade -P CUST.MyFavouriteCustomSong -sub 2
+
+		   would cause uade to play the 2nd subsong of the 
+		   custom tune that was passed to score with the -P switch
+
+	
+		uade -P CUST.MyFavouriteCustomSong -ntsc
+
+		   would cause uade to play the music in NTSC speed
+		   (only if the player or in this case the Custom song
+		    supports it;) 
+
+
+Note: When you run uade, 'uaerc' and 'score' files must exist in current
+directory or in ~/.xmms/uade ! If needed, the files 'uaerc' and 'score'
+can be obtained from the main dir of this software distribution.
+
+
+
+B.1.2	Redirecting the output:
+--------------------------------
+The console tool also provides the possibility to redirect the UAE audio
+output to either save it to disk for further use, like converting it
+to a wavefile or encoding it as mp3 or ogg, or to pipe the output directly
+to other applications, that can read their input from stdin/stdout.
+
+E.g. dumping audio stream to stdout and converting it to wav and ogg vorbis
+formats:
+
+	./uade -P players/FC1.3 -M songs/future_composer/fc13.smod7 -outpipe 1 >./music.raw
+	sox -t raw -r 44100 -c 2 -s -w ./music.raw ./music.wav
+	oggenc music.wav
+
+on AmigaOS/MorphOS you might want to do:
+
+	./uade -P players/FC1.3 -M songs/future_composer/fc13.smod7 -outpipe 1 > "AUDIO:B=16 F=44100 C=2"
+
+Another example:
+
+	for i in `seq 1 3` ; do uade songfile -pan 1 -one -sub $i -outpipe 1 > sub.$i.raw ; sox -t raw -r 44100 -c 2 -s -w sub.$i.raw sub.$i.wav ; rm sub.$i.raw ; done
+	will record subsongs 1-3 into separate wav files, with panning = 1
+	(mono). You may want to make a shell script out of this.
+
+B.2 UADE XMMS input plugin
+==========================
+For people that prefer a GUI rather than plain console apps and their
+switches or those who just want to listen to their music with XMMS and take
+advantage of it's features like playlists, different output, effect and
+visual plugins ("disco tux" rocks!;) there's also a UADE XMMS input plugin.
+
+All the options of the console app can be configured by a more user friendly
+graphical interface, songend, subsongs or ntsc speed can now switched on the
+fly, music files are detected by their file prefix or extension.
+
+From UADE 0.40 the xmms plugin comes also with a filetype detection for some
+few formats, now. (It slows down loading a huge playlist, though:)
+
+
+B.2.1 Changing Subsongs
+------------------------
+To change subsongs in the XMMS plugin, just click on the area
+where you would normally seek into an mp3. A small popup
+window should appear.
+With the arrow buttons you can go to the previous or next subsong, with
+the slider you select the subsong number you want to listen to directly.
+
+If you think the music file is playing too slow it might be that the 
+music was originally written for an NTSC Amiga and the replayer uses a 
+Vertical Blank timed replay.
+
+For changing the play speed from PAL to NTSC just enable the "ntsc" toggle
+and wait a short while, it should play faster if the ntsc toggle is on, then.
+
+To get rid of the subsong changer popup just focus/activate a different
+window.
+
+Note:	The subsong changer is configurable by UADE Configure. People
+	that don't like the default position of the arrow buttons on top and
+	bottom of the slider can choose a different setup.
+	People with remote controls can disable the popup for a different
+	more compatible method, too. 
+	(see below, "Configuring the plugin")
+
+
+B.2.2 Fileinfo
+---------------
+UADE also supports in a simple way the XMMS fileinfo.
+Currently the played filename or when the replayer supports it the real name of
+the song, some fancy comment ;), the format name of the responsible replayer,
+and the number of minimal, maximal and currently played subsong is displayed,
+so far.
+
+
+B.2.3 Configuring the plugin
+-----------------------------
+
+To configure the plugin, open the XMMS preferences and look for the uade plugin
+in the list of available plugins. If you select UADE in that list and click on
+configure you'll get a configuration Window, where you can set and alter
+several uade options.
+The configuration window is divided in several "pages":
+
+
+B.2.3.1	Options
+
+B.2.3.1-2	PAL/NTSC timing
+
+	[ ] use NTSC[60hz]	- for replayers with Vertical Blank Interrupt
+				  timing and modules that play a bit slow
+				  now.
+B.2.3.1-3	Panning (%)
+
+	[ ] enable [-{}-------]	- mixes the x% of the left channel to the
+				  right and x% of the right to the left
+				  channel. (e.g. for better listening with
+				  headphones).
+B.2.3.1-4	Volume (%)
+
+	[ ] enable [-{}-------]	- adjusts the volume level of the sound
+				  of the uade plugin.
+
+
+B.2.3.1-5	Timeout & Songend
+
+Most Amiga replays do not support playing time. So uade does not know
+how long a certain music is.
+Some replayers however signal if the song is over and uade honours this
+feature if the player supports it.
+Unfortunately not all Amiga replayers support songend and on the Amiga the
+music is played in an infinite loop until the user switched the songs manually.
+With the following options you can change this timeout and songend behaviour.
+
+	Timeout: (min/sec)	- Here you can enter the playtime when uade
+				  should end the current song and change to the
+				  next one in the playlist
+
+	[ ] timeout for endless modules 
+
+				- to enable the timeout value for infinite
+				  modules activate this option.
+				  NOTE: UADE will also end a song that is
+					plays longer than the timeout for
+					replayers that support songend
+
+	[ ] songend enabled	- useful if you have music files with
+				  very short subsongs and replayers that
+				  support songend to switch through all
+				  subsongs with the subsong changer.
+
+
+	[ ] play subsongs in sequence
+	
+				- on songend or timeout go to the next
+				  subsong rather instead to the next file.
+				  (This option is only working if songend
+				   and/or timeout is enabled !)
+
+
+	Timeout after silence (sec) 
+				- enter the time in seconds uade should
+				  interpret a period of silence as songend.
+				   
+
+B.2.3.1-6	Compatibility options
+
+	[ ] detect some files by contents...
+
+				- normally UADE relies on the right Prefix
+				  or Extension of in the filename of the
+				  music file to choose the right replay.
+				  With this option uade tries to detect
+				  files by it's contents and chooses
+				  the right player, then. 
+				  Very handy if the prefix/extension is
+				  wrong to detect the right format
+				  Works only for some formats, yet.
+
+	[ ] decrunch packed files before filecheck
+
+				- If you also want uade to analyze crunched
+				  files for its contents to choose the right
+				  player, enable this option.
+
+	Note: both of above 2 options can slow down the loading and processing
+	      of the xmms playlist a lot.
+
+	[ ] force deliplayers to play tunes
+
+				- always try to play a file with a replayer,
+				  even if it refuses to play. This option
+				  makes it e.g. also possible to play some
+				  formats with wrong replayers:
+				  SM1 with SM2, INS with SYN replayer.
+
+
+	Note:all these options are off by default
+
+
+B.2.3.2	GUI
+
+B.2.3.2-1	configuration of the subsong changer
+
+	[ ] arrows on left and right	-put prev/next subsong buttons on left
+					 and right end of the changer
+					 
+	[ ] arrows on top and bottom	- put the prev/next subsong buttons
+					  on top and bottom of the changer.
+					  (handy for people with a WM with
+					   autofocus policy)
+
+	Note: You could also create a subsong changer with no arrows buttons
+	      or - if someone really wants;- with arrow buttons on left, right,
+	      top, bottom. (It's not a bug... it's feature ;)
+
+
+	[ ] disable uade's subsong changer...
+
+					- for people with remote controls.
+					  the subsong is changed by the xmms 
+					  seek slider bar. 
+					  next subsong = movement in positive
+					  direction
+					  previous subsong = movement in
+					  negative direction.
+					  (suggested by Mikael Bouillot)
+
+
+B.2.3.3 System
+
+B.2.3.3-1	Systempaths
+
+	(obsolete)
+
+B.2.3.3-2	optimized filescaning for the playlist
+
+	[ ] optimize Filescanning	- enables a cache to speed up the
+					  filescanning for the playlist.
+
+	optional filetype creation:
+	
+	if you compiled the xmms plugin with mimetype generation for
+	Konqueror or rox filemanager a button to create the mimetype for
+	those filemanagers appears here.
+
+B.2.3.3-3	uadeformats file
+
+Unlike the Amiga Delitracker who "talked" to its deliplayers directly about
+who plays what, uade uses a kind of workaround and tries to detect the files
+by their file prefix or file extension.
+
+The reason are among other things speed related, because of the way XMMS
+builds up it's playlist and the speed of the emulation.
+
+The information about which prefix/extension belongs to what player is stored
+in a file called uadeformats in the deliplayers/ directory.
+
+The xmms plugin _relies_ on the infos in this file (even if you enable
+"detect file by contents") and so it is a good idea to stick to the correct
+prefixes and extensions of the music formats both in the uadeformats file but
+also with naming the music files themselves.
+E.g. A Hippel(HIP) and a Hippel-coso(HIPC) are not the same format and
+therefore have both different prefixes and use different replayers. So,
+renaming all his Amiga music files to *.mod is a very bad idea ;))) 
+
+Btw.  beside a list of supported/unsupported replayers, you can also
+find the default prefixes in the brackets behind the working Musicformats
+in the "uade-docs/formats.txt" file.
+
+
+The editor:
+if you click on "edit uadeformats file..." you'll get a simple editor for
+this database. You get a list with already known pref/suffix and player
+combinations, and can add new ones, edit or erase existing ones. The drop
+down box contains the list of the available players in your "players dir:"
+path. 
+If you press "ok" or "apply" all modifications are saved,
+if you press cancel you exit the editor without saving the changes.
+
+
+B.2.4 the About requester ;)
+----------------------------
+
+Among the Credits (read it, those are people who helped us a lot and deserve
+it to be credited) and the GPL there a little page with some hints and tips
+as well.
+
+
+B.2.5 the playtime database
+---------------------------
+
+One big problem of the deli and eagleplayer on the amiga is there's no real
+possibility of detecting the duration of the music. Eagleplayer addressed 
+this in a kind of way but unfortunately only for the first subsong and only
+for some formats.
+
+From uade-0.51 on there's now a workaround for this lack of feature. Uade
+"learns" and "remembers" the duration of a music file when it was played to 
+the end. So, when you next time load this music, uade gets the information
+from a database in the .xmms/uade user directory to display the playtime
+of the file.  Files will be determined by it's contents and also for fast
+playlist display by the name. If you play a renamed file it will still be
+recognized by the database by it's contents and a new entry in name database
+will be put. The more files you play the larger your database will grow.
+
+Note: this features is only available for replayers that support songend and
+only files that played through without interruption will be put into the
+database. If you play the subsongs sequentially the duration of the overall
+playtime of all subsongs together is stored.
+
+
+Merging two databases can be done easily with "cat":
+
+    cat newdatabase >> olddatabase
+
+...will add the new database to the old one.
+
+
+B.3 other "frontends"
+---------------------
+
+There's an alternative frontend  for users who can't or don't want to
+use xmms, and find the plain uade executable far too spartanic.
+
+
+B.3.1 pwrap.pl perl frontend 
+----------------------------
+
+A userfriendly perl frontend by Meleth with playlists, randomplay,
+subsong skipping, etc.
+
+Usage:	pwrap.pl --help		for help on all options
+	pwrap.pl		start as console app
+	pwrap.pl --tk		start as perl/tk app
+
+Use the numberkeypad (with NumLock on) to control ffd, skip etc,
+while running in console mode.
+
+
+C. Hints and Tips
+=================
+
+   Do some deliplayers refuse to play the
+    modules? Try enabling 'force deliplayer
+    to play the tunes you chose'
+
+    For a very nice pseudo surround effect get
+    David Le Corfec's FX Toolbox plugin from
+    the effects plugins page on the xmms
+    homepage.
+
+    For a ported AHX and TFMX player get
+    David Le Corfec's plugins from the
+    input plugins page on the xmms
+    homepage.
+
+    For playing a lot of Protracker clones get
+    yourself XMP from http://xmp.sf.net
+    BTW. XMP has also an experimental xmms plugin.
+    
+    A Futurecomposer reference player for unix
+    by Michael Schwendt is available on the
+    xmms input plugins page
+
+    For ripping Amiga music yourself on a PC class
+    machine get yourself prowiz for pc by Sylvain 'Asle'
+    Chipaux
+
+    For live streaming your amiga tunes get
+    the LiveIce plugin from the xmms homepage
+    
+    For heaps of Amiga tunes and nostalgia visit
+    the Exotica Webpage at: http://exotica.fix.no
+
+    For more info on Amiga fileformats and replays
+    visit: http://perso.club-internet.fr/lclevy/exotica
+    
+    For live streamed Amiga and Scene music go to:
+    http://nectarine.ojuice.net
+
+
+D. Credits
+==========
+
+Initiator and maintainer of the UADE project:
+	Heikki Orsila
+	heikki.orsila@iki.fi
+
+Additional development:
+ 	Michael Doering
+	mld@users.sourceforge.net
+
+pwrap.pl perlfrontend:
+	Meleth
+
+morphos port:
+	Harry "piru" Sintonen
+
+mac os x port:
+	Michael Baltaks, Stuart 'kyzer' Caie
+
+amiga os port based on morphos port:
+	Nicolas A. Mendoza
+
+configure fixes and enhancements:
+	Martin Blapp
+
+
+Thanks to:
+    Eagleeye/Defect and Buggs/Defect for their kind
+    permission to include their eagleplayers along with
+    uade...
+		   
+    Don Adan and the Wanted Team who are doing an excellent
+    job with all their eagleplayers (keep up the good work!),
+    the subsong probing for PT and infos and help. 
+    Read their EP.*.readmes or do visit their website at:
+    http://www.emucamp.com/amiga/wt/wt.html
+
+    Paul v.d. Valk, for permission to use his  Medley replay
+    routine with uade.
+
+    Tap & Walt to let us use their digibooster example src
+    with uade. (Greetings to the friendly folks at
+    http://www.highantdev2.de/dbpro/index.php)
+
+    Brian Postma <b.postma@hetnet.nl> for putting
+    his sources into the public domain and permission to
+    use it to adapt a bp3/soundmon2.2 replayer
+    For the sources and some tunes visit:
+    http://www.homepages.hetnet.nl/~brianpostma
+
+    Nicolas Pomarede <npomarede@kaptech.com> for his
+    permission to distribute his MYST/YMST replayer
+    along with uade.
+    You can find the complete MYST archive files with
+    songs and replays on Aminet at:
+    http://aminet.net/~aminet/dirs/mus/play/MYST_*.lha
+
+    Stephen Mifsud (Malta) <teknologik@technologist.com> for
+    making his Darius Zendeh replayer opensource. (thanks!:)
+    For further info about the DZ replayer and its license
+    check for the full source code and StephenMifsud.txt in the 
+    amigasrc/players/dz/ of your uade source distribution.
+    For his homepage pay a visit at: http://www.marz-kreations.com
+
+    Bartman/Abyss for his permission to distribute their
+    AHX_v2 replayer by Dexter/Abyss along with uade.
+    Visit Abyss' homepage: http://www.the-leader-of-the-eighties.de :)
+
+    Pink/Abyss for letting us use his great AHX.Cruisin as test song
+    UADE.
+    For more of his music visit: http://www.shinen.com/music/
+
+    Sean Connolly for releasing his nice mutlichannle EMS_V6 replay
+    routine... For his Webpage visit: http://www.cosine-systems.com/
+
+    Nicolas Franck <gryzor@club-internet.fr> for his permission
+    to use his brillant deli/prowiz converter with uade!
+
+    Whittaker playermodule V4.1 (27-Jan-95) adapted
+    by marley/INFECT
+
+    Andy Silva <silva@psi5.com> for his sources and permission to 
+    include his players.
+
+    Sunbeam/Shelter for his replayers
+
+    Laurent Clévy and BuZz from the Exotica webpage,
+    http://exotica.fix.no, for their help getting in contact
+    with authors of deli/eagleplayers, and for providing
+    some additional players for testing.
+
+    Claudio Matsuoka and Hipolito Carraro Jr of the xmp
+    module player (http://xmp.sf.net). Uade's
+    module and player decrunching is based on their
+    xmp unpack code with decr. routines by:
+    - jah@fh-zwickau.de (unsqsh),
+    - Sipos Attila (unsqsh chksum),
+    - Olivier Lapicque (mmcp),
+    - Marc Espie (old depack.c)
+
+    Dirk Stoecker for his valuable info and help on
+    decrunching and detecting corrupt pp20 files and
+    Georg Hörmann, the old pp20 detection is based on
+    code by him.
+
+    Stuart Caie <kyzer@4u.net>. The current and more
+    robust depack.c for powerpacker decrunching is based
+    on his portable powerpacker decrypter.
+    Visit his page http://www.kyz.uklinux.net for a lot
+    of Amiga related decrunching routines.
+
+    Xigh, Sylvain, and Matti Tiainen for getting BSD4.x
+    support on the way.
+
+    Meleth for bugfixes and suggestions concerning
+    compilation on Solaris. 
+    improvements on the configure, installation, the former
+    playuade console wrapper and maintaining the pwrap.pl script.
+
+    Michael Baltaks for getting Mac OS-X (Darwin) support
+    on the way.
+
+    The PTK player is based on a replay by The Welder/Divine
+		    
+    Sylvain Chipaux for his valuable help, support, infos and
+    testtunes on ptk and its clones.
+
+    David Olofson <david@olofson.net> http://olfoson.net for the
+    idea and patches related to ntsc/pal switching
+
+    Of course, all the UAE people for uae, their amiga
+    emulator. Do read their docs/Credits and
+    docs/README
+
+    and anyone we have forgotten...
+
+Disclaimer:
+    Eagleplayer is originally written by Eagleeye and Buggs of Defect.
+    The eagleplayer homepage with EP 2.01 beta can be found at:
+    http://www.eagleplayer.de.
+    The last Amiga Eagleplayer Version 1.54c is available on Aminet.
+
+    The original Amiga Delitracker, which is also available on Aminet and 
+    Deliplayer for Windows [http://www.delitracker.com] is copyrighted
+    and written by Frank Riffel, Florian Vorberger and Peter Kunath.
+
+    Amiga is a (tm) of Amiga Inc... (or least I think they own the (tm)
+    at the moment;)
+
+E. Contact:
+-----------
+
+For bugreports, suggestions or if you think you can help this project to be
+more compatible with different platforms, don't hesitate to contact. Write to:
+Heikki Orsila <heikki.orsila@iki.fi>

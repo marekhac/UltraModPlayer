@@ -1,0 +1,49 @@
+(note: this very replayer is not used anymore by uade, but
+ one by Wanted Team. Marley's DW replayer however
+ accompanied uade up to now and made it play more or less
+ all David Whittaker files very early, so as a matter of
+ gratitude for the replayer and it's author this file is kept
+ in the uade distribution
+ 
+ For those who wonder why suddenly some of the Whittaker files
+ don't play anymore:
+ DW.Bubble_Bobble - possibly it's a bad rip of Bubble_Bubble,
+ for one that plays fine have a look on UnExotica.
+ DW.Feud_fake - as Marley already wondered about. Feud is a
+ an old JasonBrooke module. A working JCBO.Feud is on Wanted Team's
+ homepage.)
+
+
+--- Marley's Original Readme starts here ---
+Short:    V4.1 For EaglePlayer/DeliTracker
+Uploader: marley@csmd.cs.tu-magdeburg.de (Mark Leitiger)
+Author:   marley@csmd.cs.tu-magdeburg.de (Mark Leitiger)
+Type:     mus/play
+
+V4.1 Bugfix:
+- working with EaglePlayers "LoadFast" option
+- working with DeliTracker II
+
+This is NOT a continuation to the old replay module
+adapted by Biohazard,Turbo/IFT and Eagleeye/DEFECT,
+currently available as a version 3.1
+It is a completely recoded replayer for ALL known
+modules David Whittaker has released.
+
+Improvements to the old replayer (V3.1) are:
+- 2 sources of enforcer hits removed
+ (1: incomplete volume-envelope-initialisation)
+ (2: incomplete instrument-table-initialisation)
+- soundquality improved by doing the above
+ (check the XenonII-Title music,ChipsChallengeMusic
+  and the module from Gunship2000)
+- better analyzer support
+ (no dizzy display after the song has stopped, without restarting)
+- better module detection (-> DWOLD is obsolete)
+ (be warned, only original modules are detected correctly,
+  no warranty for patched modules:
+  only exception is DWOLD.Feud,
+  you can doubt if it is a whittaker module at all)
+- more info on module available by EaglePlayers 'ModuleInfo'
+- code shortened 
+  (Size of new replayer < Size of old replayer + DWOLD-player)

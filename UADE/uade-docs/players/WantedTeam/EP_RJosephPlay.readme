@@ -1,0 +1,66 @@
+Short:    EaglePlayer "Richard Joseph Player" external replayer
+Author:   Wanted Team
+Uploader: wt@jho.pol.pl (Don Adan/Wanted Team)
+Version:  2
+Type:     mus/play
+Replaces: mus/play/EP_RJosephPlay.lha
+
+This is a new version of a different external "Richard Joseph Player"
+module replay for EaglePlayer 1.54/2.00+.
+It's a player for all known Amiga Richard Joseph Player modules.
+
+Version 1
+
+Features:
+
+- Analyzer
+- Voices
+- Volume
+- SampleInfo with SampleSaver (EP 2.00+ only)
+- Balance
+- SongEnd
+- ModuleInfo with Position Counter
+- SubSong
+- as a bonus, an EagleRipper for Richard Joseph Player modules is included
+
+Version 2
+
+- enforcer hits removed
+- fixed a bug in the module recognition routine
+- changed Analyzer code
+- added an Amplifier version (EP 2.00+ only)
+- changed ExtLoad routine
+
+Notes:
+
+1. ModuleInfo works/looks better for EaglePlayer 1.54.
+
+2. This player was only tested with uninitialized (ripped directly from
+   disk) modules.
+
+3. Default file prefixes are:
+
+   Songdata - RJP. (for example: RJP.SWOS title)
+   Samples  - SMP. (for example: SMP.SWOS title)
+
+   also, original file suffixes are supported:
+
+   Songdata - .SNG (for example: SWOS title.SNG)
+   Samples  - .INS (for example: SWOS title.INS)
+
+   You can use also "SMP.set" for the sample file name, which is useful
+   for songs from the the AGA version of "James Pond 2".
+
+4. The ripper only works for uninitialized modules. To rip sample file,
+   songdata, and correct (!!!) samples, the files must be stored in the
+   loaded file.
+
+5. Now you can choose your preferred player version for use with EP 2.00+.
+
+   The sound output of the Amplifier version in 8-bit and 14-bit Amplifier
+   modes is sometimes very poor. I'm not sure why but perhaps it is another
+   EP2 bug. Sources for both player versions are available on the WT page.
+
+6. You can get the latest versions of Wanted Team products from:
+
+   http://www.emucamp.com/amiga/wt/wt.html

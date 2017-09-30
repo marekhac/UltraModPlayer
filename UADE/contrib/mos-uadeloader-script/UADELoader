@@ -1,0 +1,15 @@
+;$VER UADELoad 1.0
+;Written By Dave Crawford
+;------------------------Psuedo GPL.
+;------------------------If you change it, put your name on it!
+
+requestfile INITIALVOLUMES Title="UADE Loader" >ENV:uadefile
+
+IF $uadefile eq ""
+   requestchoice "UADE Loader" "No File Selected, exiting!" "OK" >NIL:
+ELSE
+   run >NIL: uade $UADEFILE
+ENDIF
+
+endcli >NIL:
+

@@ -1,0 +1,185 @@
+UADE-Launcher.sh 0.11 (beebop)
+
+DESCRIPTION:
+-------------
+"uade-Launcher.sh" is a unix shell script wrapper around different textmode player programs such as UADE, XMP, OGG123, ADPLUG, AYLET etc. To add more formats should be more or less trivial. 
+It uses different dialog programs like kdialog, zenity, Xdialog or dialog to provide a more or less equal User interface for KDE, Gnome or console. 
+The launcherscript also comes with a simple m3u playlist handling for local and remote playlist files, e.g Back 2 roots Modradio.
+
+
+
+DEPENDENCIES:
+-------------
+  o general: (ba)sh, sed, grep... 
+  o for the UI: at least one of the follwing the dialog programs
+		kdialog					KDE's Dialogprogram
+		zenity					Gnome 2's Dialogprogram 
+		Xdialog					GTK+1 based Dialogprogramm
+		dialog					console Dialogprogram
+
+  o for remote file handling (http://, ftp://): a file loader:
+		kfmexec, kfmclient			KDE's way get remote files
+		wget					console remote file getting
+
+  o for the music: one or more console sound player:
+		uade:					MODS, MEDS, TFMX, DW etc
+		-> http://uade.ton.tut.fi
+
+		xmp:					IT/XM/S3M etc
+		-> http://xmp.sf.net
+
+		timidity++:				MIDI files
+
+		adplay					ADLIB FM tunes
+		-> http://adplug.sf.net
+
+		sap					SAP (ATARI XL/XE Pokey music)
+		-> http://asma.dspaudio.com/main.html#plr
+
+		nosefart				NSF (NES Music files)
+		-> http://sourceforge.net/projects/nosefart/
+
+		ospc-0.3.99				SPC (SNES Music files)
+		-> http://web.umr.edu/~bmartin/ 
+
+		aylet					SPECTRUM/CPC AY Music
+		-> http://rus.members.beeb.net/aylet.html
+
+		ogg123					OGG Vorbis replaying
+		-> http://www.xiph.org
+
+		mpg321	(depends on libmad)		MP3 replaying
+		-> http://sourceforge.net/projects/mpg12
+
+		sexypsf					PSF (Playstation music files)
+		-> http://xod.fobby.net/sexypsf/
+
+		gbsplay					GBS (Gameboy music files)
+		-> http://www.cgarbs.de/gbsplay.en.html
+		
+		sc68					SNDH + SC68 (Atari ST music files)
+		-> http://sc68.atari.org/
+
+PROVIDES:
+---------
+ - open, play, stop, subsongs, sound options, openfile, playlist, modradio support
+ - x-amiga.desktop file with mime infos for kde (gnome ?)
+ - Back 2 Roots Channel M3u-file
+
+INSTALLATION:
+-------------
+  - untar and put the script somewhere in you path.
+  - for uade/ Amiga music format association to Konqueror/KDE, put the x-amiga.desktop to
+    your share/mimelnk/audio/ dir in your local KDE dir. Not sure if it works too with
+    Nautilus/Gnome, too, but could be worth a try.
+
+ 
+USAGE:
+------
+ 1) either drag and drop a supported file format onto the script in konqueror
+ 2) call the script with...
+    a) a local song file as parameter
+    b) a local m3u playlist as parameter
+    c) a remote song URL as parameter (caches the file locally at ~/.uade/cachedmods/
+       for speed up)
+    d) a remote m3u URL as parameter
+ 3) run the script and select a file in the filerequester
+ 4) associate the Amiga music files to the launcher script as default application
+ 
+
+HINTS'n'TIPS:
+-------------
+  - Wrong UI:
+     To make sure you start the right dialog programm for your Desktop Environment you can edit
+     DEFAULT_UI= in the script and make sure you have the kdialog, zenity or dialog
+     installed. Otherwise the script uses the first working UI by the
+     following order: KDE, GNOME, XDIALOG, CONSOLE
+  
+  - No sound with one or all players:
+     The launcher script relies on the console player apps to output sound, so if the
+     player works in plain console on your box, it should work with uade-launcher.sh as
+     well. (see also "Doesn't play format xyz")
+     If you have trouble because of using KDE's arts or Gnome's esound
+     try to start the script with a dsp wrapper for your Sound daemon. Your milage may
+     vary though.    
+     The script was tested on a GNU/Linux with ALSA + OSS compatibility.
+     
+  - No sound with SPC:
+     The SPC player pipes its sounddata to stdout. The script uses aplay (an alsa
+     player) to output the sound. If you don't use alsa or have another platform check
+     for a player that's able to play data from stdout. (something like vplay, iirc)
+   
+  - Doesn't find player for format xyz:
+     Assumed you have the neccessary player installed, see if the console player itself
+     works by calling it from an xterm or the console.
+     if it works but it's not in your default $PATH, look for the INP_player section in
+     the script and edit the path to your programm manually.
+     
+  - Purging the remote file cache:
+     accessing remote files make the script to download the file into ~/.uade/cachedmods/
+     If you don't like to get your $HOME littered with such file you can get rid of those
+     cached files by deleting the cachedmods folder.
+   
+
+ have fun,
+ 
+ mld/uade team
+ <mldoering@gmx.net>
+
+CHANGES:
+--------
+0.01 initial version:
+ (comes with uade 0.90)
+ 
+ 0.02
+ complete rewrite
+ 
+ 0.03
+ fixed "empty filename" when opening new song and small fixes
+ 
+ 0.04
+ gracefully ignoring QT's/KDE's stderr msgs ;)
+ first subsong fixes
+
+ 0.05
+ Subsong consistency fix. Subsong 0 now always plays a song with no special subsong set (it lets the replayer decide what to play)
+ x-amiga.desktop file for Amiga Music files (for mimelnk)
+
+ 0.06
+ modulename, player and formatname, current/minimum/maximum subsong number parsing
+ 
+ 0.06b (bugfix)
+ fixed absolute path to uade parsing modinfo
+ 
+ 0.07
+ modinfo fix for empty 1st subsong (now it should be finally foolproof *g)
+ added pal/ntsc speed toggle (e.g. swiv-hiscore.mod, Cust.Defender of the crown, eg)
+ 
+ 0.08
+ added stereo seperation toggle/channel mixing (left channel:70 r:%30%, right channel r:30
+ l:%70), for listening with headphones etc.
+ 
+ 0.09
+ added support for simple m3u playlist handling
+ added support for remote file handling
+ KNOWN BUGS: broken spaces in filename handling, messy code :)
+ 
+ 0.10
+ rewritten as unified GNOME/KDE/TEXTMODE script
+ renamed to uade-launcher.sh
+ added some more chip formats.
+ 
+ 0.11
+ added support for GBSplay (Gameboy music player)
+ added support for sexypsf (Playstation 1 music player)
+ added support for sc68 (Atari ST SNDH/SC68 music player)
+ added title and author parsing for some more formats
+ changed SPC player to ospc-0.3.99
+ fixed some minor bugs
+ 
+TODO:
+-----
+ - add sidplay2 support, the version coming with MDK10 doesn't like to be called with
+   piping STDERR to a file and started in bg as well... check out why.
+ - dumb readline interface (??? If there's demand...)
+ - output targets.

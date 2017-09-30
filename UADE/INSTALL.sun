@@ -1,0 +1,15 @@
+Small instructions to compile UADE & XMMS-plugin on SunOS/Solaris (sparc).
+
+ - if necessary change src/sd-sound-solaris.c audio header #includes
+   to proper system includes
+
+Compilation tips (use these when or if you face troubles):
+
+ - use gmake
+
+ - edit plugindir/Makefile: replace install commands with ginstall commands
+
+ - if configure script fails try changing the shell line (first line) to
+   something else (say, #!/bin/bash or #!/bin/zsh)
+
+Then proceed with INSTALL file instructions..

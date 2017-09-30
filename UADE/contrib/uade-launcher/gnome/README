@@ -1,0 +1,43 @@
+UADE gLauncher.sh
+-----------------
+
+Description:
+-------------
+"uadegLauncher.sh" is a small shellscript using zenity to launch UADE in an GNOME desktop enviroment without using it in an xterm, console or beep-media player or xmms.
+ 
+ depends on:
+ sh ;), zenity and uade 0.90 (http://uade.ton.tut.fi)
+ 
+ provides:
+ open, play, stop, subsongs
+ x-amiga.desktop file with mime infos
+ 
+ installation:
+  - untar and put the script somewhere in you path
+    (edit "UADEEXE=" according to your needs)
+  - if you want file associations, there's a x-amiga.desktop file included
+
+ 
+ using:
+ 1) either drag and drop an amiga music file such as tfmx, mods, meds, dw, jo, smus, rjp... etc, etc on the script
+ 2) call the script with a file as parameter
+ 3) run the script and select a file with the openfile requester
+ 4) associate the Amiga music files to the launcher script as default application
+
+ 
+ have fun,
+ 
+ mld/uade team
+
+ 
+Changelog:
+----------
+0.01 initial version:
+ (comes with uade 0.90)
+ 
+0.02 - 0.05 (comes with uade 0.91)
+ complete rewrite for KDE
+ "ported" the launcher script to use zenity... Adapting the script to other "dialog" applications (xdialog, cdialog, Applescript etc) should be fairly easy, imo.
+
+0.06
+ modulename, player and formatname, current/minimum/maximum subsong number parsing

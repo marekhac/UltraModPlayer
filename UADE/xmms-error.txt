@@ -1,0 +1,7 @@
+
+Can't compile XMMS input plugin without proper tools. They are:
+
+	XMMS development kit (xmms-config and includes)
+	GTK development kit (gtk-config, glib-config, includes, ...)
+	GNU libtool
+

@@ -1,0 +1,68 @@
+
+;This is an update of the TFMX external players for Eagleplayer.
+
+
+Date:3 August 1995
+
+Players versions:
+        TFMX1.5:        V1.9 (EP_version= 6)
+        TFMX_Pro:       V2.36            15
+        TFMX_7v         V2.35            16
+
+EP 1.54 recommanded!
+
+
+So what's new with these players?
+---------------------------------
+
+* Improved some parts of the code
+
+* The major enhancement (yes Henryk,yes! ;) is the support of the One-file TFMX
+
+* MANY bugs in Modulesaving of Pro & 7V.
+
+* Hmmm...that's all
+
+
+The future
+----------
+
+It's quite Ok I think.The only thing we still plan to add,is the (very
+easy to do,hemm heeem aargh) Duration-support routine...Maybe one day??
+
+
+DISCLAIMER----DISCLAIMER----DISCLAIMER----DISCLAIMER----DISCLAIMER----
+
+                                Read this!!!!
+
+DISCLAIMER----DISCLAIMER----DISCLAIMER----DISCLAIMER----DISCLAIMER----
+
+
+While developping these new players,it appeared that the TFMX7v SOMETIMES
+bugged!!! (total hang of the machine).
+
+In fact this bug had been reported by TWO persons before (with the players
+released in the EP1.54!!!) ,and as we had never experienced it,we assumed it
+was in relation with some particular hardware or bad interaction with
+some not-so-clean PD program.
+
+The fact is that this bug suddenly appeared continuously on MY machine for
+some time!!! but it doesn't anymore (!!!) Has it been solved by some
+optimisations??? Have I removed a badly written (or badly interacting with
+ the players!! Uuuh) tool from my system? I don't know!!Really!
+
+So you're warned:use the 7v player at your OWN RISKS.It seems 100% OK (I
+have Turrican III-title playing now ;-),and maybe it is,but if you experience
+a bug (total hang,probably),don't hesitate & tell us How'n'when!!
+
+
+                        My addy:                Alexis NASR
+                                              27,Rue Formigé
+                                          33110 Le Bouscat (FRANCE)
+
+
+                                                    Have a g'd day!
+
+                                                    The Cyborg/NGC.
+
+

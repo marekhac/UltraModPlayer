@@ -1,0 +1,40 @@
+UltimateST - a pre_alpha quality Ultimate Soundtracker player for uade
+----------------------------------------------------------------------
+
+About:
+------
+Ultimate Soundtracker is the great-grand-father of all mod file
+formats. It was developed by Karsten Obarski in 87/88 and featured
+15 instruments, the basic pattern layout all trackers used from that time
+on, and only a very few "effect" commands.
+Classics like "Amegas", "Crystalhammer" or "Sleepwalk" came originally in
+the Ultimate Soundtracker format.
+
+Anyone interested in the history, and technical info, visit Michael
+Schwendt's Homepage on geocities http://www.geocities.com/mschwendt/mod
+and don't miss to read his "Ultimate Soundtracker specialities".
+
+
+The "UltimateST" player in the uade contrib dir is still very much
+pre_alpha quality and lacks a lot of testing and a filetype check at all so
+far. So, only use it, if you know you have a UST mod and need it.
+(E.g. you have a soundtracker 15 instr mod, that sounds all broken with the
+ modplayer of your choice ;)
+
+
+Usage:
+------
+pass the UltimateST player to uade with the -P switch and the ust mod with
+the -M switch and uade should begin to play the file.
+
+    uade -P UltimateST -M mod.UST-File
+
+
+
+Technical:
+----------
+The ultimate soundtracker replay on which this player is based
+can be found in the sources section on Exotica (http://exotica.fix.no)
+
+have fun
+--mld

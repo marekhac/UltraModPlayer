@@ -1,0 +1,33 @@
+sc68rip for uade
+----------------
+
+License:
+--------
+sc68rip is (c) by the uade team and put under GPL. For an issue of ye good
+olde GPL license look at the top level of your uade distribution :)
+
+What is sc68rip?
+----------------
+
+SC68 files are the very own custom fileformat for the sc68 player which
+supports Atari ST and some Amiga musics. (see http://sashipa.ben.free.fr/sc68). 
+
+sc68rip is a small commandline tool for stripping the _amiga_ musicdata from
+those *.sc68 files and saving them with the right prefix to make them playable
+again with Eagleplayer/Amiga, Uade/Unix or another player for a differrent OS,
+or in case of certain fileformats like Future Composer or SoundMon with native
+replayers.
+
+
+Note: this only works for amiga music data that the current uade supports.
+Atari ST music is not supported.
+
+Usage:
+------
+
+    sc68rip [-a] files
+
+	-a	rips all music data from sc68 file even not recognized formats
+
+
+have fun

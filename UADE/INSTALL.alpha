@@ -1,0 +1,55 @@
+Use these instructions if you have problems and/or want to optimize:
+
+Instructions To Compile uade With ccc
+-------------------------------------
+
+To patch uade-0.80-pre2 you can get:
+
+	http://www.modeemi.fi/~shd/uade/patches/uade-0.80-pre2-ccc.patch
+
+but following instructions are more general:
+
+1.
+Edit src/Makefile.in:
+
+ CC = gcc
+ =>
+ CC = ccc
+
+ CFLAGS = -O2 $(CTFLAGS)
+ =>
+ CFLAGS = -fast -O4 $(CTFLAGS)
+
+Edit decrunch/Makefile.in
+
+ CC      = gcc
+ CFLAGS  = -c -g -O2 -Wall -Wno-implicit-int -finline-functions -DHAVE_CONFIG_H {ARCHFLAGS}
+ =>
+ CC      = ccc
+ CFLAGS  = -c -g3 -fast -O4 -Wall -Wno-implicit-int -finline-functions -DHAVE_CONFIG_H {ARCHFLAGS}
+
+Edit src/machdep/m68k.h:
+
+
+ extern struct flag_struct regflags __asm__ ("regflags");
+ =>
+ extern struct flag_struct regflags;
+
+2. then run configure as usual:
+
+      % ./configure
+
+3. and finally just make it:
+
+       % make
+
+The patch has been tested only on ccc-6.4.9.
+
+Thanks goes to Kimmo Kinnunen <kimmo.kinnunen@cs.tut.fi> for these tips.
+
+NOTE 1. With these optimization options, compilation of cpuemu.c will
+take around three minutes on a loaded 21164a-600 and it takes ~220M of
+memory.
+
+NOTE 2. These optimizations (with ccc) may provide up to 33% performance
+improvement.

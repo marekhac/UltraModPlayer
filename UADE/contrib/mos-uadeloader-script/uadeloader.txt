@@ -1,0 +1,18 @@
+A very simple launch script for MorphOS UADE, made simply to keep out of
+having to use CLI commands ;-)
+
+Written by Dave Crawford.
+
+Instructions:
+
+Simply copy the file, and it's icon, into the UADE directory.
+
+Drag the Icon to a panel, or make an Ambient shortcut.
+
+Double click icon. Select module to play.
+
+That's it. This file is freely distributable, and can be modified. Hey, it's
+just a shell script :-P
+
+Oh yeah, the author takes no responsability for the suitability or stability
+of this script. Use it at your own risk.

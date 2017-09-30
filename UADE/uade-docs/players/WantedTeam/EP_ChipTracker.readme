@@ -1,0 +1,38 @@
+Short:    EaglePlayer "ChipTracker" external replayer
+Author:   Wanted Team
+Uploader: wt@jho.pol.pl (Don Adan/Wanted Team)
+Version:  1
+Type:     mus/play
+
+This is a different version of the external "ChipTracker" replay for
+EaglePlayer 1.54/2.00+. It's a player for all known "ChipTracker" modules.
+
+Version 1
+
+Features:
+
+- Analyzer
+- Voices
+- SampleInfo with SampleSaver (EP 2.00+ only)
+- SubSong
+- PatternJump
+- Balance
+- ModuleInfo with Position Counter
+- Volume
+- SongEnd
+- Save
+- capable of finding the author's name with the EP FindAuthor routine
+
+Notes:
+
+1. This soundformat was used mostly (only?) by three famous Amiga
+   musicians: Matthew Simmonds (4-Mat/Anarchy), Martin Iveson (Nuke/Anarchy)
+   and Allister Brimble.
+
+2. The email address wt@jho.pol.pl might not be valid after March 2000.
+
+Special greetings go to
+
+- Promax for his help
+
+Merry Christmas and Happy New 2001 Year for all Amiga users !!!

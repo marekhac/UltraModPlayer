@@ -1,0 +1,7 @@
+MorphOS version looks into PROGDIR: for players, score, uaerc and
+ENV/EaglePlayer, so keep these together.
+
+The audio output goes thru AHI V4 or later.
+
+Currently the MorphOS build is lacking proper install target, sorry
+about that.

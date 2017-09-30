@@ -1,0 +1,51 @@
+GENERAL
+-------
+
+This file explains and announces testing related issues:
+
+Our goal is to run uade on most computing platforms that support at least
+32-bits arithmetics (floating points only required through software
+emulation).
+
+At the moment we have had working solutions on following processors:
+
+	x86, alpha, pa-risc, sparc, mips, ppc
+
+One ppc version also ran on a non-unix platform (morph os). In my opinion
+UAE team has done surprisingly good job with their infrastructure. I applaud
+them.
+
+We welcome any feedback, including test cases. PLEASE tell us if you feel
+that our tests suck, or are false or unreliable.
+
+TEST CASES
+----------
+
+md5sum test case 1:
+
+40fa2d92145c8bced1803449940cf40f  MDAT.TurricanII_1-Dessert
+8acd771885f5aa45382e88010ebd2e01  SMPL.TurricanII_1-Dessert
+
+Kimmo Kinnunen <kimmo.kinnunen@cs.tut.fi> reported us that uade works on
+Alpha GNU/Linux platform. But what I (shd) was not sure about was that it
+would produce exactly the same raw sound output as x86 GNU/Linux uade with a
+very different compiler.
+
+alpha gnu/linux uade 0.80-pre2 
+compiler version: ccc-6.4.9.005 (switches -arch ev56 -fast)
+uade: module 'MDAT.TurricanII_1-Dessert' (13024 bytes)
+511a0b694c3c0ab7df1d229cf7d0d7cd  paska.1.raw
+
+x86 gnu/linux uade 0.80-pre2
+compiler version: egcs-2.91.66
+uade: module 'MDAT.TurricanII_1-Dessert' (13024 bytes)
+511a0b694c3c0ab7df1d229cf7d0d7cd  paska.2.raw
+
+(uade songname -outpipe 1 > paska.raw was used to produce raw dumps of sample
+data)
+
+note 1: this case does not apply to the xmms plugin.
+
+note 2: uade 0.80-pre2 and uade-0.80-pre3-cvs produced different md5sums
+	on x86 GNU/Linux. We have a pretty good idea why this has happened
+	(sound core has changed => initial timing has probably changed).

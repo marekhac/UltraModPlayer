@@ -1,0 +1,10 @@
+If you get:
+
+glib-config: not found
+glib-config: not found
+gtk-config: not found
+gtk-config: not found
+
+during ./configure but you know you have gtk installed, see if you have
+'glib12-config' and 'gtk12-config'. If you have, then edit ./configure script
+so that you replace *-config with *12-config.

@@ -1,0 +1,44 @@
+Short:    EaglePlayer "Rob Hubbard Old" external replayer
+Author:   Wanted Team
+Uploader: wt@jho.pol.pl (Don Adan/Wanted Team)
+Version:  1
+Type:     mus/play
+
+This is a new external module replayer for EaglePlayer 1.54/2.0x.
+It's a replayer for all known modules which Rob Hubbard (?) has released
+used Steve Bak music player (Amiga version).
+
+Version 1
+
+Features:
+
+- Analyzer
+- Voices
+- Volume
+- SampleInfo
+- Balance
+- SongEnd
+- ModuleInfo with Position Counter
+- SubSong
+- as bonus attached is EagleRipper for Rob Hubbard Old modules
+
+Notes:
+
+1. ModuleInfo works/looks better for EaglePlayer 1.54.
+
+2. The latest version of EP players released by Wanted Team are available
+   on Wanted Team's FTP:
+
+address    ftp.union.org.pl (temporary offline, maybe run again from Jan 2000)
+login      krzak
+password   Rozany1
+catalog    /Players/
+
+3. Example Rob Hubbard Old module is available on WT's FTP:
+
+catalog    /Modules/
+file       RHO_GoldRunner.lha
+
+4. Email wt@jho.pol.pl might not be valid after March 2000.
+
+5. Merry Xmas and Happy New 2000 Year for all Amiga users.

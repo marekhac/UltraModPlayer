@@ -1,0 +1,52 @@
+Short:    EaglePlayer "Jason Page Old" external replayer
+Author:   Czeslaw Maron (Mr.Larmer/Wanted Team)
+Uploader: wt@union.org.pl (Don Adan/Wanted Team)
+Version:  3
+Type:     mus/play
+
+This is a new version of external "Jason Page Old" (right name of this music
+format is unknown for me :-( ) module replayer for EaglePlayer 1.54/2.0x.
+It's a replayer for all known modules (first format) which Jason Page
+has released for Graftgold (see JasonPageOld.txt).
+
+Version 1
+
+- initial release
+
+Version 2
+
+New features/updates:
+
+- added Analyzer
+- added SongEnd
+- updated ModuleInfo
+
+Version 3
+
+New features/updates:
+
+- added Voices
+- added SampleInfo with SampleSaver (EP 2.0x only)
+- added Balance
+- updated ModuleInfo
+- added Volume
+- added Position Counter
+- enabled last (protected) subsong for "Rainbow Islands" tune
+- added Save
+- added PlaySpeed
+
+Notes:
+
+1. ModuleInfo works/looks better for EaglePlayer 1.54.
+
+2. "PlaySpeed" option doesn't work with EaglePlayer 2.0x (internal EP 2.0x
+   error). EaglePlayer 2.0x has a few (?) internal errors (similar like
+   DeliTracker 2.27).
+
+3. The latest version of EP players released by Wanted Team are available
+   on Wanted Team's FTP:
+
+address    ftp.union.org.pl
+login      krzak
+password   Rozany1
+catalog    /Players/

@@ -1,0 +1,53 @@
+#!/usr/bin/expect --
+# uade frontend v1.0   21.07.2003 (c) ariel/KotCzarny <ariel@pa73.monki.sdi.tpnet.pl>
+set timeout 60
+
+proc do_show_help {} { send_user "\nE: Keys:
+E:  F1 help     \[ nxt_subs    -/_ vol-    ;     toggle_filter 
+E:  :  play *   \] nxt_song    =/+ vol+    q/F10 QUIT
+E:  <number>  Go to subsong <number>
+\n> " }
+proc do_enqueue_cur_dir {} { send "play *\n"; }
+proc do_skip_subsong {} { send "n\n"; }
+proc do_skip_song {} { send "m\n"; }
+proc do_filter_toggle {} { send "f\n"; }
+
+# your location may be /usr/local/bin/uade ...
+spawn -noecho {UADE_BINARY} -i *
+do_show_help
+
+# definicje klawiszy.. f1-f10 .. ^[OP ^[OQ ^[OR ^[OS ^[[15~ etc.
+interact {
+ #"h" { do_show_help; }
+ "\[\[A" { do_show_help; }
+ "OP" { do_show_help2; }
+ ":" { do_enqueue_cur_dir; }
+ ##"\[\[B" { do_enqueue_cur_dir; }
+ #"OQ" { do_enqueue_cur_dir; }
+ -- "-" { exec aumix -v-10 -q; }
+ "_" { exec aumix -v-10; }
+ ##"\[\[C" { spawn -noecho aumix -v-10; }
+ #"OR" { spawn -noecho aumix -v-10; }
+ "=" { exec aumix -v+10; }
+ "+" { exec aumix -v+10; }
+ ##"\[\[D" { spawn -noecho aumix -v+10; }
+ #"OS" { spawn -noecho aumix -v+10; }
+ ##"\[\[E" { }
+ #"\[15~" { }
+ #"\[17~" { }
+ "\[" { do_skip_subsong; }
+ #"\[18~" { do_skip_subsong; }
+ "\]" { do_skip_song; }
+ #"\[19~" { do_skip_song; }
+ ";" { do_filter_toggle; }
+ #"\[20~" { do_filter_toggle; }
+ "q" return
+ "\[21~" return
+ ##"\[" { do_skip_subsong; }
+ ##"\]" { do_skip_song; }
+ ##".\[23~" { send_user [expr spawn df]; }
+}
+
+send_user "\n";
+exit
+

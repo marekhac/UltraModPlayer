@@ -1,0 +1,46 @@
+Short:    EaglePlayer "Paul Robotham" external replayer
+Author:   Wanted Team
+Uploader: wt@jho.pol.pl (Don Adan/Wanted Team)
+Version:  1
+Type:     mus/play
+
+This is a new external "Paul Robotham" module replay for EaglePlayer 1.54/2.00+.
+It's a replayer for all (?) modules which were composed by Paul Robotham
+for the Amiga using his own soundsystem.
+
+Version 1
+
+Features:
+
+- Analyzer
+- Voices
+- SampleInfo with SampleSaver (EP 2.00+ only)
+- Balance
+- ModuleInfo
+- Volume
+- SongEnd
+
+Notes:
+
+1. "Paul Robotham" soundformat is another 4 voice MIDI clone used on Amiga.
+
+2. SongEnd works only for modules which were originally always stopped,
+   but now are automaticaly restartable.
+
+3. This player works only with uninitialized Paul Robotham mods ripped
+   directly from disks.
+
+4. Default (original) file suffixes:
+
+   Songdata - .dat (for example: Space 1889.dat)
+   Samples  - .ssd (for example: Space 1889.ssd)
+
+   You can use also "mdtest.ssd" for the sample file name, which is useful
+   for songs that used this same sample file.
+
+5. If you have, or know of, unsupported (screen will be flashed) Paul
+   Robotham modules please contact Wanted Team.
+
+6. You can get the latest versions of Wanted Team products from:
+
+   http://amiga.emucamp.com/wt/wt.html

@@ -1,0 +1,49 @@
+some fixed bugs:
+
+12112002: REPORTS
+	  - changing subsong with tw.Nitro causes bugs (shd)
+          - buggy automatic subsong change with turrican 1 (mld)
+	  - changing subsongs with cust.Battleships/cust.FA18 back and forth
+	    doesn't work (shd)
+	  SOLUTION
+	  - these bugs were related: the problem was that killuserinterrupts
+	    function lost all interrupts vectors that were set with
+	    SetIntVector (exec.library), hence audio ints stopped working
+	    (shd)
+
+19112002: PROBLEM:  ciab.resource/AddICRVector() sucked. It did not pass
+		    the data pointer from Interrupt structure in A1
+		    register to the user given interrupt function. Also,
+		    it did not set a6 register to exec base before entering
+		    the user interrupt function.
+	  SOLUTION:
+		    before calling user given function, set:
+			a1 = data pointer from interrupt structure given
+			     to AddICRVector()
+			a6 = exec base
+
+20112002: PROBLEM:  AHX replayer never seems to load the ahx.waves file for
+		    faster startup, although it theoretically should.
+	  SPECULATION:
+		    Seems to be a missing feature in score. score's doslib
+		    read implementation doesn't return the actual bytes read
+	  SOLUTION: doslib read returns the right value, but doslib open
+		    forgets to set initial file offset to zero! (shd)
+
+25112002: PROBLEM: Some GMC caused the Protracker/Prowiz to crash score.
+	  SOLUTION: The Heatseeker check routine misdetected these GMCs
+		    as CRBs.  
+		    Moved the GMC Check routine before Heatseeker. Needs
+		    testing to see if it doesn't cause more trouble than
+		    good. (mld)
+
+300x2003: PROBLEM: EMSv6, Digibooster, AON8 and other multichannel files
+                   suffered from a speed or quality problem.
+	 SOLUTION: the replays enable a speedhack to run the emu with 1
+	           instruction per second to get more host cpu time for
+		   calculation.
+		   To ensure backwards compatibility with the real Amiga
+		   the speedhack is wrapped into a uade.library in score
+		   (shd, mld)
+
+25042003: hell. dozens of bug fixes have been forgotten.

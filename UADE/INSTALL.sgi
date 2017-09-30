@@ -1,0 +1,15 @@
+If you have trouble compiling on IRIX(mips)/SGI:
+
+	- ./configure
+
+	- edit src/Makefile
+		change
+		LIBRARIES = -lm -Ldecrunch -ldecr $(SDLLIBS)
+		to
+		LIBRARIES = -lm -Ldecrunch -ldecr $(SDLLIBS) -lgen -laudio
+
+	- check that:
+		- src/sd-sound.c has:
+			#include "sd-sound-sgi.c"
+		- src/sd-sound.h has:
+			#include "sd-sound-sgi.h"

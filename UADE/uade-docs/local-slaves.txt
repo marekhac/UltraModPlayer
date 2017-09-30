@@ -1,0 +1,96 @@
+disclaimer
+----------
+
+this is only interesting for coders that want to get their hands dirty.
+
+introduction into local slaves
+------------------------------
+
+local slaves like unix shell interactive mode is used for interfaces running
+inside the uade process. xmms slave is not a local slave, it's a remote slave
+so it doesn't run wholly inside uade process.
+
+this document outlines the use of local slaves.
+
+An example of a local slave is implemented in src/unix-shell-int.[ch]. It is
+enabled from src/unix-shell.[ch].
+
+
+functionality of local slaves
+-----------------------------
+
+Local slaves (xmms slave is a remote slave) need only implement one
+function:
+
+        int us_interaction(struct uade_command *cmd, int wait_for);
+
+src/uade.c calls that function on every amiga vertical blanking. it
+doesn't need to be thread-safe. if one-shot initializations are needed
+they must be handled in the local slave module (usually on the first time
+us_interaction() is called from src/uade.c).
+
+us_interaction() returns 0 if nothing special happened. us_interaction
+returns non-zero if something relevant happened from user interface
+perspective (for example when there is some command to be read from
+stdin).
+
+struct uade_command *cmd is filled by the us_interaction() if some command
+was given:
+
+        cmd->type is the type of event that was detected:
+                UADE_NO_INTERACTION
+                        after this there will be no more interaction (for
+                        example stdin was closed)
+                UADE_SONG_END
+                        user requested current subsong to be ended
+                UADE_REBOOT
+                        user requested current song to be ended
+                UADE_SETSUBSONG
+                        user requested current subsong to be changed into
+                        *((int *) cmd->ret)
+                UADE_TOGGLE_LED
+                        changes hardware filter state. turns on filter
+                        emulation automatically if it's not yet turned on.
+                anything else will result into an error
+        cmd->type has been scanned the pointer cmd->ret will be freed if it
+        is non-zero. free(cmd->ret).
+
+        see uade_interaction() in src/uade.c.
+
+int wait_for tells if the interaction is allowed to block. usually it's
+not allowed to block when it's called from vertical blanking, then
+wait_for must be zero. when a new song is started it is called once with
+wait_for == 1 implicating that between songs the interface may block
+indefinitely.
+
+this of course assumes -i switch was given for the uade.
+
+A new unix shell interaction system (like ncurses) can be added into
+src/unix-shell.c file:
+
+#ifdef HAVE_SHELL_INTERACTION
+#include "unix-shell-int.h"
+#endif
+and
+#ifdef HAVE_SHELL_INTERACTION
+  local->interaction = us_interaction;
+#endif
+
+So we could have HAVE_NCURSES_INTERACTION defined. I should add some glue
+to make it possible to change interaction mode between runs with a command
+line switch.
+
+config.h contains all those #defines.
+
+
+other notes
+-----------
+we are always interested in new user interfaces. changes to slave
+interface are welcome (with a good reason of course).
+
+it would be interesting to have following interfaces into the uade:
+
+   ncurses interface
+   better unix shell interactivity mode
+
+shd / uade team

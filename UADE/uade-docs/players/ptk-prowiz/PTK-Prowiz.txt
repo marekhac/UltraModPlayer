@@ -1,0 +1,113 @@
+About PTK-Prowiz:
+-----------------
+PTK-Prowiz replayer adaption for uade
+
+It's originally intended to be used with UADE for Protracker Clone mods like
+Heatseaker,The Player and so on, where no 100% player is available for Unix,
+yet. (XMP does a fairly good job though. Keep up the good work, Claudio! ;)
+
+The replayer also plays to some extend Protracker, Noisetracker, Soundtracker
+mods too, but don't rely on it that it plays them all 100%.
+
+Because this replayer is real bad cludge it still refuses to work on the
+real delitracker/eagleplayer on the amiga. (In short: don't try it :)
+
+
+The Protracker playing is based on a PTK-3.0b replay by "The Welder/Divine"
+
+The brillant Prowizard Converter is written and (c) by Nicolas Franck and
+supports about 51 different Protracker clones, like The Player,
+Trackerpacker and so on.
+
+This adaption was glued together and messed up by me (mld <mldoering@gmx.de>)
+So contact me in case of bugs, help or enhancements.
+
+
+Usage:
+------
+1) for uade's console mode use the -P switch, e.g:
+uade -P PTK-Prowiz -M P60A.PTKClone
+
+2) for the xmms plugin. Copy "PTK-Prowiz" and "uadeformats" into your
+playersdir (e.g. ~/.xmms/uade/players/) and load a mod file
+
+Note: the mikmod or modplug plugin (if installed) will "capture" all files
+with the *.mod extension before uade is able to play them in XMMS.
+If you want plain 4 ch mods to be played with uade instead, rename them back to
+the original Amiga filename notation MOD.* or disable the other mod plugins.
+(note: you have to disable the mikmod plugin for 1.2.6, now it
+ also captures mod.*)
+
+
+Features:
+---------
+1)Known formats:
+
+By Gryzor's Prowiz:
+
+Digital Illusions, KRIS Tracker, Unic Tracker, Laxity Tracker,
+Noise Packer 1.0 - 2.0, Noise Packer 3.0, Noise Runner, Eureka Packer,
+P40A - P40B - P41A, P50A - P60A - P61A, Promizer 1.x, Promizer 2.0,
+Promizer 4.0, ProPacker 1.0, ProPacker 2.1 - 3.0, ProRunner 1.0, 
+ProRunner 2.0, Wanton Packer, Pha Packer, FC-M Packer, HeatSeeker mc1.0,
+Xann Packer, SKYT Packer, Module Protector, Game Music Creator, Promizer 0.1
+AC1D Packer, Pygmy Packer, Channel Players, StarTrekker Packer, Fuzzac Packer
+Kefrens Sound Machine, STK_2.6 - IceTracker, Tracker Packer 1, 
+Tracker Packer 2 - 3, NoiseTracker Pak, Polka Packer, Power Music, 
+SoundTracker Pro 3.0, Zen Packer, Hornet Packer.
+
+
+Plain MOD files:
+
+Protracker/Fasttracker 4ch, Noisetracker, Startrekker 4 ch,
+Soundtracker (15 instr)
+
+
+2) Subsong support
+
+A few game music files come with pseudo subsong by using the "D" effect.
+Thanks to Don Adan, we are allowed to use his probing routine from his
+Protracker eagleplayer, so the PTK_Prowiz is able to detect and play those
+subsongs now, too.
+
+
+Thanks to:
+----------
+Don Adan for letting us use his subsong probing routine from his Protracker
+eagleplayer.
+
+Sylvain "Asle" Chipaux for all the useful tips, his brillant and evil test
+tunes and making me see it *is* useful to implement yet another PTK replayer ;)
+
+Nicolas "Gryzor" Franck for his permission to use his Prowiz Converter. 
+(merci beaucoup, Nicolas!)
+
+"The Welder/Divine" for his protracker replay implementation.
+(contact me, please!)
+
+Xigh for his bug reports
+
+The people on the Exotica Website mailing list. ;)
+
+
+Known Issues:
+-------------
+Ultimate Soundtracker and some few other Soundtracker mods with 15 instr
+still sound wrong. Yup, I know. I'll do something about it, when I feel
+like it and find some time...
+
+Sometimes some tracker clone files are not recognized and therefore not
+played correctly... (Noiseconverter transformed  ones for example). 
+This comes from the very strict checking routines in the Prowiz engine,
+I think. I don't think it's a good idea to do something about it, the 
+mods that were converted with the original converter should hopefully be
+played alright.
+So, I will leave the strict checkings like they are now.
+
+Hmmh.. ok. if you are sure it's an implementation bug, or a
+lacking feature, bug me again.
+---------
+
+Ok, now you have been warned, have fun. 
+
+--mld.

@@ -1,0 +1,24 @@
+Small instructions to compile UADE & XMMS-plugin on Mac OS X (Darwin).
+
+- Command line player only
+---------------------------
+To compile only the uade command line player:
+./configure --without-xmms; make; sudo make install
+
+
+- XMMS plugin
+-------------
+
+Requirements:
+Fink - http://fink.sf.net
+  (and via fink)
+  - xmms
+  - gnu libtool
+
+Installation steps:
+1) fink install xmms
+2) fink install libtool14
+(in uade directory)
+3) ./configure; make; make install
+
+(thanks to Michael Baltaks for this recipy :)

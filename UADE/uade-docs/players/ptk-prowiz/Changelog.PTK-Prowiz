@@ -1,0 +1,95 @@
+VERSION: 0.1
+
+    first release for use with uade.
+    plays most Protracker mods, and most tracker clones that
+    Delitracker/Amiga supports, but strangely not all (?)
+
+
+VERSION: 0.1a
+
+    The player should now be able to play the very same tracker
+    clones Delitracker/Amiga supports. (Was some strange assembler
+    problem with UAE)
+    
+
+VERSION: 0.1b
+
+    Support for DTP_ModuleName. Now the name of the mods and of the tracker
+    clones that support it, are now messaged to the soundcore.
+
+
+VERSION: 0.1c
+
+    Work-around for our speed changing problems with uade using now our own
+    CIAB interrupt.
+    
+    Fixed the player playing garbage with uade -force option.
+
+    Made some checks in Gryzor's Prowiz less strict to play some test tunes,
+    it didn't play before.. (Promizer 0.1a, ProPacker 2.1, ProRunner 2) 
+    If now due to these changes some modules are
+    misidentified, please, report it to me (mld [at] gmx.de)
+    
+VERSION: 0.1d
+
+    Some minor fixes in the prowiz engine (e.g better CRB detection) among
+    other things.
+    
+VERSION: 0.1e
+
+    Supports now also songend. (by Heikki Orsila).
+
+VERSION: 0.1f
+
+    Some fixes for 15 instr mods and recognition of M&K! Noisetracker
+    modules. 
+    Unofficial PTK Effect E8 is now ignored. "MOD.I'm the passenger" crashed
+    the replay (reported by Xigh).
+    Portamento and speed fixes for Noisetracker mods like MOD.Poseidon and
+    MOD.KlisjePaaKlisje (reported by Asle).
+    Fixed a bug in Fastracker 4ch recognition.
+    Switched back timing to use dtg_Interrupt.
+    Small fix in the AC1D detection.
+
+VERSION: 0.1g
+
+    - fixed another bug in Fastracker 4ch and Noisetracker distinction.
+    - probing for pseudosubsongs using the D effect added.(Thanks to Don Adan!)
+    - some more fixes for 15 instr mods with their instruments replen in bytes.
+    - small fix in Protracker replay for mod.loader from Coolspot. (settempo)
+
+VERSION: 0.1h
+
+    - more verbose output of the detected tracker format:
+	Soundtracker (15 instr)
+	Soundtracker (32 instr)
+	old Noisetracker
+	Noisetracker	
+	Startrekker (4ch)
+	Protracker
+	Protracker or compatible
+
+VERSION: 0.1i
+
+    - finally got rid of the absolute adressing
+
+VERSION: 0.2
+
+    - very minor clean-ups 
+    - now uses DTP_Formatname for reporting the type of the file.
+
+VERSION: 0.2.1
+
+    - fixed misdetection of certain GMCs as CRBs (jumping jackson ingame
+      tunes), which caused score to crash.
+
+VERSION: 0.2.2
+
+    - again noise/fastracker detection fixes
+    - convert weird chars to " "
+    - fixed bad coding habits;)
+
+VERSION: 0.2.7
+
+    - fixed pt_size bug (thanks heikki! :)
+    

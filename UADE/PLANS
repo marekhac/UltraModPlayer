@@ -1,0 +1,69 @@
+general:
+	- libao audio target (should this be default for unixes??)
+
+	- memory watch support into debugger. for example enter debug
+	  mode when an address is written to or read from. (shd)
+
+	- better end of song detection heuristics (shd)
+
+	- do not add silence_timeout to the database time (shd)
+
+	- release /dev/dsp on suspend signal (^Z).. I think mpg123 does this..
+	  (shd)
+
+	- transparent one file tfmx -> mdat/smpl conversion (mld)
+
+	- null pointer follow exception to cpu emulation (shd)
+
+	- avoid double loading with crunched songs (shd)
+
+	- on xmms: update playlist length when switching to next song (shd)
+
+	- xmms plugin configuration variables raceless (shd)
+
+	- playmodlist improvements, more info from core, vu_meter, ff (kot)
+
+	- improved message report system for playmodlist and other slave
+	  systems (shd)
+
+	- atari st emulation (shd)
+
+	- libtool -> glibtool by default to fix macosx (shd)
+
+	- macosx:
+	> Ok, I've used the OpenBSD implementation of ftw and have compiled to
+	> a lib for Mac OS X (I'll put it up somewhere later), and added
+	> support for it to configure (the first line adds support for fink
+	> generally):
+	> 
+	>       ARCHFLAGS="$ARCHFLAGS -no-cpp-precomp -L/sw/lib -I/sw/include"
+	>       ARCHLIBS="-lpoll -lftw"
+	(baltaks)
+
+	- creatorname & al (shd)
+
+	- docs to share/doc (shd)
+
+	- synchronous change to the next song with bmp/xmms (shd)
+
+	- db-content locking (shd)
+
+	- waitpid() into plugins for waiting that uade process starts (shd)
+
+	- seek() shouldn't wait long when called from get_time. this happens
+	  during voluntary song end. grue reported problems with beepmp (shd)
+
+format specific:
+	- darius zendeh content detection (shd)
+	- darius zendeh song end detection (shd)
+
+	- ptk-prowiz specific xmms plugin timeout bypass (shd)
+	- Hippel V7 Coso - Port Don Adans XFD Slave to C and add it to
+	  our "decrunching code (mess)"
+
+	- investigate if score should use uade.library to get parameters (shd)
+
+	- module conversion feature with PTK-Prowiz (giulio canevari)
+
+sound core specific:
+Put sound core related plans to amigasrc/score/todo.txt...

@@ -1,0 +1,420 @@
+Supported and unsupported formats by 
+UADE 1.02:
+
+Index:
+------
+
+    1. Players
+        1.1 News, replacements and fixes:
+	    What's supported
+	    Players not included
+
+        1.2 Players that were tested and don't work
+	 1.2.1 Some reasons why a certain replayer is not working 
+         1.2.2 Some reasons why a certain replayer plays some mods wrong: 
+
+	1.3 Players or music formats not tested
+
+	1.4 Players currently in development
+
+	1.5 Where to find new replayers and how to make uade use them:
+
+
+    2. Filenames and detecting the music files
+
+    3. Where to find the musics
+
+
+1. Players
+----------
+
+News, replacements and fixes (see changelog):
+---------------------------------------------
+
+What's also supported
+----------------------
+ Player			Format				Comment
+- Sonix			Sonix (SMUS)			(songend) (AMP)
+- FashionTracker	Fashion Tracker (EX)		(songend) (AMP)
+- MED/OctaMED		MED,MMD0,MMD1,MMD2	 	(songend), no MMD3 yet
+- Soundmon	*3	Brian Postma's Soundmon (BP) 	(songend)
+- Soundmon2.2	*3	BP Soundmon 2.2 (BP3)		(songend)
+- PTK-Prowiz	*4	Protracker, Noisetracker,	(songend),(subsongs)
+			Sound/Noise/Protracker (MOD)	
+			and thanks to the prowizard	
+			engine also some module packers.
+			(PP10, P61A,TP3...):
+- Novotrade Packer	Novotrade Packer (NTP)		(songend)
+- LME			Legless Music (LME)		(songend)
+- FuturePlayer		Future Player (FP)		(songend)
+- ArtofNoise		ArtofNoise 4ch (AON)		(songend)
+- TomyTracker		Tomi Pakarinen player (SG)	(songend)
+- EMSv6			EMSv6 by Sean 'Odie' Connolly	(songend)
+- ArtofNoise8		ArtofNoise 8ch (AON8)		(songend)
+- DIGIBooster	*3	DIGIBooster (DB,DIGI)		(songend) (no DB-Pro)
+- MCMD			MCMD (?)			(songend)
+- MMDC			MED Packer (MMDC)		(songend)
+- UltimateST		Ultimate Soundtracker (MOD)	(songend)
+- JesperOlsen		JesperOlsen (JO)			  (AMP)
+- LaxityPlayer		Powertracker/Laxity-Player (PT) (songend) (AMP)
+- DavidHanney		David Hanney (DH)		(songend) (AMP)
+- MarkCookseyOld	MarkCooksey Old (MCO)		(songend)
+- DigitalSonix		Digital Sonix & Chrome (DSC)
+- MFP			Magnetic Fields Packer (MFP)	(songend)
+- AHX		*3	AHX_v2 replayer (AHX/THX)	(songend)
+- BladePacker		BladePacker (UDS)		(songend)
+- Suntronic Custom	Suntronic Custom (*, instr/*)	(songend)
+- Soundmaster		Soundmaster1+2 (SM/SM1/SM2)	(songend)
+- Soundcontrol		Soundcontrol (SC)		(songend)
+- SoundImages 		aka Tiny Williams (TW,TINY)	(songend)
+- Janko Mrsic Flogel	Janko Mrsec Flogel (JMF)	(songend)
+- Steve Barrett		Steve Barrett (SB)		(songend)
+- Wally Beben		Wally Beben/Ariston (WB)	(songend)
+- Custom		Custom Modules (CUST)		[many work, some still
+							 crash uade]
+- TFMX_*_(TFHD)		one file TFMX music		(not recomm.)
+- DSS			Digital Sound Studio (DSS)	(songend)
+- TFMX_Pro	*3	The final musics (MDAT+SMPL)	(songend)
+- TFMX_7V	*3	The final Musics 7v (-"-)	(songend)
+- MugicianII		Digital Mugician Files (MUG2)	(songend)
+- Infogrames		Infogrames/RobHubbard2(dum+ins)
+- JasonPage		Jason Page New (JPN)		(songend)
+- DariusZendeh		Darius Zendeh (DZ)
+- SUNtronic		SUNtronic (SUN)			(songend)
+- Art&Magic		Art&Magic (AAM)			(songend)
+- BennDaglish		Ben Daglish (BD)		(songend)
+- CustomMade		Ron Klaren (RK/RKB)
+- Gluemon		Gluemon (GLUE)			(songend)
+- SteveTurner		Jason Page Old/SteveTurner(JPO)	(songend)
+- MarkII		MarkII (MKII, MK2)		(songend)
+- PSA			Professional Sound Artists (PSA)
+- SA-Packed		SonicArranger (packed)
+- Soundfactory		Soundfactory (PSF)		(songend)
+- TimFollin		Tim Follin (TF)
+- YMPlayer		Atari ST Music (YM)		[only YMST supported,
+							 no YM0! - YM5! songs.]
+- fwmp			Forgotten World player (FW)
+- PeterVerswyvelen	Peter Verswyvelen (PVP)		(songend)
+- SpeedyA1System	Speedy A1 System (SAS)		(songend)
+- SpeedySystem		Speedy System (SS)		(songend)
+- DaveLoweNew		Dave Lowe New (DLN)		(songend)
+- SynthPack		SynthPack (OSP)			(songend)
+- SynthDream		SynthDream (SDR)		(songend)
+- PaulRobotham		Paul Robotham (dat+ssd)		(songend)
+- ThomasHerman		Thomas Hermann (THM)		(songend)
+- InStereo2.0		InStereo 2.0 (IS20)		(songend)
+- RichardJposephPlayer	RichardJosephPlayer (RJP)	(songend)
+			aka Vectordean	    (*.sng)
+- Instereo		Instereo (IS)			(songend)
+- Delta2.0		DeltaMusic 2.0 (DM2)		(songend)
+- SIDmon2.0		SIDmon 2.0 (SID2)		(songend)
+- iff-emod		Quadracomposer (EMOD) 		(songend)
+- Synth			Synthesis (SYN)			(songend)
+- Hippel 7V		Hippel 7 Voices (HIP7)
+- FC1.3		*3	Futurecomposer 1.3 (FC13)	(songend)
+- FC1.4		*3	Futurecomposer 1.4 (FC14)	(songend)
+- JamCracker		JamCracker (JAM)		(songend)
+- SoundFX		Soundfx 1.3 - 1.8 (SFX)		(songend)
+- Tronic		Tronic (TRONIC)			(songend)
+- ImagesMusicSystem	Images Music System (IMS)	(songend)
+- Actionamics		Actionamics (AST)		(songend)
+- Fred			Fredmonitor (FRED)		(songend)
+- Music-Ass		Music Assembler (MA)		(songend)
+- Hippel		Hippel (HIP)			(songend) 
+- MajorTom2		Holynoise/MajorTom (HN/MTP2)	(songend)
+- A.M.Composer1.2	AMComposer (AMC)		(songend)
+- Mugician		Digital Mugician (MUG)		(songend)
+- PierreAdane 		Pierre Adane Packer (PAP)	(songend)
+- SIDmon1.0		SIDmon 1.0 (SID1)		(songend)
+- Audiosculpture	ADSC/Startrekker 4AM (ADSC/MOD) (songend)
+- M.O.N			Maniacs of Noise (MON)
+- FutureComposer	BSI-Futurecomposer (BSI)	(songend)
+- Earache		Earache aka Grouleff (EA)	(songend)
+- DeltaMusic		DeltaMusic 1.0 (DM1)
+- Hippel-COSO		Hippel Coso (HIPC)		(songend) 
+- MartinWalker		MartinWalker/ActivisonPro(MW/AVP) (songend)
+- DavidWhittaker	Whittaker (DW/DWOLD)		(songend)
+- SeanConnolly		Sean Connolly (SCN)		(songend)
+- Silmarils		Silmarils (MOK)			(songend)
+- Medley		Medley (MSO)			(songend)
+- BeathovenSynthesizer	BeathovenSynthesizer (BSS)	(songend)
+- DaveLowe		DaveLowe Old (DL)		(songend)
+- DynamicSynthesizer	DynamicSynthesizer (DNS)	(songend)
+- FredGray		Fred Gray (GRAY)		(songend)
+- HowieDavies		Howie Davies (HD)		(songend for some songs)
+- JasonBrooke		J.C.Brooke (JCB/JCBO)		(songend)
+- MikeDavies		MikeDavies/Tiertex Player (MD)	(songend)
+- RiffRaff		Riff Raff (RIFF)		(songend)
+- RobHubbard		Rob Hubbard (RH)		(songend)
+- RobHubbardOld		Rob Hubbard (RHO)		(songend)
+- SeanConran		Sean Conran (SCR)		(songend)
+- SOPROL		Sound Programm. Lang. (SPL)	(songend), buggy
+- KrisHatlelid		Kris Hatlelid (KH)		(songend)
+- Oktalyzer		Oktalyzer (OKT)			(songend)
+- SonicArranger		Sonic Arranger (SA/SONIC)	(songend)
+- PaulSummers		PaulSummers (SNK)		(songend for some songs)
+- PumaTracker		Pumatracker (PUMA)		(songend)
+- PaulShields		Paul Shields (PS)		(songend)
+- TME			The music enlightment (TME)	(songend)
+- TFMX		*3	The final musics (MDAT+SMPL)	(songend)
+- MarkCooksey		MarkCooksey (MC)		(songend)
+- SpecialFX		SpecialFX (JD)			(songend for some songs)
+- Desire		Desire Player (DSR)		(songend for some songs)
+- Syntracker		Syntracker (SYNMOD)		(songend)
+- Amos			Amos Music bank (ABK)		(songend, converted)
+- VSS			Voodoo Supreme Sythesizer (VSS)	(songend)
+- MM4/8			Music maker			(songend)
+
+Following players are known to work but are not included.
+You can obtain them and some others on Exotica or Aminet for example.
+---------------------------------------------------------------------
+Exotica:
+- AProsys		Aprosys (APS)
+- SAP			Atari 800 XL Music (SAP)	works, kind of ;) (deprectated)
+- FTM			Face the Music (FTM)		works, use -sh switch
+
+
+1.2 Formats currently not yet supported:
+----------------------------------------
+- MMD3			Octamed Soundstudio (mixreplay)	
+- S7C			Hippel 7V Coso			[no replayer]
+- S*C			Hippel-ST			[noteplayer]
+- MaxTrax		Maxtrax	(MXTX)			[audio.dev, crashes]
+- Pokey			Atari 800 Music	(PN)		[player crashes] (deprecated)
+- ml			Music Line (ML)			[some work, some don't]
+- stone			Stonetracker			[noteplayer]
+- mtm,669,xm,it,etc.	PC tracker formats		*4
+  poly			Polytracker			*4
+- DIGIbooster Pro	DIGIBooster (DBM)		[no ahi.device]
+
+
+--
+{*1 -	(no issue anymore :)
+
+{*2 -	see "Players currently in development"}
+
+{*3 -	there's also a native unix player/xmms plugin for this format.
+
+{*4 -	Some words about the term "MOD", since on PC it's used for all
+	kind of tracker music now, it seems.
+	Even if you refer to it as modfile, if it ain't a "MOD.*" or "*.MOD",
+	it ain't be played.  (No, renaming ITs or XMs won't do ;)
+	Since uade is emulating an Amiga, it's mainly thought to play AMIGA
+	MOD file formats like Soundtracker, Noisetracker and Protracker
+	and it's packed relatives. (4ch, weighted stereo, 8 bit samples).
+	For completeness sake there's now a replayer based on PS3M adding
+	multichannel mod support (mixing it to max 28khz in 8 or 14bit)
+	S3M, XM and MTM files are also supported, but there's better
+	players out there for these.	
+	A really good replayer for the pc tracker formats is e.g. XMP
+
+
+1.2.1 Some reasons why a certain replayer is not working: 
+---------------------------------------------------------
+ A bug in uade (after all uade is still experimental software;)
+
+ A bug in the replayer or it uses a yet unsupported feature of the
+ amiga delitracker(DT)/eagleplayer(EP).
+
+ The player uses DT's noteplayer or EP2's amplifier interface. First
+ steps of Eagleplayer's AMP are there, but it's still buggy.
+
+ You try to play the wrong file with the wrong player. E.g. YM0! instead of 
+ YMST files with MYST.
+ Although it's both an atari st music fileformat and has even the same
+ pref/ext, the fileformat is completely different. 
+
+
+1.2.2 Some reasons why a certain replayer plays some mods wrong: 
+----------------------------------------------------------------
+ A bug in uade :)
+
+ The replay routine might be not the newest, bug-fixed one. Many of the older
+ replays didn't support all the effects/features that might be needed for
+ tunes that were written for a later replay. (e.g. sfx1.3 <-> sfx1.8)
+ 
+
+1.3 Players or Music formats that I couldn't test:
+--------------------------------------------------
+Basically anything that's not in the list of supported or unsupported
+formats. E.g.
+
+Dmdl		No mods to test with
+gdm		no replayer
+
+
+1.4 Players currently in development:
+-------------------------------------
+
+ Soundmon 2.0 with pseudo subsong support:
+  (nothing worth to be released yet, finds far too much subsongs, atm)
+
+  
+1.5 Where to find new replayers and how to make uade use them:
+--------------------------------------------------------------
+
+To find new, not included or bugfixed replayers you have two good
+points to start looking:
+
+Exotica: http://exotica.fix.no
+ On Exotica you'll find mostly replayers for delitracker but afaik you can
+ also use some of them with uade, too.
+
+Wanted team Page: http://amiga.emucamp.com/wt/wt.html 
+ Don Adan/Wanted Team is still pretty busy in implementing *new* and very
+ excellent replayers for all sorts of formats for the Amiga Eagleplayer.
+ Most of their Eagleplayer work fine with UADE and are already included.
+ If you look for new or bugfixed replayers have a look there.
+ 
+
+Here's an example how to add support for a currently unsupported format:
+
+- download (and depack if neccessary) the replayer (e.g. Amos)
+- put it into the players dir $UADEDATADIR/player
+- edit your $UADEDATADIR/players/uadeformats 
+  (or use the xmms/beep mediaplayer  plugins formatseditor):
+
+    Edit uadeformats as follows:
+
+    look for the end of the formatsfule
+[...]
+ym	YMPlayer
+zen	PTK-Prowiz
+endformats
+  
+    ...add a new line between the last format and the endformats tag:
+    The line consists of the fileextension of the format, a tab, and
+    the filename of the replayer.
+
+
+[...]
+ym	YMPlayer
+zen	PTK-Prowiz
+abk	Amos
+endformats
+
+    ...now uade should be able to play ABK files.
+
+
+2. Filenames and detection of the music files:
+----------------------------------------------
+Filenames:
+ Because uade is very much an emulator and the replayers are actually
+ written for the amiga, uade behaves in many aspects like the good old AMI.
+ 
+ So, to avoid troubles it is a good idea to stick to the file naming as it
+ is done on the amiga. With exceptions this means, the replayers normally
+ expect a prefix instead of the three letter extensions, which are so popular
+ on WIntel machines.
+
+ E.g. TFMX song names from the Amiga: 
+			    	MDAT.Turrican1-Title + SMPL.Turrican1-Title
+
+     The combination some windows replayers use *.tfx + *.sam will not work.
+     (thank god;)
+
+Filetypedetection:
+ from uade 0.40 on, started to be able to detect _some_ filetypes by it's
+ contents rather then relying on the Prefix/Extension of the filename.
+
+ Be aware it slows down adding files to the playlist of xmms (especially if
+ you also enable to detect the format of crunched music files.)
+ It's not anyway near of being complete, and will be updated with new
+ formats slowly but surely. You can enable/disable this feature in the
+ configuration of the xmms plugin. (disabled by default)
+
+ Music formats that profit very much from this filetype detection are currently 
+ TFMX and Startrekker Mod files using either Sample or AM instruments. If
+ one of those formats is detected the right replayer is set automatically,
+ instead of trying to play it with the default replayer set for the extension.
+
+ Formats that can e.g. be detected by contents by the xmms plugin:
+  TFMX1.5 + V7, Musicassembler, Art of Noise, AHX/THX 0, Actionamics,
+  Audio Arts & Magic, Futurecomposer 1.3 + 1.4 + BSI, LegLess, Hippel +
+  Hippel-Coso, Jamcracker, Soundmon 2.0 + 2.2, SoundFX, Deltamusic 1.0 + 2.0,
+  SidMon1.0 +2.0, RonKlaren, MYST, Oktalyzer, Mark2, Vectordean, Fred
+  Pro and Noisetracker, Startrekker MODs,  Startrekker 4am + Audiosculpture,
+  Custom, etc.
+ 
+
+3. Where to find the musics:
+----------------------------
+ The best case would be you already have them still lingering on your HD back
+ from your Amiga days or rip it from your favourite demo/game all by 
+ yourself.:)
+ Otherwise look at:
+
+ Exotica and UnExotica, both on: http://exotica.fix.no
+  for people that look for musics, background info and so on, Exotica is
+  really the best for looking for a certain song. A huge site related to
+  amiga music maintained by Buzz/Iris. (info: files packed with lha)
+
+ Wanted Team homepage: http://amiga.emucamp.com/wt/wt.html
+  beside all the nice replayers of Wanted Team, you can also find
+  example song files and a lot of custom.modules. 
+  (A BIG thanks to Don Adan, without his eagleplayers uade wouldn't be
+   able to play a lot of formats, it supports now. Great work!
+   Visit his Site!)
+
+ HAM: (Hacked Amiga Music) http://tfx.dk/ham/
+  a site dedicated to "open rips", beside the songs you get infos how the
+  rip was done. (info: you also sometimes need unlzx to dearchive the songs,
+  the source to an unlzx can be found under "miscellaneous") 
+
+ BAD: (Backstage of Amiga Demos) http://asle.free.fr/groups/groups.html
+  a site about very old but cool Amiga Demogroups, maintained by Sylvain
+  'Asle' Chipaux. 
+  Asle asked me to point out that the site is currently in its early stages
+  of development, but it is definetely already worth a look for all nostalgic
+  people.
+  If you want to rip some music yourself check out his Prowizard 4 PC, too.
+  It's a nice ripping programm for amiga, unix and windows platforms and
+  can be found at: http://asle.free.fr/prowiz/ (currently down :(( )
+
+ Abyss' AHX page: http://amigascne.org/ahx/
+   Home of AHX - Abyss' Highest eXperience musicformat. Among the actual editor
+   (in case you like to compose yourself ahx tunes with UAE:), the links
+   to Abyss Members pages (worth a look too!) you can also download a lot
+   of AHX tunes as a huge lha/zip archive. 
+
+ Rudolf Stember's Homepage: http://www.stember.com
+  you can find all the music Rudolf Stember composed for Amiga games in
+  the TFMX format officially on his webpage. (Das Schwarze Auge, Hanse,
+  Patrizier,Mad TV, BC Kid, etc)
+  Note: most files are in Windows notation. You have to change *.mdat, *.smpl 
+  to the usual Amiga naming mdat.*, smpl.*  before being able to play the
+  files with uade.
+
+ Tim Wright's Homepage: http://www.coldstorage.org.uk/
+  on his homepage Tim Wright hosts officially some of his game musics (such
+  as Shadow of the Beast 2 and 3, Agony) as mod files and also available
+  are some mp3 remixes.
+
+ Sean 'Odie' Connolly's Cosine Website: http://www.cosine-systems.com/
+  on his site you can find a lot of music Sean Connolly composed
+  in many different formats, such as midi, xm or mp3. Behind the EMS Music
+  link you can find Music in Sean's own format EMS_v6. 
+  (the stormlord cover rules!:)
+
+ Modland: ftp:/ftp.modland.com - very nice collection of music in all sorts of
+  exotic amiga formats.
+
+ AMI Sector One: http://amiga.emucamp.com/
+   http://amiga.emucamp.com/m_game.htm
+	nice selection of some game tunes in all sorts of formats
+   http://amiga.emucamp.com/m_scene.htm
+	nice selection of some scene music in all sorts of formats
+   
+ Chiptune.com: http://www.chiptune.com
+  a site mainly about "chippy" music.
+
+ Digibooster Community: http://www.highantdev2.de/dbpro/index.php
+ Community of Digibooster (Pro) Users in German and English.
+
+ Aminet: http://aminet.net
+  _the_ Archive. Take yourself some time look inside the mods/* sections...
+
+
+  (info: if files are packed with lzx. You can use "unlzx" for depacking
+  them. The sources of an unlzx can be found both on Aminet or HAM (see above)) 
+

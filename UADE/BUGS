@@ -1,0 +1,155 @@
+General:
+--------
+	- strange crash with xmms when a directory is added recursively
+	  into the playlist (containing uade songs).. mld couldn't reproduce
+	  this... (shd)
+
+	- plugindir/uade.c/play_file():
+	  if i change positions of audio allocation code and forkexec code
+	  xmms hangs when the second uade song is going to be played (shd)
+
+	- play CUST.FA-18_Interceptor: on xmms the sound plays mono for some
+	  reason, but from the console it plays stereo.. odd.. probably some
+	  very stupid mistake (shd)
+
+	  (maybe related to the pathentry in the xmms.m3u playlist (?) 
+	    Plays mono:
+	    #EXTINF:900,Cust.FA-18_Interceptor [custom]
+	    /mnt/linux/home/shared/sound/music/Amigaformats/Custom/Cust.FA-18_Interceptor
+
+	    Plays stereo:
+	    #EXTINF:900,Cust.FA-18_Interceptor [custom]
+	    /home/shared/sound/music/Amigaformats/Custom/Cust.FA-18_Interceptor
+
+	    Both is the same file. "/home/" is a symlink to "/mnt/linux/home"
+	   (mld))
+
+	- song length inaccuracy (grue)
+
+	- interactive mode: play * should store full pathname into play
+	  queue, because if current directory changes the entries in the
+	  queue become meaningless (shd)
+
+	- increase chip mem to 8MB to be able to play Lapsuus, but before that
+	  check score & uade specific systems (shd)
+
+	- re-do memory pre-allocation in uade.c. integrate with score. (shd)
+
+	- visualizers die after subsong change (giulio canevari)
+
+Player/Soundcore related:
+-------------------------
+	- FRED song end bugs.. FRED.S02-SummerTime (FRED.S01-Robocop, too.)
+	   ends prematurely.. It seems my song end glue was not sticky enough ;)
+	   (shd)
+
+	- CUST.Wings volume bug. Beeps with voltest parameter (mld)
+
+	- VSS eagleplayer volume bug. music plays only with voltest parameter.
+	  (mld)
+
+        - Depending on the mod PTK-Prowiz sometimes hits small values in
+	  audxper, too. (mld)
+
+	- fwmp doesn't play all songs (shd)
+
+
+	- Wings of Death level 1 sub 1 has portamento bugs with the current
+	  hipc player. Created a custom version to fix this (shd)
+
+	- the first subsong of hipc.wasseremu crashes after 2 minutes. the
+	  second and third don't crash (f d9dc)
+		uade: song end (score crashed)
+	  similar behaviour with:
+		willi, enchanted land 1 (not the first sub)
+	  It seems the player we use can't handle wasseremu.
+	  (shd)
+
+	- no song end with PP10.CF2_CIntro (shd)
+
+	- find out why the some Ghostbattle hipc files from Exotica play
+	  alright, while the same ones from Unexotica suffer from the same
+	  problem as the hipc from Wings of death, and maybe write a
+	  converter (mld)
+
+	- is20.firefox ii (instereo 2.0) bugs.. broken samples. looks like
+	  there have been problem ever since uade 0.60 (shd)
+
+	- thomas hermann player is buggy. THM.Beam sounds correct now that
+	  the load file bug was fixed on 2004.05.03. The rest of the
+	  songs are dubiously played. Opinions? (shd)
+
+	- fred player doesn't recognize fred.Nemesis without force (shd)
+
+	- mmd1 sample bugs. see amigapop.med. (shd)
+
+	- hear say: zabek: yoho, I found a song which misses some sound
+	  events on uade (but it's with 0.80 on morphos.. maybe it's fixed
+	  now). maybe you want to put it on your todo list, the song is Fire
+	  and Forget 2 (customplay, can be found on exotica).. (shd)
+	  MORE: the custom is buggy (corrupts memory and doesn't work
+	  well with 060 caches on) (shd)
+
+	- WingsOfDeath Title (Hippel): bg chords were not played after having
+	  played some other songs in different formats before.
+	  Have to investigate, which Formats collide with Hippel (mld)
+	  Play PSD.GoldRunner, and then HIP.Jambala-Gameover. One gets
+	  random samples in the beginning. (piru)
+
+	- <ave_> aven biisi
+
+	- shadow sorcerer reloc error (shd)
+
+	- some cineware songs of Wings don't function (shd)
+
+	- It Came From The Desert / TINY.ice does not work (shd)
+
+	- 'tfmx/MDAT.Quick&Silva_Ingame-CH' plays with TFMX_Pro but should be
+	  played with TFMX_Pro_(TFHD). 'tfmx/P_P_Hammer/mdat.ingame' does
+	  not play at all. It also should be played with TFMX_PRO_(TFHD) (shd)
+	  probably buggy tunes (mld)
+
+	- aon8 might have 'timing problems', jump few cycles here and there
+	  (grue)
+
+	- Lapsuus bugs because there is not enough cpu speed without speed
+	  hack (use -sh). How to enable speed hack automatically for lapsuus?
+	  (shd)
+
+	- FTM from DT 2.27 works (with -sh switch)
+	  FaceTheMusic from EP 2.02 crashes (mld)
+
+	- Maxtrax crashes with an unimplemented exec func 0xFEBA  (mld)
+
+	- TFMX monkey island 1 differences from francesco pretto (shd)
+
+	- score_48 fixed music maker, but broke sonix driver. the problem
+	  is that extload and config are called before ep_check5. (mld)
+
+
+UAE specific:
+-------------
+	- movem.l $b4(a6),a1/a5 gets disassembled wrong. the output is:
+	    MVMEL.L #$2200,(A6,$00b4)
+	  The opcode is: 4cee 2200
+
+Probably fixed:
+---------------
+
+	- song length database bug (grue)
+
+	- players/ENV:EaglePlayer gives hard time for MorphOS users ;) (shd)
+
+	- ahx bug with comic bakery. halts on 00:46. But I hear so does
+	  the native ahx player! So we are in full compliancy :P (shd)
+	  Probl. not a bug (mld) not a bug (maj)
+
+	- amberstar title (hip7) crashes on time index 02:41 (markey)
+	  *FIXED* with Don Adan's replayer (mld)
+
+	- tw.ChuckieEgg2 sounds buggy (shd)
+	  sounds ok to me (mld)
+
+	- mod2ogg.sh is not posix sh compliant (bartosz taudul)
+
+END LINE IN THE END OF FILE IS YOUR BEST FRIEND

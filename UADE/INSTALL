@@ -1,0 +1,164 @@
+Installation
+------------
+Thanks for reading these instructions :)))
+
+
+Prologue:
+=========
+
+ Follow these instructions very carefully.
+
+ - Use GNU Make when possible.
+
+ - Read INSTALL* files for other architectures
+
+ - If installation breaks your XMMS, then go to XMMS input plugin
+   directory and delete libuade.* files. Both global and user owned
+   plugin directories should be cleaned. See following directories:
+
+   1. $(HOME)/.xmms/Plugins/Input
+   2. xmms-config --input-plugin-dir
+
+
+Compilation
+===========
+* AS NORMAL USER (DON'T DO THIS AS ROOT) *
+
+1. ./configure
+
+ --help    			should give you some compile time options
+				for uade.
+
+  --prefix=ANYDIR		You can give a installation prefix if you wish.
+				By default UADE goes under /usr/local. 
+				Installation to user's home directory is also
+				supported by giving --user switch to the
+				configure script.
+
+ --input-plugin-dir=ANYDIR 	option forces XMMS input plugin to be installed
+				to ANYDIR.
+
+ --mymods=/dir/to/your/modules	You can also specify a default dir for
+				pwrap.pl. This is the default dir that
+				will be opened when you try to add files/dirs
+				from pwrap.pl tk interface.
+ 
+ --with-alsa			Make uade use ALSA sound output. If you use
+				this you can't use --with-sdl.
+
+ --with-sdl			UADE natively supports only few types of
+				soundoutput by default, e.g. OSS, Solaris.
+				If you run a machine or an OS with a
+				different audiodriver, but
+				SDL (http://www.libsdl.org) supports your
+				platform, enable this option to get sound
+				output for your machine.
+				(Known to work are e.g. ESD, ARTS, ALSA -
+				 but for a more complete list what's supported
+				 by SDL check their website.)
+				You must not use --with-alsa when using
+				--with-sdl.
+
+ --package-prefix		specifies a path prefix where directories
+				will be copied when 'make install' is said.
+				you still have to use --prefix with this
+				option. this is useful for binary distribution
+				creation. example:
+				./configure --prefix=/usr/local \
+					    --package-prefix=/tmp/uade
+				This will make uade think it is installed to
+				/usr/local, but stuff is copied to
+				/tmp/uade/usr/local when 'make install' is
+				said
+
+ --no-plugin			use this if you don't want to compile an
+				xmms plugin, or if you can't compile an
+				xmms plugin.
+
+ Ofcourse all --prefix, --mymods and --input-plugin-dir --with-sdl can be used
+ in conjunction. 
+
+
+2. Edit config.h (if you like)
+
+   - #defines in config.h should be self-explanatory for users who actually
+     need those features.
+     
+   - you shouldn't edit #define UADEDATADIR since it should have been given
+     with --prefix for ./configure. However you can do it if you wish,
+     of course, but then you should also edit 'uadedatadirpath' file
+
+
+3. gmake
+
+   Compiles XMMS plugin and a cmdline tool.
+
+4. gmake test
+
+   You should hear a test song playing . If it doesn't play anything,
+   you might still get uade to work on xmms, but proceed with pessimism. UADE
+   cmdline tool only supports /dev/dsp as audio playback system so it might
+   not work in the future. XMMS plugin should handle this problem indirectly
+   by only using XMMS plugin API.
+
+* AS ROOT OR AS NORMAL USER (CHOOSE YOUR WAY - I PREFER NORMAL USER) *
+
+	AS NORMAL USER
+
+5. gmake install
+
+   Do this if you didn't specify a prefix or if you're sure that you have
+   read and write permissions in the directory specified to --prefix.
+
+   (this will copy default configs and players to ~/.xmms/uade)
+
+	OR AS ROOT
+5. su
+   <root passwd>
+   gmake install
+   
+   Do this if you don't have read/write permissions to the directory
+   specified to --prefix. 
+
+   (this will copy default configurations and players to
+    /usr/local/share/uade/ or something depending on your configure options)
+
+6. You're done. Good luck and have fun!
+
+
+First: Run XMMS from a shell. You can see all the useless debug messages and
+errors in a shell. If your XMMS jams, there might be some weird debug
+messages trying to explain the reason why your XMMS jammed (those debug
+messages are really worth reading if you can understand them ;-)
+
+The frontend pwrap.pl is installed in $prefix/bin. So if you didn't specify
+a prefix they will be installed in ~/.xmms/bin. So make sure you copy them to
+a directory that is in your path or add the above dir.
+
+
+TROUBLESHOOTING:
+
+OSS SOUND TO ANOTHER SOUND TARGET
+	if you want to change sound target to wav file (say, when OSS sound
+	interface is not available: edit src/sd-sound.c:
+		#include "sd-sound-oss.c"
+	=>
+		#include "sd-sound-file.c"
+
+MAKE PROBLEMS
+	if compilation fails for some strange reason: see uade/Makefile:
+	MAKE = /usr/bin/whatever/make
+	=>
+	MAKE = gmake
+
+XMMS PLUGIN COMPILATION GIVES PROBLEMS
+	use --no-plugin with configure
+
+SNPRINTF LINKING FAILS
+	some platforms like digital alpha doesn't necessarily have snprintf()
+	function. osdep/uade-os-unix.c may use that function so you may do
+	following to all occurences of:
+		snprintf(string, sizeof(string), "FORMAT...", ...);
+		=>
+		sprintf(string, "FORMAT...", ...);
+	This should work but it is less _safe_!

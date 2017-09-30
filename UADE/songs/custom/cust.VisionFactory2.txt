@@ -1,0 +1,5 @@
+In a Suntronic custom file called suntronic-good.src, which sounds *very*
+similiar to CUST.Visionfactory2 it says in the credits about the music:
+
+    Suntronic replay routine by Holger Benl
+    music composed by Felix Schmidt,

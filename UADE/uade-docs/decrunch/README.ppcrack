@@ -1,0 +1,15 @@
+ppcrack version 0.2
+
+ppcrack is a program for decrypting and unpacking data files which were
+encrypted with the old Amiga compression program PowerPacker, by Nico
+François. ppcrack also comes with helper programs to help you guess your
+password.
+
+Please read the manual ppcrack.txt for more information.
+
+ppcrack has a page on the internet:
+- http://www.kyz.uklinux.net/packers.php3#ppcrack
+
+ppcrack version 0.2 was placed in the public domain by Stuart Caie
+<kyzer@4u.net> on 25 November 2002.
+

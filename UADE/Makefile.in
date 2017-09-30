@@ -1,0 +1,91 @@
+# Top-level Makefile for UADE
+
+MAKE = {MAKE}
+
+FINALBINDIR = {BINDIR}
+FINALDATADIR = {DATADIR}
+FINALDOCDIR = {DOCDIR}
+FINALMANDIR = {MANDIR}
+
+BINDIR = {PACKAGEPREFIX}/{BINDIR}
+DATADIR = {PACKAGEPREFIX}/{DATADIR}
+DOCDIR = {PACKAGEPREFIX}/{DOCDIR}
+MANDIR = {PACKAGEPREFIX}/{MANDIR}
+
+all:	config.h uade-bin plugins
+
+uade-bin:	
+	$(MAKE) -C src
+	@cp src/uade .
+	@chmod u+rx uade
+
+plugins:	
+	@test "{WITH_XMMS}" = "no" || $(MAKE) -C plugindir/xmms
+	@test "{WITH_BEEP}" = "no" || $(MAKE) -C plugindir/beepmp
+
+config.h:	
+	@echo ""
+	@echo "Run ./configure first!"
+	@echo ""
+	@false
+
+test:	uade-bin
+	@ echo ""
+	@ echo "### UADE should be playing now 'AHX.Cruisin'"
+	@ echo ""
+	./uade -B . -pan 0.75 songs/ahx/AHX.Cruisin
+
+uninstall:	
+	@test "{WITH_XMMS}" = "no" || $(MAKE) xmmspluginuninstall
+	@test "{WITH_BEEP}" = "no" || $(MAKE) beeppluginuninstall
+	rm -f "$(FINALBINDIR)/pwrap.pl"
+	rm -f "$(FINALBINDIR)/uade"
+	@echo
+	@echo "DELETE $(FINALDATADIR) and $(FINALDOCDIR) manually!!!"
+	@echo
+
+install:	all
+	mkdir -p "$(BINDIR)"
+	mkdir -p "$(DATADIR)/players"
+	mkdir -p "$(DOCDIR)"
+	mkdir -p "$(MANDIR)"
+
+	cp -f score uaerc "$(DATADIR)/"
+	cp -rf players "$(DATADIR)/" || true
+	cp -f plugindir/uadelogo3.xpm "$(DATADIR)/uadelogo.xpm"
+	cat contrib/default-db/db-content >> "$(DATADIR)/db-content"
+	chmod -R og+rX "$(DATADIR)"
+
+	cp -f uade "$(BINDIR)/"
+	chmod og+rx "$(BINDIR)/uade"
+	cp -f pwrap.pl "$(BINDIR)/"
+	chmod og+rx "$(BINDIR)/pwrap.pl"
+
+	cp -rf uade-docs/ "$(DOCDIR)/"
+	cp -f COPYING INSTALL* README TESTING BUGS FIXED *PLANS ChangeLog.txt "$(DOCDIR)/"
+	chmod -R og+rX "$(DOCDIR)"
+
+	cp -f uade-docs/uade.1 "$(MANDIR)/"
+	chmod og+r "$(MANDIR)/uade.1"
+
+	$(MAKE) plugininstall
+
+miniinstall:	
+	$(MAKE) plugininstall
+	cp -f uade $(BINDIR)/
+
+plugininstall:	
+	@test "{WITH_XMMS}" = "no" || $(MAKE) -C plugindir/xmms install
+	@test "{WITH_BEEP}" = "no" || $(MAKE) -C plugindir/beepmp install
+
+pluginuninstall:	
+	@test "{WITH_XMMS}" = "no" || $(MAKE) -C plugindir/xmms uninstall
+	@test "{WITH_BEEP}" = "no" || $(MAKE) -C plugindir/beepmp uninstall
+
+pluginclean:	
+	@test "{WITH_XMMS}" = "no" || $(MAKE) -C plugindir/xmms clean
+	@test "{WITH_BEEP}" = "no" || $(MAKE) -C plugindir/beepmp clean
+
+clean:	
+	$(MAKE) -C src clean
+	$(MAKE) pluginclean

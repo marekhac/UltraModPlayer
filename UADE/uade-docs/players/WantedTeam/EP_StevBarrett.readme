@@ -1,0 +1,44 @@
+Short:    EaglePlayer "Steve Barrett" external replayer
+Author:   Wanted Team
+Uploader: wt@jho.pol.pl (Don Adan/Wanted Team)
+Version:  1
+Type:     mus/play
+
+This is a new external "Steve Barrett" module replay for EaglePlayer 1.54/2.00+.
+It's a replayer for all (?) modules which Steve Barrett has released using
+Wally Beben's and his own Amiga replay routine.
+
+Version 1
+
+Features:
+
+- Analyzer
+- Voices
+- SampleInfo with SampleSaver (EP 2.00+ only)
+- SubSong
+- Balance
+- ModuleInfo with Position Counter
+- Volume
+- SongEnd
+- as a bonus, an EagleRipper for Steve Barrett modules is included
+
+Notes:
+
+1. This soundformat was created by Steve "Gremlin" Barrett (Barratt)
+   and Wally "Hagar" Beben. It is a PC relative version of the Wally
+   Beben soundformat.
+
+2. This player plays/recognizes only onefiled Steve Barrett mods; mods
+   with separated samples (for example: "Advanced Ski Simulator") must
+   be converted to the standard onefile format.
+
+3. If you have, or know of, unsupported Steve Barrett modules please
+   contact Wanted Team.
+
+4. This player/ripper works only with uninitialized Steve Barrett mods
+   ripped directly from disks.
+
+5. A full list of all the Steve Barrett mods that are known to me is
+   attached (SteveBarrett.txt).
+
+6. The email address wt@jho.pol.pl might not be valid after March 2000.
