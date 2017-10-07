@@ -1,10 +1,10 @@
 CC = gcc
 
-ARCHFLAGS =  -no-cpp-precomp
+ARCHFLAGS =  -noixemul
 ARCHLIBS = 
 DEBUGFLAGS = 
 AUDIOFLAGS= 
-AUDIOLIBS= -framework coreaudio
+AUDIOLIBS= 
 
 CFLAGS	= -fomit-frame-pointer -W -Wall -Wno-unused -Wno-format -Wmissing-prototypes -Wstrict-prototypes -DGCCCONSTFUNC="__attribute__((const))" -D_REENTRANT -fno-exceptions -fno-strength-reduce -DREGPARAM= -D__inline__=inline -O2 $(ARCHFLAGS)
 LIBRARIES = -lm $(AUDIOLIBS) $(ARCHLIBS)
@@ -123,7 +123,6 @@ touch:
 
 build68k.o: include/readcpu.h
 readcpu.o: include/readcpu.h
-
 uade-main.o: uade-main.h uade-main.c
 main.o: config.h
 cia.o: config.h include/events.h
@@ -131,8 +130,8 @@ custom.o: config.h include/events.h
 newcpu.o: newcpu.c config.h include/events.h
 	$(CC) $(INCLUDES) -c $(INCDIRS) $(CFLAGS) $(X_CFLAGS) $(DEBUGFLAGS) newcpu.c
 
-sd-sound.o:	config.h sd-sound.c sd-sound.h sd-sound-coreaudio.h sd-sound-coreaudio.c
-audio.o: config.h include/events.h sd-sound.h sd-sound-coreaudio.h
+sd-sound.o:	config.h sd-sound.c sd-sound.h sd-sound-ahi.h sd-sound-ahi.c
+audio.o: config.h include/events.h sd-sound.h sd-sound-ahi.h
 memory.o: config.h
 debug.o: config.h
 fpp.o: config.h
@@ -156,11 +155,11 @@ players.o:	players.c players.h
 	$(CC) $(CFLAGS) $(INCLUDE) -c players.c
 
 
-local-slave.o: local-slave.c local-slave.h unix-shell.c unix-shell.h
+local-slave.o: local-slave.c local-slave.h amiga-shell.c amiga-shell.h
 
 
 remote-slave.o: remote-slave.c remote-slave.h
 
 
-interaction.o: interaction.c interaction.h unix-shell-int.c unix-shell-int.h
+interaction.o: interaction.c interaction.h
 
