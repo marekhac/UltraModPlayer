@@ -511,7 +511,7 @@ void uade_prerun(void) {
   
   /* if no more songs in the play queue, quit cmdline tool */
   if (!slave.get_next(&uade_song)) {
-    fprintf(stderr,"uade: no more songs to play\n");
+    fprintf(stderr,"uade: nie ma nic do zagrania, niestety\n");
     uade_exit(0);
   }
 
@@ -542,7 +542,7 @@ void uade_prerun(void) {
     /* + 0x4000 for hippel coso (wasseremu) */
     modaddr = ((relocaddr + len) & 0x7FFFF000) + 0x2000;
   } else {
-    fprintf(stderr, "uade: problem with reloc calculation\n");
+    fprintf(stderr, "uade: problem with2 reloc calculation\n");
     goto skiptonextsong;
   }
 

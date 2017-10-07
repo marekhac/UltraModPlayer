@@ -64,6 +64,4 @@
 
 #define SDL_MAXBSIZE 16384
 
-#define HAVE_MACOSX
-#define HAVE_UNIX_SHELL
-#define HAVE_UNIX_SHELL_INT
+#define HAVE_AMIGA_SHELL

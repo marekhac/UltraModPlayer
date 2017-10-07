@@ -1,6 +1,6 @@
 # Top-level Makefile for UADE
 
-MAKE = /usr/bin/make
+MAKE = make
 
 FINALBINDIR = /usr/local/bin
 FINALDATADIR = /usr/local/share/uade

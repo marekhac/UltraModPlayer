@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+#!Pracownia:Programowanie/Development/GG/bin/perl5.6.2 -w
 ######################################
 # pwrap.pl v1.1.1 by Meleth in 2002. #
 #                                    #

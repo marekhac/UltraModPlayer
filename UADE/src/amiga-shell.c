@@ -91,6 +91,7 @@ static int expand_playlist_add(struct playlist *playlist, char *file, int is_rec
   /* If nothing matched, assume it's literal name */
   if (count == 0 && err == ERROR_NO_MORE_ENTRIES) {
     if (!playlist_add(playlist, data->ap.ap_Buf, is_recursive)) {
+	  printf(1);
       return 0;
     }
   }

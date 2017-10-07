@@ -1,1 +1,1 @@
-#include "uade-os-unix.h"
+#include "uade-os-amiga.h"
