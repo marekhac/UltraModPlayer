@@ -236,7 +236,7 @@ int quit_program = 0;
 
 void uae_quit (void)
 {
-  printf("guit");	
+  printf("uade_guit\n");	
   quit_program = 1;
 }
 

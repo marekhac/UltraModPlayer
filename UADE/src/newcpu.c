@@ -1059,6 +1059,8 @@ void m68k_reset (void)
   m68k_areg(regs,7) = 0x1000;
   m68k_setpc(0x1000);
 
+  printf("m68k_reset \n");	
+
   uade_prerun();
 
 #if EXCEPTION_COUNT
@@ -1317,7 +1319,7 @@ void m68k_run_1 (void)
 #endif
 
     if(uade_reboot)
-      return;
+      break;
   }
 }
 
@@ -1336,6 +1338,10 @@ void m68k_go (int may_quit)
   in_m68k_go++;
 
   for (;quit_program != 1;) {
+  
+    printf("m68k_go - 1 \n");	
+    printf("uade_reboot = %d\n", uade_reboot);
+    printf("quit_program = %d\n", quit_program); 
     quit_program = 0;
     m68k_reset ();
     customreset ();

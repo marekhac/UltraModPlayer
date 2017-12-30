@@ -511,9 +511,12 @@ void uade_prerun(void) {
   
   /* if no more songs in the play queue, quit cmdline tool */
   if (!slave.get_next(&uade_song)) {
-    fprintf(stderr,"uade: nie ma nic do zagrania, niestety\n");
-    uade_exit(0);
+    fprintf(stderr,"uade: no more songs to play\n");
+    quit_program = 1;
+    return;
   }
+
+  printf("uade_prerun - 2 \n");
 
   uade_set_automatic_song_end(uade_song.song_end_possible);
 
@@ -622,7 +625,7 @@ void uade_prerun(void) {
   if ((userstack - (scoreaddr + bytesread)) < 0x1000) {
     fprintf(stderr, "uade: stack over run warning!\n");
   }
-
+ 
   uade_song.set_subsong = 0;
 
   uade_song.modulename[0] = 0;

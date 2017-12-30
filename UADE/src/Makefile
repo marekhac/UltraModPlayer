@@ -21,7 +21,7 @@ DECOBJS = crc32.o depack.o mmcmp.o unsqsh.o decrunch.o easo.o sc68.o
 DECDIR = ../decrunch
 DECFLAGS = -O2 -W -Wall -Wno-implicit-int -finline-functions $(DEBUGFLAGS) $(ARCHFLAGS)
 
-OBJS = uade-main.o main.o newcpu.o memory.o custom.o cia.o readcpu.o cpudefs.o audio.o \
+OBJS = uade-main.o playmodule.o main.o newcpu.o memory.o custom.o cia.o readcpu.o cpudefs.o audio.o \
        compiler.o cpustbl.o missing.o sd-sound.o md-support.o cfgfile.o fpp.o \
        debug.o $(CPUEMUOBJS) uade.o amifilemagic.o uade-os.o effects.o \
        local-slave.o remote-slave.o interaction.o chrarray.o playlist.o \
@@ -123,6 +123,7 @@ touch:
 
 build68k.o: include/readcpu.h
 readcpu.o: include/readcpu.h
+playmodule.o: playmodule.h playmodule.c
 uade-main.o: uade-main.h uade-main.c
 main.o: config.h
 cia.o: config.h include/events.h
