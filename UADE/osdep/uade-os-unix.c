@@ -70,7 +70,7 @@ void uade_create_var_pid(void) {
 }
 
 void uade_exit(int code) {
-  printf("exit %d\n");
+  printf("uade_exit %d\n"); 
 }
 
 /* first element of args is the executable file */

@@ -1,38 +1,41 @@
-#include "playmodule.h"
+#include "gui-logic.h"
 #include "uade-main.h"
 
-extern struct Process *childprocess = NULL;
+struct Process *childprocess = NULL;
 UBYTE childprocessname[] = "childprocess";
-
-
 BPTR output;
 int quit = 0;
 char *filename_strptr;
-   
+struct MsgPort *port;
+	
 void childprocesscode(void); 
+void exitcode(void); 
+
+struct userData
+{
+	BOOL playing;
+};
 
 void startNewProc(STRPTR filename)
 {
+	struct userData taskData = { .playing = TRUE };
+	
 	filename_strptr = filename;
-
-    quit = 0; 
+   
+    printf("StartNewProc\n");
     
     if (output = Open("*", MODE_OLDFILE))
     {
         if (childprocess = (struct Process *) CreateNewProcTags(
                           NP_Entry,       childprocesscode,  /* The child process  */
                           NP_Name,        childprocessname,
+                          NP_StackSize,	  30000,
                           NP_CodeType, CODETYPE_PPC,
+                          NP_UserData, &taskData,
                           TAG_END))
 
         {
             PutStr("Main Process: Created a child process\n");
-
-            //Flush(Output());
-
-           // SetSignal(0L, SIGF_SINGLE);
-
-           // Signal((struct Task *)childprocess,SIGBREAKF_CTRL_F);
 
         }
         else
@@ -43,35 +46,44 @@ void startNewProc(STRPTR filename)
 
 }
 
-void childprocesscode(void)     /* This function is what CreateNewProcTags() */
-{                               /* loads as the child process.  This child   */
-                                /* signals the parent using SIGF_SINGLE.     */
-
-    PutStr("Child Process: I'm alive and starting my work\n");
-    Flush(Output());
-
+void childprocesscode(void)  
+{                        
 	play();
 }
 
 void stopProc()
 {
-	printf("StopProc\n");
-	quit = 1;
-	uae_quit();
-	uade_reboot = 1;
-	m68k_reset ();
-	//leave_program ();
-/*	
-	childprocess = NULL;
+
+	if (childprocess)
+	{
+		
+		BOOL playing = (BOOL)((struct userData*)childprocess->pr_Task.tc_UserData)->playing;
+ 		printf("stop proc: %d, address: %p\n",playing, childprocess);	
+ 		
+		if(playing == TRUE)
+	 	{
+			port = CreateMsgPort();
 	
-    while(childprocess != NULL) // wait to be finished
-    {
-	  printf("stopProc - killing subprocess\n");
-    }
-*/
-	 
-	 printf("stopProc - end of method\n");
-} 
+			printf("stopping the uade\n");
+
+			quit = 1;
+			uae_quit();
+			uade_reboot = 1;
+			m68k_reset ();
+	
+			printf("waiting for message\n");
+	
+			WaitPort(port);
+
+			printf("got message - uade resources released\n");
+	
+			DeleteMsgPort(port);
+	
+			printf("after DeleteMsgPort\n");
+	
+	 	 }
+	}
+}
 
 void play()
 {
@@ -81,23 +93,16 @@ void play()
    char *arguments[2];
    int i;
    char first_arg[250] = "uade";   
-   //char filename[250] = "test.mod";
-      
-   //GetAttr(MUIA_String_Contents, FileName, (ULONG*)&Tekst);
-
+   struct Message msg;
+   struct userData taskData = { .playing = FALSE };
+   BOOL playing;
+   
    strcpy(filename,(char*)filename_strptr); 
    arguments[0] = first_arg;
    arguments[1] = filename; 
    
    printf("\nPLAY NEW MODULE\n");
-   
-   /*
-   for (i = 0; i < 2; i++)
-   {
-  	printf("arg2: %d = %s\n", i, arguments[i]);
-   }
-    */
-    		
+       		
 	default_prefs (&currprefs);
 	uade_option (2, arguments);
 
@@ -136,16 +141,22 @@ void play()
 	printf("play - before start_program\n");
 
 	start_program ();
-
+	
 	printf("play - after start program\n");
 	
-	leave_program ();	
-	/*
-	if (childprocess != NULL) 
-	{
-		printf("play - killing childprocess\n");
-	 	childprocess = NULL;
-	}
-	*/
+	leave_program ();
 	
+	// wake up waiting stopProc
+	
+	if(port) 
+	{
+		printf("put message \n");
+		PutMsg(port, &msg);
+	}
+	
+	childprocess->pr_Task.tc_UserData = &taskData; 	
+		
+	playing = (BOOL)((struct userData*)childprocess->pr_Task.tc_UserData)->playing;
+	printf("playing play: %d, address: %p\n",playing, childprocess);
+
 }

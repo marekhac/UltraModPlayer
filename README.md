@@ -1,11 +1,10 @@
-# UltraModPlayer 0.21 beta
+# UltraModPlayer 0.22 beta
 Amiga Modules Player for MorphOS (based on UADE) 
 
 ![Preview](preview.png)
 
 ## TODO
 
-* playlist
 * displaing module name and type
 * decoding and play modules compressed with XPK
 
@@ -19,7 +18,8 @@ Amiga Modules Player for MorphOS (based on UADE)
 
 ## Usage
 
-* Open compiled `UADE` file, 
-* Type the name of the module inside the text field `File` (module file should be placed in the same drawer as `UADE`)
-* Press PLAY
+* Move compiled uade file from `UADE/src/` to upper drawer (`UADE`)
+* Run compiled uade file
+* Choose modules using `Select` button
+* Press `Play`
 * Enjoy the beautiful sounds of Amiga Music Modules :)
