@@ -1344,6 +1344,7 @@ void m68k_go (int may_quit)
     printf("quit_program = %d\n", quit_program); 
     quit_program = 0;
     m68k_reset ();
+      
     customreset ();
 
     while(uade_reboot == 0 && quit_program != 1) {
@@ -1479,4 +1480,14 @@ void m68k_dumpstate (uaecptr *nextpc)
     m68k_disasm(m68k_getpc (), nextpc, 1);
     if (nextpc)
 	printf ("next PC: %08lx\n", *nextpc);
+}
+
+int m68k_check (void)
+{
+  if (in_m68k_go) {
+    printf("UADE still playing\n");
+    return 1;
+  }
+  return 0;
+
 }

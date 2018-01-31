@@ -1,12 +1,12 @@
-# UltraModPlayer 0.22 beta
+# UltraModPlayer 0.23 beta
 Amiga Modules Player for MorphOS (based on UADE) 
 
 ![Preview](preview.png)
 
 ## TODO
-
+* play next module when the current one finished 
 * displaing module name and type
-* decoding and play modules compressed with XPK
+* handle errors when something went wrong
 
 ## Compilation
 

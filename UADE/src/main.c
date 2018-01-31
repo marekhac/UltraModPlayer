@@ -27,8 +27,6 @@
 
 Object *app, *Win, *ModuleInfo, *PlayButton, *StopButton, *SelectButton, *Img, *FileName, *Playlist;
 
-struct Library *MUIMasterBase;
-
 // hooks
 
 struct Hook Play_modules_hook;
@@ -335,8 +333,12 @@ void MainLoop (void)
 			 
 	while (DoMethod(app, MUIM_Application_NewInput, &signals) != MUIV_Application_ReturnID_Quit)
 	{
-		signals = Wait(signals | SIGBREAKF_CTRL_C);
-		if (signals & SIGBREAKF_CTRL_C) break;
+		signals = Wait(signals | SIGBREAKF_CTRL_C | SIGBREAKF_CTRL_F);
+			if (signals & SIGBREAKF_CTRL_C) break;
+		
+			if (signals & SIGBREAKF_CTRL_F) {
+				printf("SONG END!");		
+			}
 	}
 
 	set(Win, MUIA_Window_Open, FALSE);
@@ -346,7 +348,7 @@ void MainLoop (void)
 int main (int argc, char **argv)
 {
  int i;
-
+  
  myargc = argc;
  myargv = argv;
  

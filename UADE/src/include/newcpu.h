@@ -232,7 +232,7 @@ extern void m68k_go (int);
 extern void m68k_dumpstate (uaecptr *);
 extern void m68k_disasm (uaecptr, uaecptr *, int);
 extern void m68k_reset (void);
-
+extern int m68k_check (void);
 extern void mmu_op (uae_u32, uae_u16);
 
 extern void fpp_opp (uae_u32, uae_u16);
