@@ -8,13 +8,16 @@ UBYTE childprocessname[] = "childprocess";
 BPTR output;
 int quit = 0;
 char *filename_strptr;
+
    
 void childprocesscode(void); 
 
-void startNewProc(STRPTR filename)
+void startNewProc(STRPTR filename, struct Task *maintask, ULONG mainsig)
 {
 	filename_strptr = filename;
-
+	task = maintask;
+    sig - mainsig;
+    
     quit = 0; 
     
     if (output = Open("*", MODE_OLDFILE))
@@ -80,6 +83,10 @@ void stopProc()
 	quit = 1;
 	//uae_quit();
 	uade_reboot = 1;
+	
+	Signal(port, sig);
+	Wait(0L);
+	
 	//m68k_reset ();
 	//leave_program ();
 	/*

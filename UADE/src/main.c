@@ -20,12 +20,15 @@
 #include <proto/dos.h>
 #include <proto/muimaster.h>
 #include <proto/intuition.h>
-
+ 
 #include "api_MUI.h" 
 #include "uade-main.h"
 #include "gui-path.h"
 
-Object *app, *Win, *ModuleInfo, *PlayButton, *StopButton, *SelectButton, *Img, *FileName, *Playlist;
+#define MYWIDTH   320
+#define MYHEIGHT  400
+
+Object *app, *Win, *ModuleInfo, *PlayButton, *NextButton, *StopButton, *SelectButton, *Img, *FileName, *Playlist;
 
 // hooks
 
@@ -35,10 +38,47 @@ struct Hook Select_modules_hook;
 struct Hook DataDestructor_hook;
 struct Hook DataConstructor_hook;
 struct Hook DataDisplayer_hook;
+struct Hook NextModule_hook;
+ 
+struct MsgPort *port;
+struct Task *mainTask = NULL;
+struct Process *childprocess = NULL;
 
-int myargc;
-char **myargv;
-int moduleIsPlaying = 0;
+LONG uadeExitSignalNumber = -1;
+ULONG uadeExitSignal;
+BOOL moduleStopedByUser = 0;
+UBYTE childprocessname[] = "childprocess";
+BPTR output;
+char *filename_strptr;
+void childprocesscode(void); 
+struct userData
+{
+	BOOL playing;
+};
+
+void startNewProc(STRPTR);
+void play(void);
+void stopProc(void);
+void playNextModule(void);
+
+struct WBArg *frArgs; 
+char modulesDirectory[512]; 
+
+struct Library *AslBase = NULL;
+
+struct TagItem frtags[] =
+{
+    ASL_Hail,       (ULONG)"Choose modules to play",
+    ASL_Height,     MYHEIGHT,
+    ASL_Width,      MYWIDTH,
+    ASL_OKText,     (ULONG)"Add to list",
+    ASL_CancelText, (ULONG)"Cancel",
+    ASL_Dir,        (ULONG)modulesDirectory,
+    ASL_File,       (ULONG)"",
+    ASL_FuncFlags, FILF_MULTISELECT | FILF_PATGAD,
+    TAG_DONE
+};
+
 
 long BuildApplication (void)
 {
@@ -79,7 +119,7 @@ long BuildApplication (void)
 						GroupFrame,
 		        		MUIA_Background, MUII_GroupBack,
 		        		MUIA_Group_Rows, 1,
-		 	    		MUIA_Group_Columns, 3,	
+		 	    		MUIA_Group_Columns, 4,	
 				
 			 	   		Child, PlayButton = TextObject,
 			         		MUIA_Frame,  MUIV_Frame_Button,
@@ -87,6 +127,14 @@ long BuildApplication (void)
 			         		MUIA_Font, MUIV_Font_Button,
 			         		MUIA_InputMode,  MUIV_InputMode_RelVerify,
 			         		MUIA_Text_Contents,  (long)"\33cPlay",
+			        	End,
+					
+						Child, NextButton = TextObject,
+			         		MUIA_Frame,  MUIV_Frame_Button,
+			         		MUIA_Background, MUII_ButtonBack,
+			         		MUIA_Font, MUIV_Font_Button,
+			         		MUIA_InputMode,  MUIV_InputMode_RelVerify,
+			         		MUIA_Text_Contents,  (long)"\33cNext",
 			        	End,
 					
 				 	  	Child, StopButton = TextObject,
@@ -135,21 +183,57 @@ long BuildApplication (void)
 
 // HOOKs
 
-M_HOOK(Stop , APTR obj, APTR dana)
+M_HOOK(Stop, APTR obj, APTR dana)
 {
 	stopProc();
-	moduleIsPlaying = 0;
 }
 
 
-M_HOOK(Play_modules , APTR obj, APTR dana)
+M_HOOK(Play_modules, APTR obj, APTR dana)
 {
-   	STRPTR FilenameStrPtr;
+	playSelectedModule();
+}
+
+void setUadeExitFlags()
+{
+	uade_reboot = 1;
+}
+
+void quitChildProcess()
+{
+	Signal((struct Task *)childprocess, SIGBREAKF_CTRL_C);
+	childprocess = NULL;
+} 
+
+void playNextModule()
+{
+ 	printf("Play next module\n");
+ 	
+	setUadeExitFlags();
+		
+	if (childprocess)
+	{
+		printf("after DeleteMsgPort\n");
+
+		quitChildProcess();
+	}
+
+	nextModule();
+}
+
+
+void playSelectedModule() 
+{
 	long currentItem;
-	struct Path *path = (struct Path *)dana;
- 	char *filename = (char *)malloc(512 * sizeof(char));
+	struct Path *path;
+	char *filename;
 	
- 	currentItem = MUIV_List_NextSelected_Start; // position on the list
+	// AllocTaskPooled is freed automatically when the process ends
+	
+	path = AllocTaskPooled(sizeof(struct Path));
+	filename = (char *)AllocTaskPooled(512 * sizeof(char));
+	
+ 	currentItem = MUIV_List_NextSelected_Start;
 
     DoMethod (Playlist, MUIM_List_NextSelected, &currentItem);
     DoMethod (Playlist, MUIM_List_GetEntry, currentItem, &path);
@@ -163,10 +247,45 @@ M_HOOK(Play_modules , APTR obj, APTR dana)
 	}	
 }
 
+void nextModule()
+{
 
-// Playlist hooks
+	long currentItem;         
+	long nextItem;
+	long itemsCounter;	   
+ 
+   	get(Playlist,MUIA_List_Entries,&itemsCounter);
 
-// free memory after delete module from the list
+   	if (itemsCounter>0) 
+   	{
+
+   		char *filename = (char *)malloc(512 * sizeof(char)); // allocmem, alloctaskpooled (mos)
+   		currentItem = MUIV_List_NextSelected_Start; 
+   
+   		get(Playlist,MUIA_List_Active,&currentItem); // take current one
+   
+   		nextItem = currentItem + 1;
+        
+   		set(Playlist,MUIA_List_Active,(nextItem)%itemsCounter); // select next item in playlist
+      
+   		playSelectedModule(); // get item details and play it
+
+  	}  
+  	else
+  	{
+  		printf("no modules to play\n");
+  
+   		// DoMethod (Module_info, MUIM_SetAsString, MUIA_Text_Contents, "%ls", "\33cNo modules to play!");  	
+  	}
+}
+
+M_HOOK(Next_module, APTR obj, APTR dana) 
+{
+	nextModule();
+}
+
+// playlist hooks 
+
 
 M_HOOK(DataDestructor, APTR obj, APTR data) 
 {
@@ -217,7 +336,7 @@ M_HOOK(DataConstructor, APTR obj, APTR data)
         pathCopy->filename = filenameCopy;
         pathCopy->drawer = drawerCopy;
 
-		printf("\npathcopy: %s\n", pathCopy->filename);
+		printf("\n -> path copy: %s\n", pathCopy->filename);
 
        	return (long)pathCopy; 
     }
@@ -226,29 +345,6 @@ M_HOOK(DataConstructor, APTR obj, APTR data)
        return NULL;
     }
 }
-
-
-
-struct WBArg *frArgs; 
-char modulesDirectory[512]; 
-
-#define MYWIDTH    320
-#define MYHEIGHT   400
-
-struct Library *AslBase = NULL;
-
-struct TagItem frtags[] =
-{
-    ASL_Hail,       (ULONG)"Choose modules to play",
-    ASL_Height,     MYHEIGHT,
-    ASL_Width,      MYWIDTH,
-    ASL_OKText,     (ULONG)"Add to list",
-    ASL_CancelText, (ULONG)"Cancel",
-    ASL_Dir,        (ULONG)modulesDirectory,
-    ASL_File,       (ULONG)"",
-    ASL_FuncFlags, FILF_MULTISELECT | FILF_PATGAD,
-    TAG_DONE
-};
 
 M_HOOK(Select_modules , APTR obj, APTR dana) 
 {
@@ -267,7 +363,7 @@ M_HOOK(Select_modules , APTR obj, APTR dana)
   	  if(!GetCurrentDirName(modulesDirectory,512))
           modulesDirectory[0] = 0;
   	}
-
+ 
   	if (AslBase = OpenLibrary("asl.library", 37L))
     {
         if (fr = (struct FileRequester *)
@@ -302,7 +398,7 @@ M_HOOK(Select_modules , APTR obj, APTR dana)
             }
             FreeAslRequest(fr);
         }
-        else printf("User Cancelledn");
+        else printf("User Cancelled\n");
 
         CloseLibrary(AslBase);
     }
@@ -316,6 +412,9 @@ void SetNotifications (void)
 	DoMethod (PlayButton, MUIM_Notify, MUIA_Pressed, FALSE, app,
               2, MUIM_CallHook, &Play_modules_hook);
               
+    DoMethod (NextButton, MUIM_Notify, MUIA_Pressed, FALSE, Playlist,
+   		   2, MUIM_CallHook, &Next_module_hook);	
+              
     DoMethod (StopButton, MUIM_Notify, MUIA_Pressed, FALSE, app,
               2, MUIM_CallHook, &Stop_hook);
               
@@ -324,21 +423,24 @@ void SetNotifications (void)
                         
 }
 
-
 void MainLoop (void)
 {
 	ULONG signals = 0;
-
+	BOOL running = TRUE;
+	
 	set(Win, MUIA_Window_Open, TRUE);
-			 
+			 	 
 	while (DoMethod(app, MUIM_Application_NewInput, &signals) != MUIV_Application_ReturnID_Quit)
 	{
-		signals = Wait(signals | SIGBREAKF_CTRL_C | SIGBREAKF_CTRL_F);
-			if (signals & SIGBREAKF_CTRL_C) break;
+		signals = Wait(signals | SIGBREAKF_CTRL_C | SIGBREAKF_CTRL_F | uadeExitSignal); 
 		
-			if (signals & SIGBREAKF_CTRL_F) {
-				printf("SONG END!");		
-			}
+		if (signals & SIGBREAKF_CTRL_C) break;
+					
+		if (signals & uadeExitSignal)
+		{
+			printf("signal received \n");
+			playNextModule();				
+		}
 	}
 
 	set(Win, MUIA_Window_Open, FALSE);
@@ -348,9 +450,11 @@ void MainLoop (void)
 int main (int argc, char **argv)
 {
  int i;
-  
- myargc = argc;
- myargv = argv;
+   
+ uadeExitSignalNumber = AllocSignal(-1);
+ uadeExitSignal = 1L << uadeExitSignalNumber;
+ 
+ mainTask = FindTask(NULL);
  
   for (i = 0; i < argc; i++)
   {
@@ -366,9 +470,9 @@ int main (int argc, char **argv)
      {
       if (BuildApplication ())
        {
-        SetNotifications ();
-        MainLoop ();
-        MUI_DisposeObject (app);
+         SetNotifications ();
+         MainLoop ();
+         MUI_DisposeObject (app);
        }
       CloseLibrary (MUIMasterBase);
      }
@@ -376,4 +480,152 @@ int main (int argc, char **argv)
    }
   return 0;   
 
+}
+
+// ------------------------------------------------------------
+
+
+void startNewProc(STRPTR filename)
+{
+	filename_strptr = filename;
+    //mainProcess = (struct Process *)FindTask(NULL);
+    
+    printf("StartNewProc \n");
+    
+	// startup msg
+
+    if (childprocess = (struct Process *) CreateNewProcTags(
+                        NP_Entry,       childprocesscode,  
+                        NP_Name,        childprocessname,
+                        NP_Priority, 	1,
+                        NP_CodeType, 	CODETYPE_PPC,
+                       TAG_DONE))
+
+    {
+    	PutStr("Main Process: Created a child process\n");
+    }
+    else
+        PutStr("Main Process: Can't create child process. Exiting.\n");
+
+}
+
+void childprocesscode(void)  
+{          
+    BPTR nil = Lock("NIL:", ACCESS_WRITE);
+    
+    //SetOutput(nil); // printf from child process goes to nil
+	
+	play();
+	
+	//UnLock(nil);
+}
+
+void stopProc()
+{
+	setUadeExitFlags();
+		
+	if (childprocess)
+	{
+		if (m68k_check)
+		{
+			moduleStopedByUser = 1;
+		
+			port = CreateMsgPort();
+	
+			printf("stopping the uade\n");
+			printf("waiting for message\n");
+	
+			WaitPort(port);
+
+			printf("got message - uade resources released\n");
+	
+			DeleteMsgPort(port);
+	
+			printf("after DeleteMsgPort\n");
+			
+			quitChildProcess();
+			
+			moduleStopedByUser = 0;
+		}
+	}
+}
+
+void play()
+{
+   FILE *hf;
+   STRPTR Tekst;
+   char filename[250];
+   char *arguments[2];
+   int i;
+   char first_arg[250] = "uade";   
+   struct Message msg;
+   struct userData taskData = { .playing = FALSE };
+   BOOL playing;  
+   
+   strcpy(filename,(char*)filename_strptr); 
+   arguments[0] = first_arg;
+   arguments[1] = filename; 
+   
+   printf("\nPLAY NEW MODULE\n");
+       		
+	default_prefs (&currprefs);
+	uade_option (2, arguments);
+
+	machdep_init ();
+
+	if (! setup_sound ()) {
+		fprintf (stderr, "Sound driver unavailable: Sound output disabled\n");
+		currprefs.produce_sound = 0;
+		uade_exit(-1);
+	}
+
+	if (sound_available && currprefs.produce_sound > 1 && ! init_sound ()) {
+		fprintf (stderr, "Sound driver unavailable: Sound output disabled\n");
+		currprefs.produce_sound = 0;
+		uade_exit(-1);
+	}
+	
+	fix_options ();
+	changed_prefs = currprefs;
+	check_prefs_changed_audio();
+	check_prefs_changed_cpu();
+
+	memory_init ();
+
+	custom_init (); // Must come after memory_init 
+
+	reset_frame_rate_hack ();
+		
+	init_m68k(); // must come after reset_frame_rate_hack (); 
+
+	// compiler_init (); 
+
+	if (currprefs.start_debugger)
+		activate_debugger ();
+
+	printf("play - before start_program\n");
+
+	start_program ();
+	
+	printf("play - after start program\n");
+	
+	leave_program ();
+	
+	childprocess->pr_Task.tc_UserData = &taskData; 	
+		
+	playing = (BOOL)((struct userData*)childprocess->pr_Task.tc_UserData)->playing;
+	printf("playing play: %d, address: %p\n",playing, childprocess);
+	
+	// wake up waiting stopProc
+		
+	if (!moduleStopedByUser) 
+	{
+		printf("send signal to play next module \n");
+		Signal(mainTask, uadeExitSignal);
+	}
+	else
+	{
+		printf("put message \n");
+		PutMsg(port, &msg);
+	}
 }

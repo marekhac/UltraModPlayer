@@ -6,7 +6,7 @@ DEBUGFLAGS =
 AUDIOFLAGS= 
 AUDIOLIBS= 
 
-CFLAGS	= -fomit-frame-pointer -W -Wall -Wno-unused -Wno-format -Wmissing-prototypes -Wstrict-prototypes -DGCCCONSTFUNC="__attribute__((const))" -D_REENTRANT -fno-exceptions -fno-strength-reduce -DREGPARAM= -D__inline__=inline -O2 $(ARCHFLAGS)
+CFLAGS	= -fomit-frame-pointer -w -W -Wall -Wno-unused -Wno-format -Wmissing-prototypes -Wstrict-prototypes -DGCCCONSTFUNC="__attribute__((const))" -D_REENTRANT -fno-exceptions -fno-strength-reduce -DREGPARAM= -D__inline__=inline -O2 $(ARCHFLAGS)
 LIBRARIES = -lm $(AUDIOLIBS) $(ARCHLIBS)
 
 .SUFFIXES: .a .o .c .h .S
@@ -21,7 +21,7 @@ DECOBJS = crc32.o depack.o mmcmp.o unsqsh.o decrunch.o easo.o sc68.o
 DECDIR = ../decrunch
 DECFLAGS = -O2 -W -Wall -Wno-implicit-int -finline-functions $(DEBUGFLAGS) $(ARCHFLAGS)
 
-OBJS = uade-main.o gui-logic.o gui-playlist.o main.o newcpu.o memory.o custom.o cia.o readcpu.o cpudefs.o audio.o \
+OBJS = uade-main.o gui-playlist.o main.o newcpu.o memory.o custom.o cia.o readcpu.o cpudefs.o audio.o \
        compiler.o cpustbl.o missing.o sd-sound.o md-support.o cfgfile.o fpp.o \
        debug.o $(CPUEMUOBJS) uade.o amifilemagic.o uade-os.o effects.o \
        local-slave.o remote-slave.o interaction.o chrarray.o playlist.o \
@@ -123,7 +123,6 @@ touch:
 
 build68k.o: include/readcpu.h
 readcpu.o: include/readcpu.h
-gui-logic.o: gui-logic.h gui-logic.c
 gui-playlist.o: gui-playlist.h gui-playlist.c
 uade-main.o: uade-main.h uade-main.c
 main.o: config.h
