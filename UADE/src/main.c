@@ -24,14 +24,16 @@
 #include "api_MUI.h" 
 #include "uade-main.h"
 #include "gui-path.h"
+#include "amiga-shell.h"
+#include "main.h"
 
 #define MYWIDTH   320
 #define MYHEIGHT  400
 
-Object *app, *Win, *ModuleInfo, *PlayButton, *NextButton, *StopButton, *SelectButton, *Img, *FileName, *Playlist;
+Object *app, *Win, *PlayButton, *NextButton, *StopButton, *SelectButton, *Img, *FileName, *Playlist;
 
 // hooks
-
+ 
 struct Hook Play_modules_hook;
 struct Hook Stop_hook;
 struct Hook Select_modules_hook;
@@ -50,6 +52,7 @@ BOOL moduleStopedByUser = 0;
 UBYTE childprocessname[] = "childprocess";
 BPTR output;
 char *filename_strptr;
+
 void childprocesscode(void); 
 struct userData
 {
@@ -106,11 +109,11 @@ long BuildApplication (void)
 				          		MUIA_Text_Contents, (long)"\33rFile:", /* justify right */
 				          	  	MUIA_Text_SetMax, TRUE,
 				         	End,
-				        Child, 
-							FileName = MUI_NewObject (MUIC_String,
-				          		MUIA_Frame, MUIV_Frame_String,
-				        	End,
-				      	End,	
+				            Child, FileName = TextObject,    
+        						MUIA_Frame, MUIV_Frame_Text,
+        						MUIA_Background, MUII_TextBack,			         			
+       						End,
+       					End, 	
 					End, // end module info group
 					
 					// GROUP : CONTROL PANEL
@@ -188,10 +191,16 @@ M_HOOK(Stop, APTR obj, APTR dana)
 	stopProc();
 }
 
-
 M_HOOK(Play_modules, APTR obj, APTR dana)
 {
 	playSelectedModule();
+}
+
+// GUI CONTROL
+
+void update_gui_filename(char *filename) 
+{		
+	DoMethod (app, MUIM_Application_PushMethod, FileName, 4, MUIM_SetAsString, MUIA_Text_Contents, "%ls", filename);
 }
 
 void setUadeExitFlags()
@@ -274,9 +283,7 @@ void nextModule()
   	else
   	{
   		printf("no modules to play\n");
-  
-   		// DoMethod (Module_info, MUIM_SetAsString, MUIA_Text_Contents, "%ls", "\33cNo modules to play!");  	
-  	}
+   	}
 }
 
 M_HOOK(Next_module, APTR obj, APTR dana) 
@@ -434,14 +441,22 @@ void MainLoop (void)
 	{
 		signals = Wait(signals | SIGBREAKF_CTRL_C | SIGBREAKF_CTRL_F | uadeExitSignal); 
 		
-		if (signals & SIGBREAKF_CTRL_C) break;
-					
+		if (signals & SIGBREAKF_CTRL_C) {
+			break;
+		}			
+		
 		if (signals & uadeExitSignal)
 		{
 			printf("signal received \n");
 			playNextModule();				
 		}
 	}
+	
+	printf("while loop end \n");
+	
+	stopProc();
+	
+	printf("going to quit the app \n");
 
 	set(Win, MUIA_Window_Open, FALSE);
 
@@ -488,8 +503,7 @@ int main (int argc, char **argv)
 void startNewProc(STRPTR filename)
 {
 	filename_strptr = filename;
-    //mainProcess = (struct Process *)FindTask(NULL);
-    
+
     printf("StartNewProc \n");
     
 	// startup msg
@@ -502,7 +516,7 @@ void startNewProc(STRPTR filename)
                        TAG_DONE))
 
     {
-    	PutStr("Main Process: Created a child process\n");
+    	PutStr("Main Process: Created a child process\n");    	
     }
     else
         PutStr("Main Process: Can't create child process. Exiting.\n");
@@ -523,11 +537,12 @@ void childprocesscode(void)
 void stopProc()
 {
 	setUadeExitFlags();
-		
+	
+	
 	if (childprocess)
 	{
 		if (m68k_check)
-		{
+		{		
 			moduleStopedByUser = 1;
 		
 			port = CreateMsgPort();
@@ -550,6 +565,8 @@ void stopProc()
 	}
 }
 
+
+
 void play()
 {
    FILE *hf;
@@ -565,7 +582,7 @@ void play()
    strcpy(filename,(char*)filename_strptr); 
    arguments[0] = first_arg;
    arguments[1] = filename; 
-   
+      
    printf("\nPLAY NEW MODULE\n");
        		
 	default_prefs (&currprefs);

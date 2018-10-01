@@ -30,6 +30,7 @@
 #include <dos/anchorpath.h>
 #endif
 #include <proto/dos.h>
+#include "main.h"
 
 static struct uade_slave *me = 0;
 
@@ -453,6 +454,7 @@ static void as_got_playername(char *playername)
 static void as_got_modulename(char *modulename)
 {
   fprintf(stderr,"uade: modulename: %s\n", modulename);
+  update_gui_filename(modulename);
 }
 
 static void as_got_formatname(char *formatname)
